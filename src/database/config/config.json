@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "fidele",
+    "password": "fidele",
+    "database": "akagera-ec",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": false
+  },
+  "test": {
+    "username": "fidele",
+    "password": "fidele",
+    "database": "akagera-ec",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "fidele",
+    "password": "fidele",
+    "database": "akagera-ec",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
