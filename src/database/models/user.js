@@ -31,6 +31,34 @@ import sequelize from '../config/sequelize';
       type:DataTypes.STRING,
       defaultValue:'buyer'
      },
+     gender:DataTypes.STRING,
+     prefferedLanguage:DataTypes.STRING,
+     prefferedCurrency:DataTypes.STRING,
+     userAddress:DataTypes.JSONB,
+     profilePic:{
+      type:DataTypes.STRING,
+      defaultValue:'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o='
+     },
+     isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    isEmailVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    mustUpdatePassword: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    lastTimePasswordUpdated:{
+      type: DataTypes.DATE,
+      defaultValue:new Date()
+    },
+    expired:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -40,7 +68,8 @@ import sequelize from '../config/sequelize';
       allowNull: false,
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
-    }
+    },
+ 
   }, {
 
     tableName: 'Users',

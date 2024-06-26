@@ -23,7 +23,38 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-     
+      role:{
+        type:Sequelize.STRING,
+        defaultValue:'buyer'
+       },
+       gender:Sequelize.STRING,
+       prefferedLanguage:Sequelize.STRING,
+       prefferedCurrency:Sequelize.STRING,
+       userAddress:Sequelize.JSONB,
+       profilePic:{
+        type:Sequelize.STRING,
+        defaultValue:''
+       },
+       isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
+      isEmailVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      mustUpdatePassword: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      lastTimePasswordUpdated:{
+        type: Sequelize.DATE,
+        defaultValue:new Date()
+      },
+      expired:{
+        type:Sequelize.BOOLEAN,
+        defaultValue:false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -4,6 +4,8 @@ import 'dotenv/config'
 import bodyParser from 'body-parser';
 import sequelize from'./database/config/sequelize'
 import userRouter  from'./routes/user.routes';
+import { notFound,errorHandler } from './middlewares/errorHandler';
+import cookieParser from 'cookie-parser';
 
 
 // declaretions
@@ -12,7 +14,12 @@ const PORT  = process.env.PORT || 6000
 
 // middlewares
 app.use(bodyParser.json());
-app.use('/user', userRouter);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use('/users', userRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 // test connection
 export const connection = async()=>{
