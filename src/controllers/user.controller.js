@@ -1,11 +1,14 @@
 
+import { where } from "sequelize";
 import User from "../database/models/user";
-import sendVerificationEmail from "../services/sendEmail.service";
+import {sendRestEmail, sendVerificationEmail} from "../services/sendEmail.service";
 import { register,findAllUser,findUserByEmail,findUserById, userExists } from "../services/user.service";
 import { compareHashString, hashString } from "../utils/bcrypt";
 import { generateToken, verifyToke } from "../utils/generateToken";
+import validateUUID from "../validation/isValidateId";
 
-
+// create new user
+// ====================
 const createUser = async(req, res)=>{
 const {firstName,lastName,email,password,isActive} = req.body
 
@@ -49,7 +52,8 @@ const {firstName,lastName,email,password,isActive} = req.body
     .json({ success: false, error: 'Semothing went wrong' });
   }
 };
-
+//verify email of user
+// =======================
 const verifyEmail = async(req, res)=>{
    const {t} = req.query
    const token = t
@@ -100,7 +104,9 @@ const verifyEmail = async(req, res)=>{
    }
 
 
-// loging user
+
+//login a user
+// =======================
 const loginUser = async(req, res)=>{
   const {email, password} = req.body
   try {
@@ -128,16 +134,143 @@ const loginUser = async(req, res)=>{
   }
 }
 
+const editUserProfile = async(req, res)=>{
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    gender,
+    prefferedLanguage,
+    prefferedCurrency,
+    phoneN} = req.body
+  try {
+    const id = req.user.id
+    const isId = validateUUID(id);
+    if(!isId){
+      return res
+      .status(401)
+      .json({ success: false, error: 'user not Defined Please login again' });
+    }
+    const user  = await findUserById(id);
+    if(!user){
+      return res
+      .status(401)
+      .json({ success: false, error: 'user not found' });
+    }
+    let billingAddress;
+    billingAddress = JSON.stringify({
+      province: req.body.province,
+      district: req.body.district,
+      street: req.body.street,
+      phoneN: req.body.phoneN,
+      email: req.body.email,
+      city: req.body.city,
+      state: req.body.state, 
+      postalCode: req.body.postalCode,
+    });
+    let profilePic;
+    if (req.body.gender === 'male') {
+      profilePic = 'https://res.cloudinary.com/dboqnapgi/image/upload/v1687259119/172628_user_male_icon_hqmwjh.svg';
+    }
+    if (req.body.gender === 'female') {
+      profilePic = 'https://res.cloudinary.com/dboqnapgi/image/upload/v1687259111/172624_female_user_icon_pgj7lc.svg';
+    }
+    const newUser = await User.update(
+      {
+    firstName :firstName||user.firstName,
+    lastName:lastName||user.lastName,
+    email:email||user.email,
+    password:password||user.password,
+    gender:gender,
+    prefferedLanguage:prefferedLanguage||user.prefferedLanguage,
+    prefferedCurrency:prefferedCurrency||user.prefferedCurrency,
+    userAddress:JSON.parse(billingAddress)||user.userAddress,
+    phoneN,
+    profilePic
+      },{
+        where:{id:user.id}
+      }
+    )
+   await user.save()
+    return res
+    .status(200)
+    .json({ success: true, message: 'edit profile successfully',newUser:user });
+  } catch (error) {
+    return res
+    .status(500)
+    .json({ success: false, error: 'Something went wrong'});
+  }
+}
+//forget password token
+// =======================
+const forgetPasswordToken = async(req, res)=>{
+  const email = req.body.email;
 
+  const user = await User.findOne({where:{email}})
+  console.log(user)
+  if(!user) throw new Error('User not found with this email');
+  const data = {
+    email,
+    id:user.id
+  }
+  try {
+    const token = generateToken(data, { expiresIn: '2hrs' });
+     await user.save();
+  
+     await sendRestEmail(user.email ,user.lastName,token); 
+     res.json(token);
+     
+  } catch (error) {
+     throw new Error(error);
+  };
+ 
+ };
+ //rest password /forget-password
+// =======================
+const resetPassword = async (req, res) => {
+  try {
+    const { t } = req.query
+    const {payload} = verifyToke(t);
+    console.log(payload.email)
+
+    if (payload) {
+      const hashPassword = hashString(req.body.password);
+     await User.update(
+        {
+          password: hashPassword,
+          lastTimePasswordUpdated: new Date(),
+          expired: false,
+        },
+        {
+          where: { email:payload.email },
+        }
+      );
+      res.status(200).json({ message: 'Password changed successfully' });
+    } else {
+      res.status(400).json({ message: 'Token has expired' });
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 
 
 // change password || update password
+// =========================================
 const  changePassword = async(req, res)=>{
 const {newPassword, confirmPassword, password} = req.body
 
   try {  
   const id = req.user.id 
+  const isId = validateUUID(id);
+  if(!isId){
+    return res
+    .status(401)
+    .json({ success: false, error: 'user not Defined Please login again' });
+  }
   const user = await findUserById(id);
   const oldPassword = user.password 
 
@@ -173,7 +306,7 @@ const {newPassword, confirmPassword, password} = req.body
 };
 
 //get all users
-
+// =========================
  const getAllUsers = async(req,res)=>{
     try {
       const users = await findAllUser();
@@ -193,9 +326,16 @@ const {newPassword, confirmPassword, password} = req.body
       .json({ success: false, error: 'Semothing went wrong' });
     }
  }
- // get one user
+ // get a user
+//  ==========================
  const getUser = async(req,res)=>{
   const {id } = req.params
+  const isId = validateUUID(id);
+  if(!isId){
+    return res
+    .status(401)
+    .json({ success: false, error: 'user id is not validate' });
+  }
   console.log(id)
     try {
       const user  = await findUserById(id);
@@ -216,4 +356,50 @@ const {newPassword, confirmPassword, password} = req.body
     }
  }
 
-export {createUser, verifyEmail,loginUser ,changePassword, getAllUsers,getUser}
+ // delete a user
+//  =======================
+ const deleteUser = async(req, res)=>{
+  const {id} = req.params
+  const isId = validateUUID(id);
+  if(!isId){
+    return res
+    .status(401)
+    .json({ success: false, error: 'user id is not validate' });
+  }
+  try {
+    const user = await findUserById(id);
+    if(!user){
+      return res
+      .status(401)
+      .json({ success: false, error: 'user not found' });
+    }
+    const deletedUser = await User.destroy({where:{id:id}});
+    if(!deleteUser){
+      return res
+      .status(401)
+      .json({ success: false, error: 'Failed to delete user, try again'});
+    }
+     
+    return res
+    .status(200)
+    .json({ success: true, message: 'User deleted successfully',deletedUser:deletedUser });
+  } catch (error) {
+    console.log(error.message, error.stack);
+    return res
+    .status(500)
+    .json({ success: false, error: 'Semothing went wrong' });
+  }
+ }
+
+export {
+  createUser, 
+  verifyEmail, 
+  loginUser, 
+  editUserProfile,
+  changePassword, 
+  getAllUsers, 
+  getUser, 
+  deleteUser, 
+  resetPassword, 
+  forgetPasswordToken,
+}

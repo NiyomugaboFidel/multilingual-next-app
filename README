@@ -1,0 +1,109 @@
+User API Routes
+This document outlines the API routes and their functionalities for managing user operations in the application.
+
+Getting Started
+To use these routes, ensure you have Node.js and npm (Node Package Manager) installed on your machine.
+
+Installation
+Clone the repository:
+
+bash
+Copy code
+git clone https://github.com/NiyomugaboFidel/repository.git
+Install dependencies:
+
+bash
+Copy code
+npm install
+Start the server:
+
+bash
+Copy code
+npm start
+nodemon (npm run dev)
+Routes
+POST /api/users/create
+Create a new user account with the provided details.
+
+Body Parameters:
+firstName (string, required): First name of the user.
+lastName (string, required): Last name of the user.
+email (string, required): Email address of the user (must be unique).
+password (string, required): User password.
+role (string, optional, default: 'buyer'): Role of the user ('admin' or 'buyer').
+POST /api/users/login
+Authenticate and log in a user with their email and password.
+
+Body Parameters:
+email (string, required): Registered email address.
+password (string, required): Password associated with the email.
+PUT /api/users/edit-profile
+Update the profile information of the authenticated user.
+
+Authorization Header:
+
+Authorization: Bearer <token>
+Body Parameters:
+
+Any valid field from the user profile schema.
+PUT /api/users/update-password
+Update the password of the authenticated user.
+
+Authorization Header:
+
+Authorization: Bearer <token>
+Body Parameters:
+
+oldPassword (string, required): Current password.
+newPassword (string, required): New password.
+POST /api/users/forget-password
+Request a token to reset the user's forgotten password.
+
+Body Parameters:
+email (string, required): Registered email address.
+PUT /api/users/reset-password
+Reset the password using the token sent to the user's email.
+
+Body Parameters:
+token (string, required): Token received via email.
+newPassword (string, required): New password.
+DELETE /api/users/delete-user/
+Delete a user account by ID.
+
+Authorization Header:
+
+Authorization: Bearer <token>
+URL Parameters:
+
+id (string, required): User ID to delete.
+GET /api/users/verify-email
+Verify the user's email address after registration.
+
+Query Parameters:
+token (string, required): Verification token.
+GET /api/users/all-users
+Retrieve all user accounts in the system (Admin access required).
+
+Authorization Header:
+Authorization: Bearer <token>
+GET /api/users/user/
+Retrieve user details by ID (Admin access required).
+
+Authorization Header:
+
+Authorization: Bearer <token>
+URL Parameters:
+
+id (string, required): User ID to retrieve.
+Middlewares Used
+authMiddleware: Handles user authentication using JWT.
+checkRole: Verifies if the user has specific roles ('admin' or 'buyer').
+isAdmin: Middleware to check if the user is an admin.
+Validation Schemas
+signUpSchema: Validates user signup data.
+userProfileSchema: Validates user profile update data.
+UpdatedPasswordSchema: Validates password update data.
+Error Handling
+The API handles errors with appropriate status codes and error messages for each route.
+Author
+Your Name (@NiyomugaboFidel) - GitHub

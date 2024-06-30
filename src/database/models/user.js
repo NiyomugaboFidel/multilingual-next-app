@@ -35,6 +35,13 @@ import sequelize from '../config/sequelize';
      prefferedLanguage:DataTypes.STRING,
      prefferedCurrency:DataTypes.STRING,
      userAddress:DataTypes.JSONB,
+     phoneN:DataTypes.STRING,
+       isBlock:DataTypes.BOOLEAN,
+       refreshToken:DataTypes.STRING,
+       refreshTokenExpired:{
+        type:DataTypes.DATE,
+        defaultValue:Date.now()
+       },
      profilePic:{
       type:DataTypes.STRING,
       defaultValue:'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o='

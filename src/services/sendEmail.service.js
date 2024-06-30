@@ -12,7 +12,7 @@ const sendVerificationEmail = async (userEmail, userName,token) => {
     let emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
     emailTemplate = emailTemplate.replace('{{verification_url}}', verificationUrl);
     emailTemplate = emailTemplate.replace(' {{username}}', userName);
-    console.log('Email template content:', emailTemplate);   
+    // console.log('Email template content:', emailTemplate);   
 
 
     const mailOptions = {
@@ -30,4 +30,30 @@ const sendVerificationEmail = async (userEmail, userName,token) => {
     }
 };
 
-export default sendVerificationEmail;
+const sendRestEmail = async (userEmail, userName,token) => {
+ 
+        // Process the email template
+    const restPasswordUrl = `${process.env.DOMAIN}rest-password?t=${token}`; 
+    const emailTemplatePath = path.join(__dirname, '../../templates/restP.html');
+    let emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
+    emailTemplate = emailTemplate.replace('{{restPassword_url}}', restPasswordUrl);
+    emailTemplate = emailTemplate.replace(' {{username}}', userName);
+    console.log('Email template content:', emailTemplate);   
+
+
+    const mailOptions = {
+        from: '"VIRUNGA ONLINE SHOP" , no-reply@account.virunga.com',
+        to: userEmail,
+        subject: 'Rest Password - VIRUNGA',
+        html:emailTemplate,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Rest Password email sent.');
+    } catch (error) {
+        console.error('Error sending verification email:', error);
+    }
+};
+
+export {sendVerificationEmail,sendRestEmail};

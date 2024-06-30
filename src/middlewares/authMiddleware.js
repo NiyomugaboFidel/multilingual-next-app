@@ -3,15 +3,19 @@ import {findUserById } from "../services/user.service";
 
 
 const authMiddleware = async(req, res,next)=>{
+  
 
- if(req?.headers.authorization.startsWith('Bearer')){
+ if( req &&
+    req.headers &&
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')){
     const token = req?.headers.authorization.split(' ')[1];
 
     try {
         if(token){
             const decode = jwt.verify(token,process.env.JWT_SECRET_KEY);
-            console.log('decode data',decode);
             const user = await findUserById(decode?.payload.id);
+            ;
             req.user = user
             if(user){
             next()
@@ -39,7 +43,7 @@ const checkRole = (roles) => async(req, res, next)=>{
  try {
     const id = req.user.id
     const user = await findUserById(id);
-    console.log(user.role);
+    
     if(roles.includes(user.role)){
         next()
     }else{
