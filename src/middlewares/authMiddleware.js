@@ -10,6 +10,8 @@ const authMiddleware = async(req, res,next)=>{
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')){
     const token = req?.headers.authorization.split(' ')[1];
+//  if(req.cookies){
+//     const token = req?.cookies.token;
 
     try {
         if(token){
@@ -49,7 +51,7 @@ const checkRole = (roles) => async(req, res, next)=>{
     }else{
         return res
         .status(401)
-        .json({ success: false, error: `You are not a ${roles.join(' / ')}` });
+        .json({ success: false, error: `You are not is not match to a ${roles.join(' / ')}` });
     }
  } catch (error) {
     console.error(error.message)

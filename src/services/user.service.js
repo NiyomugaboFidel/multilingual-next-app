@@ -56,13 +56,9 @@ const findAllUser= async()=>{
  }
 }
 
-const logout = async (userData) => {
-   const token = userData.split(' ')[1];
-   await Blacklist.create({ token });
- };
 const userExists = async(email)=>{
     const user = await User.findOne({where:{email}});
     return user
 }
 
-export {register ,findUserByEmail,findUserById,findAllUser,userExists,logout}
+export {register ,findUserByEmail,findUserById,findAllUser,userExists,}

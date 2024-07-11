@@ -107,3 +107,42 @@ Error Handling
 The API handles errors with appropriate status codes and error messages for each route.
 Author
 Your Name (@NiyomugaboFidel) - GitHub
+
+project-root/
+│
+├── src/
+│   ├── controllers/
+│   │   └── authController.js        // Contains route handlers
+│   │
+│   ├── database/
+│   │   └── models/
+│   │       └── user.js              // User model definition
+│   │
+│   ├── middleware/
+│   │   └── authMiddleware.js        // Authentication middleware
+│   │
+│   ├── routes/
+│   │   └── authRoutes.js            // Express router for auth routes
+│   │
+│   ├── services/
+│   │   ├── sendEmail.service.js    // Email sending services
+│   │   └── user.service.js         // User management services
+│   │
+│   ├── utils/
+│   │   ├── bcrypt.js               // Bcrypt utility for password hashing
+│   │   └── generateToken.js        // JWT token generation and verification
+│   │
+│   ├── validation/
+│   │   └── isValidateId.js         // Validation utility for UUIDs
+│   │
+│   ├── app.js                      // Main application setup
+│   └──
+│
+├── tests/
+│   ├── authController.test.js       // Tests for authController
+│   ├── services/
+│   │   └── user.service.test.js    // Tests for user services
+│   └──
+│
+└── swagger/
+    └── swagger.yaml                // Swagger documentation file

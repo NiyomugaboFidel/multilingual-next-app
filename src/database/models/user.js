@@ -66,6 +66,8 @@ import sequelize from '../config/sequelize';
       type:DataTypes.BOOLEAN,
       defaultValue:false
     },
+    provider:DataTypes.STRING,
+    googleId:DataTypes.STRING,
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,

@@ -28,6 +28,8 @@ module.exports = {
         mustUpdatePassword: false,
         lastTimePasswordUpdated: new Date(),
         expired: false,
+        googleId:null,
+        provider:null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -52,6 +54,8 @@ module.exports = {
         mustUpdatePassword: false,
         lastTimePasswordUpdated: new Date(),
         expired: false,
+        googleId:null,
+        provider:null,
         createdAt: new Date(),
         updatedAt: new Date()
       }

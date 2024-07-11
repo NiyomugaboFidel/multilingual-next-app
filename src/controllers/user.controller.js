@@ -1,5 +1,4 @@
 
-import { where } from "sequelize";
 import User from "../database/models/user";
 import {sendRestEmail, sendVerificationEmail} from "../services/sendEmail.service";
 import { register,findAllUser,findUserByEmail,findUserById, userExists } from "../services/user.service";
@@ -30,7 +29,7 @@ const {firstName,lastName,email,password,isActive} = req.body
   const newUser  = await register(data);
 
   // generate token
-  const token = generateToken(newUser, { expiresIn: '10d' });
+  const token = generateToken(newUser, { expiresIn: '1d' });
   if(token){
     res.cookie('token',token,{
       httpOnly:true,
@@ -134,6 +133,19 @@ const loginUser = async(req, res)=>{
   }
 }
 
+// Logout a user
+// =======================
+const logoutUser = async (req, res) => {
+  try {
+    // Clear the token cookie
+    res.clearCookie('token');
+    res.status(200).json({ success: true, message: 'Logged out successfully' });
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({ success: false, error: 'Something went wrong during logout' });
+  }
+}
+
 const editUserProfile = async(req, res)=>{
   const {
     firstName,
@@ -180,12 +192,10 @@ const editUserProfile = async(req, res)=>{
       {
     firstName :firstName||user.firstName,
     lastName:lastName||user.lastName,
-    email:email||user.email,
-    password:password||user.password,
     gender:gender,
-    prefferedLanguage:prefferedLanguage||user.prefferedLanguage,
-    prefferedCurrency:prefferedCurrency||user.prefferedCurrency,
-    userAddress:JSON.parse(billingAddress)||user.userAddress,
+    prefferedLanguage:prefferedLanguage,
+    prefferedCurrency:prefferedCurrency,
+    userAddress:JSON.parse(billingAddress),
     phoneN,
     profilePic
       },{
@@ -402,4 +412,5 @@ export {
   deleteUser, 
   resetPassword, 
   forgetPasswordToken,
+  logoutUser,
 }

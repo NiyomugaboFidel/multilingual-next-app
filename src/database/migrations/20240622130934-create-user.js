@@ -1,4 +1,3 @@
-const { UUIDV4 } = require("sequelize");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -7,7 +6,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue:UUIDV4
+        defaultValue:Sequelize.UUIDV4
       },
       firstName: {
         type: Sequelize.STRING
@@ -63,6 +62,8 @@ module.exports = {
         type:Sequelize.BOOLEAN,
         defaultValue:false
       },
+      provider:Sequelize.STRING,
+      googleId:Sequelize.STRING,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
