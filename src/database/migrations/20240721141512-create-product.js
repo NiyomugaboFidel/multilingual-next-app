@@ -16,7 +16,7 @@ module.exports = {
         price: 100,
         quantity: 10,
         isAvailable: true,
-        categoryId: uuidv4(), // Replace with actual category UUID
+        categoryId: 'category-id-1', // Replace with actual category UUID
         sellerId: '16e60f8b-04ee-4861-a54d-d86c87121c93', // Replace with actual user UUID
         bonus: 10,
         images: ['image1.jpg', 'image2.jpg'],
@@ -48,7 +48,7 @@ module.exports = {
         price: 200,
         quantity: 5,
         isAvailable: true,
-        categoryId: uuidv4(), // Replace with actual category UUID
+        categoryId: 'category-id-2', // Replace with actual category UUID
         sellerId: '16e60f8b-04ee-4861-a54d-d86c87121c93', // Replace with actual user UUID
         bonus: 20,
         images: ['image3.jpg', 'image4.jpg'],

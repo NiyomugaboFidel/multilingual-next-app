@@ -38,8 +38,12 @@ import sequelize from '../config/sequelize';
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    category: {
-      type: DataTypes.STRING,
+    categoryId: {
+      type: DataTypes.UUID,
+      references: {
+        model: 'Categories',  // Ensure this matches the name of your Users table
+        key: 'id',
+      },
     },
     sellerId: {
       type: DataTypes.UUID,
@@ -82,7 +86,7 @@ import sequelize from '../config/sequelize';
     timestamps: true, // Adjust based on your requirements
   });
   
-  module.exports = Product;
+  export default Product;
 
  
 

@@ -18,5 +18,13 @@ function validateUUID(uuid) {
   return true; // Indicate validation success
 }
 
-
+export function verifyId(id){
+  const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+  const verifyId = regexExp.test(id);
+  if(verifyId){
+    return true;
+  }else{
+    return false;
+  }
+}
 export default  validateUUID

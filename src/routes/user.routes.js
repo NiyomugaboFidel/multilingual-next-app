@@ -46,7 +46,7 @@ router.delete('/delete-user/:id', authMiddleware, isAdmin, deleteUser); // Delet
 
 // Verification routes
 router.get('/verify-email', verifyEmail); // Verify user email
-router.get('/generate-otp', authMiddleware ,createOtp); // generate otp
+router.get('/generate-otp', authMiddleware ,checkRole(['admin', 'seller']),createOtp); // generate otp
 router.get('/dashboard', authMiddleware ,checkRole(['admin', 'seller']),verifyOpt,(req,res)=>{
     res.send('Dashboard, Welcame');
 }); // Verify otp

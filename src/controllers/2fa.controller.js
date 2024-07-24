@@ -1,8 +1,7 @@
-import crypto from'crypto';
-import speakeasy from'speakeasy';
 import OTP from '../database/models/otp';
 import { generateOtp } from '../utils/generateOtp';
-import { findUserByEmail, findUserById } from '../services/user.service';
+import {findUserById } from '../services/user.service';
+import { sendEmail } from '../services/sendEmail.service';
 
 
 
@@ -15,12 +14,12 @@ const createOtp = async (req, res) => {
   console.log('userId',userId);
 
   if(!userId){
-    res.status(401).json({ success: false, message: 'usedId required'});
+    return res.status(401).json({ success: false, message: 'usedId required'});
   }
-  const user = findUserById(userId)
+  const user = await findUserById(userId)
 
   if(!user){
-    res.status(401).json({ success: false, message: 'User not found'});
+  return  res.status(401).json({ success: false, message: 'User not found'});
   }
 
   try {
@@ -34,6 +33,13 @@ const createOtp = async (req, res) => {
       otp,
       expiresAt: new Date(Date.now() + 5 * 60 * 1000) // OTP expires in 5 minutes
     });
+     
+    const {email, firstName} = user
+    console.log('user email ',email,firstName);
+    const subject = "OTP code -VIRUNGA ONLINE SHOP."
+    const content = "OTP code generated Verify your OTP faster it's will be expried in 5minutes only."
+
+    await sendEmail(email,firstName,subject,content,otp);
 
     res.status(200).json({ success: true, message: 'Otp generated successfully',newOtp});
 
@@ -49,28 +55,52 @@ const verifyOpt = async(req, res, next) => {
     const {otp } = req.body;
     const id = req.user.id;
     const userId = id;
-  
-    OTP.findOne({
+   try {
+
+    const Dotp =    await  OTP.findOne({
       where: {
         userId,
+        otp
+      },
+      order: [['createdAt', 'DESC']]
+    })
+  
+    if(Dotp === null){
+      return res.status(401).json({ success: false, message: 'invalid Otp'});
+    }
+
+    await  OTP.findOne({
+      where: {
+        userId,
+        otp
       },
       order: [['createdAt', 'DESC']]
     })
       .then(otpRecord => {
+  
+
         if(otpRecord.expiresAt < Date.now()){
-         res.status(401).json({ success: false, message: 'Otp code expired try other'});
+          OTP.destroy({where:{userId,otp}})
+        return res.status(401).json({ success: false, message: 'Otp code expired try other'});
             
         }
         if (otpRecord && otpRecord.otp === otp) {
+           OTP.destroy({where:{userId,otp}})
           next(); // OTP is valid, proceed to the protected route
         } else {
-          res.status(401).json({ success: false, message: 'Unauthorized' });
+        return  res.status(401).json({ success: false, message: 'Unauthorized' });
         }
       })
       .catch(error => {
         console.error('Error authenticating OTP:', error);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
       });
+    
+   } catch (error) {
+    console.error('Error authenticating OTP:', error);
+    res.status(500).json({ success: false, message: 'Something went worry' });
+   }
+    
   };
   
 export {createOtp, verifyOpt}

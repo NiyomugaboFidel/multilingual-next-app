@@ -14,7 +14,8 @@ import swaggerUi  from'swagger-ui-express';
 import swaggerJsdoc from'swagger-jsdoc';
 import swaggerOptions from './swagger';
 import productRoutes from './routes/product.routes'
-
+import { blogImageResize, productImageResize, uploadPhoto } from './middlewares/uploadImage';
+import productCategoryRoute from'./routes/category.routes'
 
 
 // declaretions
@@ -42,11 +43,6 @@ app.use(session({
    saveUninitialized: false,
  
  }));
- // Error handling middleware (optional)
-app.use((err, req, res, next) => {
-   console.error(err.stack);
-   res.status(500).json({ error: 'Server error' });
- });
 
 // middlewares
 app.use(express.static(path.join(__dirname,'public')));
@@ -55,6 +51,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(googleAuthRoute);
 app.use('/users', userRouter);
+app.use('/products/category',productCategoryRoute);
 app.use('/products', productRoutes);
 
 app.use(passport.initialize());
@@ -77,5 +74,24 @@ app.get('*',(req, res)=>{
  res.send('Not Found 404')
 });
 
+// Route to upload and resize product images
+app.post('/upload/products', uploadPhoto.array('images', 10), productImageResize, (req, res) => {
+  return res.status(200).json({ message: 'Product images uploaded and resized successfully' });
+});
 
+// Route to upload and resize blog images
+app.post('/upload/blogs', uploadPhoto.array('images', 10), blogImageResize, (req, res) => {
+  return res.status(200).json({ message: 'Blog images uploaded and resized successfully' });
+});
+ // Error handling middleware (optional)
+ app.use((err, req, res, next) => {
+   console.error(err.stack);
+  return res.status(500).json({ error: 'Server error' });
+ });
+// Error-handling middleware
+app.use((err, req, res, next) => {
+   if (!res.headersSent) {
+   return  res.status(500).json({ error: err.message });
+   }
+ });
 export default app

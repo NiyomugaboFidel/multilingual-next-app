@@ -56,4 +56,32 @@ const sendRestEmail = async (userEmail, userName,token) => {
     }
 };
 
-export {sendVerificationEmail,sendRestEmail};
+ const sendEmail = async(userEmail,userName,subject,content,sms)=>{
+
+           // Process the email template
+    
+           const emailTemplatePath = path.join(__dirname, '../../templates/message.html');
+           let emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
+           emailTemplate = emailTemplate.replace('{{otp}}', sms);
+           emailTemplate = emailTemplate.replace('{{content}}', content);
+           emailTemplate = emailTemplate.replace(' {{username}}', userName);
+           console.log('Email template content:', emailTemplate);   
+       
+       
+           const mailOptions = {
+               from: '"VIRUNGA ONLINE SHOP" , no-reply@account.virunga.com',
+               to: userEmail,
+               subject: subject,
+               html:emailTemplate,
+           };
+       
+           try {
+               await transporter.sendMail(mailOptions);
+               console.log('Rest Password email sent.');
+           } catch (error) {
+               console.error('Error sending verification email:', error);
+           }
+
+ }
+
+export {sendVerificationEmail,sendRestEmail,sendEmail};
