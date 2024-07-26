@@ -79,12 +79,10 @@ const verifyEmail = async (req, res) => {
         return res.status(401).json({ success: false, error: "Token expried" });
       }
       if (user.isEmailVerified === true) {
-        return res
-          .status(200)
-          .json({
-            success: true,
-            message: "User of this email already is verified",
-          });
+        return res.status(200).json({
+          success: true,
+          message: "User of this email already is verified",
+        });
       }
 
       if (user.isEmailVerified === false) {
@@ -125,14 +123,12 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Login Successfully",
-        user: user,
-        token: token,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Login Successfully",
+      user: user,
+      token: token,
+    });
   } catch (error) {
     console.log(error?.message, error?.stack);
     return res
@@ -215,13 +211,11 @@ const editUserProfile = async (req, res) => {
       }
     );
     await user.save();
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "edit profile successfully",
-        newUser: user,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "edit profile successfully",
+      newUser: user,
+    });
   } catch (error) {
     return res
       .status(500)
@@ -307,12 +301,10 @@ const changePassword = async (req, res) => {
         .json({ success: false, error: "Current password is incorrect" });
     }
     if (!newPassword === confirmPassword) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "new and confirm password is not Match",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "new and confirm password is not Match",
+      });
     }
     const hashPassword = await hashString(newPassword);
     user.password = hashPassword;
@@ -402,13 +394,11 @@ const deleteUser = async (req, res) => {
         .json({ success: false, error: "Failed to delete user, try again" });
     }
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "User deleted successfully",
-        deletedUser: deletedUser,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+      deletedUser: deletedUser,
+    });
   } catch (error) {
     console.log(error.message, error.stack);
     return res

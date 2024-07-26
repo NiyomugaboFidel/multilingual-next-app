@@ -2,6 +2,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 
+
 // Configure multer storage
 const multerStorage = multer.diskStorage({
     destination: function(req, file, cb) {

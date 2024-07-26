@@ -3,6 +3,7 @@ import express from 'express';
 import 'dotenv/config'
 import bodyParser from 'body-parser';
 import sequelize from'./database/config/sequelize'
+
 import userRouter  from'./routes/user.routes';
 import { notFound,errorHandler } from './middlewares/errorHandler';
 import cookieParser from 'cookie-parser';
@@ -16,7 +17,7 @@ import swaggerOptions from './swagger';
 import productRoutes from './routes/product.routes'
 import { blogImageResize, productImageResize, uploadPhoto } from './middlewares/uploadImage';
 import productCategoryRoute from'./routes/category.routes'
-
+import allRoute from './routes/index'
 
 // declaretions
 const app = express();
@@ -53,6 +54,7 @@ app.use(googleAuthRoute);
 app.use('/users', userRouter);
 app.use('/products/category',productCategoryRoute);
 app.use('/products', productRoutes);
+app.use('/api/v1/',allRoute);
 
 app.use(passport.initialize());
 app.use(passport.session());

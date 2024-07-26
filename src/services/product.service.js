@@ -54,6 +54,9 @@ const findProduct = async(id,sellerId,role)=>{
         }
     }
  
+    const findProductById = async (id) => {
+        return await Product.findByPk(id);
+      };
    
    // find Product by Id
    const findAllProduct= async()=>{
@@ -75,4 +78,4 @@ const findProduct = async(id,sellerId,role)=>{
     const offset = page >= 0 ? page * limit : 10
     return {limit,offset}
    }
-export {findAllProduct, createProduct,findProduct,getPagenation}
+export {findAllProduct, createProduct,findProduct,getPagenation, findProductById}
