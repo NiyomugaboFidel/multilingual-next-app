@@ -1,167 +1,148 @@
-import { where } from "sequelize";
 import Category from "../database/models/category";
 
 const createCategory = async (req, res) => {
   const { name } = req.body;
   try {
     if (!name) {
-   return   res
+      return res
         .status(400)
         .json({ success: false, message: "Category name is required" });
     }
-    const newCategory = await Category.create({
-      name: name,
-    });
-   return res
+    const newCategory = await Category.create({ name });
+    return res
       .status(201)
       .json({
         success: true,
-        message: "New Category created successful",
+        message: "New category created successfully",
         newCategory,
       });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Internal Server error" });
+    return res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
+
 const getCategory = async (req, res) => {
   const { id } = req.params;
-//   console.log("categoryId", id);
   try {
     if (!id) {
-     return res
+      return res
         .status(400)
-        .json({ success: false, message: "No id atteched to the params" });
+        .json({ success: false, message: "No ID attached to the parameters" });
     }
     const category = await Category.findOne({ where: { id } });
     if (!category) {
-     return res
-        .status(400)
+      return res
+        .status(404)
         .json({
           success: false,
-          message: "Category of this id is not found",
+          message: "Category with this ID not found",
         });
     }
 
-   return res
+    return res
       .status(200)
       .json({
         success: true,
-        message: `Category here is ${category.name}`,
+        message: `Category: ${category.name}`,
         category,
       });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Internal Server error" });
+    return res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
+
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.findAll({
-      order: [["createdAt", "DESC"]],
-    });
+    const categories = await Category.findAll({ order: [["createdAt", "DESC"]] });
 
-    if(categories == null ) {
+    if (!categories.length) {
       return res
-        .status(400)
+        .status(404)
         .json({
           success: false,
-          message: "No category create , table of category is empty",
+          message: "No categories found",
         });
-    }else{
-       return res
-        .status(200)
-        .json({ success: true, message: `List of All Categories `, categories });
     }
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: "List of all categories",
+        categories,
+      });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Internal Server error" });
+    return res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
 
 const updateCategory = async (req, res) => {
-  const id = req.query.id;
-  const { newName } = req.body;
+  const { id } = req.params;
+  const { name } = req.body;
   try {
     if (!id) {
-     return res
+      return res
         .status(400)
-        .json({ success: false, message: "No id atteched to the params" });
+        .json({ success: false, message: "No ID attached to the parameters" });
     }
-    if (!newName) {
-      return res.status(400).json({ success: false, message: "newName is required" });
+    if (!name) {
+      return res.status(400).json({ success: false, message: "Name is required" });
     }
-    
-    const oldCategory = await Category.destroy({ where: { id } });
+
+    const oldCategory = await Category.findOne({ where: { id } });
     if (!oldCategory) {
-     return res
-        .status(400)
+      return res
+        .status(404)
         .json({
           success: false,
-          message: "Category of this id is not included, invald id",
-        });
-    }
-    const category = await Category.update(
-      {
-        name: newName,
-      },
-      {
-        where: { id },
-      }
-    );
-    if (!category) {
-     return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Category of this id is not included, invald id",
+          message: "Category with this ID not found",
         });
     }
 
-  return  res
+    await Category.update({ name }, { where: { id } });
+
+    return res
       .status(200)
       .json({
         success: true,
-        message: `New Category is ${newName}`,
-        category,
+        message: `Category updated to ${name}`,
       });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Internal Server error" });
+    return res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
+
 const deleteCategory = async (req, res) => {
-  const {id} = req.params;
-//   console.log("categoryId", id);
+  const { id } = req.params;
   try {
     if (!id) {
-    return  res
+      return res
         .status(400)
-        .json({ success: false, message: "No id atteched to the params" });
-    }
-
-    const oldCategory = await Category.destroy({ where: { id } });
-    if (!oldCategory) {
-    return  res
-        .status(400)
-        .json({
-          success: false,
-          message: "Category of this id is not included, invald id",
-        });
+        .json({ success: false, message: "No ID attached to the parameters" });
     }
 
     const category = await Category.destroy({ where: { id } });
+    if (!category) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message: "Category with this ID not found",
+        });
+    }
 
-   return res
+    return res
       .status(200)
       .json({
         success: true,
-        message: `Category deleted Successful`,
-        category,
+        message: "Category deleted successfully",
       });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "Internal Server error" });
+    return res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
 

@@ -7,22 +7,33 @@ import {
   updateCategory,
 } from "../controllers/category.controllers";
 import { authMiddleware, checkRole } from "../middlewares/authMiddleware";
+import { isCategoryExistByName } from "../middlewares/category.middleware";
+import categoryValidation from "../validation/category.validation";
+
 const router = express.Router();
 
 router.post(
   "/create",
   authMiddleware,
   checkRole(["seller", "admin"]),
+  categoryValidation,
+  isCategoryExistByName,
   createCategory
 );
-router.get("/", authMiddleware, checkRole(["seller", "admin"]), getCategories);
-router.get("/:id", authMiddleware, checkRole(["seller", "admin"]), getCategory);
+
+router.get("/", authMiddleware, getCategories);
+
+router.get("/:id", authMiddleware, getCategory);
+
 router.put(
-  "/update",
+  "/update/:id",
   authMiddleware,
   checkRole(["seller", "admin"]),
+  categoryValidation,
+  isCategoryExistByName,
   updateCategory
 );
+
 router.delete(
   "/delete/:id",
   authMiddleware,
