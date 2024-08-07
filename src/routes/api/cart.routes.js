@@ -1,8 +1,8 @@
 import express from "express";
-import { authMiddleware, checkRole } from "../middlewares/authMiddleware";
-import { cartValidation } from "../validation/cart.validation";
-import { addProductToCart, checkProductInCart, getUsercart, isProductAvailable, isProductExpired } from "../middlewares/cart.middleware";
-import { AddToCart, clearCart, removeFromCart, viewCart } from "../controllers/cart.controllers";
+import { authMiddleware, checkRole } from "../../middlewares/authMiddleware";
+import { cartValidation } from "../../validation/cart.validation";
+import { addProductToCart, checkProductInCart, getUsercart, isProductAvailable, isProductExpired } from "../../middlewares/cart.middleware";
+import { AddToCart, clearCart, removeFromCart, viewCart } from "../../controllers/cart.controllers";
 const router = express.Router();
 
 router.post(

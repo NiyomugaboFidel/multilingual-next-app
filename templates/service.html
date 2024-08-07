@@ -1,21 +1,18 @@
-// Example usage
-const exampleRecipientEmail = 'example@seller.com';
-const exampleUserName = 'John Doe';
-const exampleSubject = 'Your Wishlist';
-const exampleHtmlContent = `
-  <div class="product">
-    <div class="product-details">
-      <img src="https://example.com/product1.jpg" alt="Product Image">
-      <div class="product-info">
-        <h3>Product 1</h3>
-        <p>Price: $29.99</p>
-        <p>Quantity: 1</p>
-      </div>
-    </div>
-  </div>
-`;
 
-sendEmailService(exampleRecipientEmail, exampleUserName, exampleSubject, exampleHtmlContent);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,26 +88,7 @@ sendEmailService(exampleRecipientEmail, exampleUserName, exampleSubject, example
       <h1>Hello, {{username}}!</h1>
     </div>
     <div class="content">
-        <div class="product">
-            <div class="product-details">
-              <img src="https://example.com/product1.jpg" alt="Product Image">
-              <div class="product-info">
-                <h3>Product 1</h3>
-                <p>Price: $29.99</p>
-                <p>Quantity: 1</p>
-              </div>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product-details">
-              <img src="https://example.com/product2.jpg" alt="Product Image">
-              <div class="product-info">
-                <h3>Product 2</h3>
-                <p>Price: $49.99</p>
-                <p>Quantity: 2</p>
-              </div>
-            </div>
-          </div>
+      {{html}}
     </div>
     <div class="footer">
       <p>Thank you for choosing our store!</p>
@@ -118,4 +96,3 @@ sendEmailService(exampleRecipientEmail, exampleUserName, exampleSubject, example
   </div>
 </body>
 </html>
-

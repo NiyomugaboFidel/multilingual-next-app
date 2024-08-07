@@ -37,11 +37,11 @@ const createUser = async (req, res) => {
     const newUser = await register(data);
 
     // generate token
-    const token = generateToken(newUser, { expiresIn: "1d" });
+    const token = generateToken(newUser, { expiresIn: "15d" });
     if (token) {
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 15* 24 * 60 * 60 * 1000,
       });
     }
     await sendVerificationEmail(email, firstName, token);
@@ -53,11 +53,13 @@ const createUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, error: "Semothing went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
 };
+}
 //verify email of user
 // =======================
 const verifyEmail = async (req, res) => {
@@ -97,11 +99,13 @@ const verifyEmail = async (req, res) => {
       .json({ success: true, message: "Email verified successfully" });
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(500)
-      .json({ success: false, error: "Semothing went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
 };
+}
 
 //login a user
 // =======================
@@ -118,11 +122,13 @@ const loginUser = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Invalid email or password" });
     }
-    const token = generateToken(user, { expiresIn: "1d" });
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    const token = generateToken(user, { expiresIn: "15d" });
+    if (token) {
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 15* 24 * 60 * 60 * 1000,
+      });
+    }
     res.status(200).json({
       success: true,
       message: "Login Successfully",
@@ -217,10 +223,12 @@ const editUserProfile = async (req, res) => {
       newUser: user,
     });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ success: false, error: "Something went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
+};
 };
 //forget password token
 // =======================
@@ -269,9 +277,12 @@ const resetPassword = async (req, res) => {
       res.status(400).json({ message: "Token has expired" });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Server error" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
+};
 };
 
 // change password || update password
@@ -316,10 +327,12 @@ const changePassword = async (req, res) => {
       .json({ success: true, message: "Password Updated successful" });
   } catch (error) {
     console.log(error?.message, error?.stack);
-    return res
-      .status(500)
-      .json({ success: false, error: "Semothing went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
+};
 };
 
 //get all users
@@ -336,10 +349,12 @@ const getAllUsers = async (req, res) => {
     return res.status(200).json({ success: true, message: "All users", users });
   } catch (error) {
     console.log(error?.message, error?.stack);
-    return res
-      .status(500)
-      .json({ success: false, error: "Semothing went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
+};
 };
 // get a user
 //  ==========================
@@ -366,10 +381,12 @@ const getUser = async (req, res) => {
       .json({ success: true, message: "User is found", user });
   } catch (error) {
     console.log(error?.message, error?.stack);
-    return res
-      .status(500)
-      .json({ success: false, error: "Semothing went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
+};
 };
 
 // delete a user
@@ -401,10 +418,12 @@ const deleteUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message, error.stack);
-    return res
-      .status(500)
-      .json({ success: false, error: "Semothing went wrong" });
-  }
+    return res.status(500).json({
+      success:false,
+      message: "something went wrong!",
+      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
+  });
+};
 };
 
 export {

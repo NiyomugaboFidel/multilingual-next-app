@@ -5,13 +5,13 @@ import {findUserById } from "../services/user.service";
 const authMiddleware = async(req, res,next)=>{
   
 
- if( req &&
-    req.headers &&
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')){
-    const token = req?.headers.authorization.split(' ')[1];
-//  if(req.cookies){
-//     const token = req?.cookies.token;
+//  if( req &&
+//     req.headers &&
+//     req.headers.authorization &&
+//     req.headers.authorization.startsWith('Bearer')){
+//     const token = req?.headers.authorization.split(' ')[1];
+ if(req.cookies){
+    const token = req?.cookies.token;
 
     try {
         if(token){

@@ -38,7 +38,7 @@ const sendRestEmail = async (userEmail, userName,token) => {
     let emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
     emailTemplate = emailTemplate.replace('{{restPassword_url}}', restPasswordUrl);
     emailTemplate = emailTemplate.replace(' {{username}}', userName);
-    console.log('Email template content:', emailTemplate);   
+    // console.log('Email template content:', emailTemplate);   
 
 
     const mailOptions = {
@@ -65,7 +65,7 @@ const sendRestEmail = async (userEmail, userName,token) => {
            emailTemplate = emailTemplate.replace('{{otp}}', sms);
            emailTemplate = emailTemplate.replace('{{content}}', content);
            emailTemplate = emailTemplate.replace(' {{username}}', userName);
-           console.log('Email template content:', emailTemplate);   
+        //    console.log('Email template content:', emailTemplate);   
        
        
            const mailOptions = {
@@ -83,5 +83,33 @@ const sendRestEmail = async (userEmail, userName,token) => {
            }
 
  }
+ 
 
-export {sendVerificationEmail,sendRestEmail,sendEmail};
+ const sendEmailService = async (recipientEmail, userName, subject, html) => {
+    // Process the email template
+    const emailTemplatePath = path.join(__dirname, '../../templates/service.html');
+    let emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
+  
+    // Replace placeholders with actual values
+    emailTemplate = emailTemplate.replace('{{html}}', html);
+    emailTemplate = emailTemplate.replace('{{username}}', userName);
+    
+    // console.log('Email template content:', emailTemplate);   
+  
+    const mailOptions = {
+      from: '"VIRUNGA ONLINE SHOP" <no-reply@account.virunga.com>',
+      to: recipientEmail,
+      subject: subject,
+      html: emailTemplate,
+    };
+  
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully.');
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+  
+
+export {sendVerificationEmail,sendRestEmail,sendEmail, sendEmailService};

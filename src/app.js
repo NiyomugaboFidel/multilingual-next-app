@@ -4,23 +4,24 @@ import 'dotenv/config'
 import bodyParser from 'body-parser';
 import sequelize from'./database/config/sequelize'
 
-import userRouter  from'./routes/user.routes';
+import userRouter  from'./routes/api/user.routes';
 import { notFound,errorHandler } from './middlewares/errorHandler';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import passport from 'passport';
 import path from 'path';
-import googleAuthRoute from'../src/routes/user.authgoogle.routes'
+import googleAuthRoute from'../src/routes/api/user.authgoogle.routes'
 import swaggerUi  from'swagger-ui-express';
 import swaggerJsdoc from'swagger-jsdoc';
 import swaggerOptions from './swagger';
-import productRoutes from './routes/product.routes'
+import productRoutes from './routes/api/product.routes'
 import { blogImageResize, productImageResize, uploadPhoto } from './middlewares/uploadImage';
-import productCategoryRoute from'./routes/category.routes'
+import { app, server } from '../events/socket/socket';
+// import productCategoryRoute from'./routes/api/category.routes'
 import allRoute from './routes/index'
 
 // declaretions
-const app = express();
+
 const PORT  = process.env.PORT || 6000
 
 
@@ -52,7 +53,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(googleAuthRoute);
 app.use('/users', userRouter);
-app.use('/products/category',productCategoryRoute);
+// app.use('/products/category',productCategoryRoute);
 app.use('/products', productRoutes);
 app.use('/api/v1/',allRoute);
 
@@ -96,4 +97,4 @@ app.use((err, req, res, next) => {
    return  res.status(500).json({ error: err.message });
    }
  });
-export default app
+export default server

@@ -12,7 +12,7 @@
     "seed:down": "sequelize db:seed:undo:all",
     "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate && npm run seed",
     "migrate:down": "sequelize db:migrate:undo:all",
-    "migrate:create": "npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string"
+    "migrate:create": "npx sequelize-cli model:generate --name ProductWishList --attributes firstName:string,lastName:string,email:string"
   },
   "author": "",
   "license": "ISC",
@@ -45,6 +45,7 @@
     "sequelize": "^6.37.3",
     "sharp": "^0.33.4",
     "slugify": "^1.6.6",
+    "socket.io": "^4.7.5",
     "speakeasy": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

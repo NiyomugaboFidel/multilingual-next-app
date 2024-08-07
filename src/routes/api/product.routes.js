@@ -10,11 +10,12 @@ import {
   uploadImages,
   getProductsNearingExpiry,
   updateProduct,
-} from "../controllers/product.controllers";
+  averageRating,
+} from "../../controllers/product.controllers";
 
-import { authMiddleware, checkRole } from "../middlewares/authMiddleware";
-import isSeller from "../middlewares/seller.Middleware";
-import { productImageResize, uploadPhoto } from "../middlewares/uploadImage";
+import { authMiddleware, checkRole } from "../../middlewares/authMiddleware";
+import isSeller from "../../middlewares/seller.Middleware";
+import { productImageResize, uploadPhoto } from "../../middlewares/uploadImage";
 const router = express.Router();
 
 router.post(
@@ -23,6 +24,7 @@ router.post(
   checkRole(["admin", "seller"]),
   createNewProduct
 );
+
 router.put(
   "/upload/:id",
   authMiddleware,
@@ -31,6 +33,13 @@ router.put(
   productImageResize,
   uploadImages
 );
+router.post(
+  "/:id/rating",
+  authMiddleware,
+  checkRole(["admin", "seller", "buyer"]),
+  averageRating
+);
+
 router.get(
   "/get-items",
   authMiddleware,

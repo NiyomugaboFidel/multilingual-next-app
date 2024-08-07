@@ -5,10 +5,10 @@ import {
   getCategories,
   getCategory,
   updateCategory,
-} from "../controllers/category.controllers";
-import { authMiddleware, checkRole } from "../middlewares/authMiddleware";
-import { isCategoryExistByName } from "../middlewares/category.middleware";
-import categoryValidation from "../validation/category.validation";
+} from "../../controllers/category.controllers";
+import { authMiddleware, checkRole } from "../../middlewares/authMiddleware";
+import { isCategoryExistByName } from "../../middlewares/category.middleware";
+import categoryValidation from "../../validation/category.validation";
 
 const router = express.Router();
 

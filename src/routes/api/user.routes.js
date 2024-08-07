@@ -11,15 +11,15 @@ import {
      logoutUser, 
      resetPassword, 
      verifyEmail 
-    } from '../controllers/user.controller';
-import { authMiddleware, checkRole } from '../middlewares/authMiddleware';
-import isAdmin from '../middlewares/Admin.Middleware';
-import validate from '../middlewares/validationMiddleware';
-import { UpdatedPasswordSchema, restPasswordSchema, signUpSchema, userProfileSchema } from '../validation/validateSchemas';
-import { authenticateJwt } from '../middlewares/passport.Middleware';
-import { assignUserRole, updateUserStatus } from '../controllers/admin.controllers';
-import isSeller from '../middlewares/seller.Middleware';
-import { createOtp, verifyOpt } from '../controllers/2fa.controller';
+    } from '../../controllers/user.controller';
+import { authMiddleware, checkRole } from '../../middlewares/authMiddleware';
+import isAdmin from '../../middlewares/Admin.Middleware';
+import validate from '../../middlewares/validationMiddleware';
+import { UpdatedPasswordSchema, restPasswordSchema, signUpSchema, userProfileSchema } from '../../validation/validateSchemas';
+import { authenticateJwt } from '../../middlewares/passport.Middleware';
+import { assignUserRole, updateUserStatus } from '../../controllers/admin.controllers';
+import isSeller from '../../middlewares/seller.Middleware';
+import { createOtp, verifyOpt } from '../../controllers/2fa.controller';
 
 
 

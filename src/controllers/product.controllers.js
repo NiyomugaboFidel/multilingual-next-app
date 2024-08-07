@@ -394,6 +394,61 @@ const updateProductImages = async (req, res) => {
   }
 };
 
+
+const averageRating = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const sellerId = req.user.id; // assuming you have a middleware to attach user info to the request
+    const { rating } = req.body;
+
+    if (!productId || rating == null) {
+      return res.status(400).json({
+        message: 'Product ID and rating are required',
+      });
+    }
+
+    const product = await Product.findOne({ where: { id: productId } });
+    if (!product) {
+      return res.status(400).json({
+        message: 'Product not found',
+      });
+    }
+
+    // Update ratings array
+    const updatedRatings = [...product.ratings, rating];
+    const totalRatings = updatedRatings.length;
+
+    // Calculate average rating
+    const sumRatings = updatedRatings.reduce((sum, r) => sum + r, 0);
+    const averageRating = (sumRatings / totalRatings).toFixed(2);
+
+    // Update the product
+    await Product.update(
+      {
+        ratings: updatedRatings,
+        averageRating,
+      },
+      {
+        where: { id: productId },
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Rating updated successfully',
+      averageRating,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Something went wrong!',
+      error: error.message.replace(/[^a-zA-Z0-9 ]/g, ''),
+    });
+  }
+};
+
+
+
 export {
   createNewProduct,
   retrieveItems,
@@ -406,4 +461,5 @@ export {
   deleteProduct,
   uploadImages,
   updateProductImages,
+  averageRating
 };
