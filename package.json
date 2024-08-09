@@ -12,7 +12,7 @@
     "seed:down": "sequelize db:seed:undo:all",
     "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate && npm run seed",
     "migrate:down": "sequelize db:migrate:undo:all",
-    "migrate:create": "npx sequelize-cli model:generate --name ProductWishList --attributes firstName:string,lastName:string,email:string"
+    "migrate:create": "npx sequelize-cli model:generate --name OrderAddress --attributes firstName:string,lastName:string,email:string"
   },
   "author": "",
   "license": "ISC",

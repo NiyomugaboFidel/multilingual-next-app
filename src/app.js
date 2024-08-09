@@ -16,7 +16,7 @@ import swaggerJsdoc from'swagger-jsdoc';
 import swaggerOptions from './swagger';
 import productRoutes from './routes/api/product.routes'
 import { blogImageResize, productImageResize, uploadPhoto } from './middlewares/uploadImage';
-import { app, server } from '../events/socket/socket';
+import { app, server } from './events/socket/socket';
 // import productCategoryRoute from'./routes/api/category.routes'
 import allRoute from './routes/index'
 

@@ -1,6 +1,6 @@
 import Joi from "joi";
 const userSchema = Joi.object({
-  email: Joi.string().required().email(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net' , 'org','co'] } }).required(),
   password: Joi.string().required(),
 });
 const userValdation = async (req, res, next) => {
