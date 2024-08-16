@@ -331,7 +331,7 @@ const getOrderPerId = async (req, res) => {
       });
     }
 
-    const order = await Orders.findOne({ where: { id: orderId, userId } });
+    const order = await Orders.findOne({ where: { id: orderId} });
 
     if (!order) {
       return res.status(404).json({
@@ -383,4 +383,47 @@ const getOrders = async (req, res) => {
   }
 };
 
-export {getOrderPerId, getOrders, addOrderAddress, createOrder, webhookStript };
+const changeDeliveryStatus = async(req, res)=>{
+  try {
+    const orderId = req.params.id;
+    const userId = req.user.id;
+
+
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "user not found",
+      });
+    }
+
+    const order = await Orders.findOne({ where: { id: orderId} });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+    const old_delivery_status  = order.delivery_status
+    order.delivery_status = req.body.status
+    await order.save()
+
+    res.status(200).json({
+      success: true,
+      message: "Delivery change successfully",
+      status:req.body.status,
+      old_delivery_status
+    });
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong!",
+      error: error.message.replace(/[^a-zA-Z0-9 ]/g, ""),
+    });
+  }
+}
+
+export {getOrderPerId, getOrders, addOrderAddress, createOrder, webhookStript,changeDeliveryStatus };
