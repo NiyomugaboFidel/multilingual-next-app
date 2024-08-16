@@ -17,6 +17,7 @@ import swaggerOptions from './swagger';
 import productRoutes from './routes/api/product.routes'
 import { blogImageResize, productImageResize, uploadPhoto } from './middlewares/uploadImage';
 import { app, server } from './events/socket/socket';
+import cors from 'cors'
 // import productCategoryRoute from'./routes/api/category.routes'
 import allRoute from './routes/index'
 
@@ -32,7 +33,11 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 // Serve Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 //ejs for test
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname,'views'));
@@ -52,6 +57,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(googleAuthRoute);
+
+app.post('/home',(req, res)=>{
+  res.json({greet:'hello' ,message:req.body})
+})
 app.use('/users', userRouter);
 // app.use('/products/category',productCategoryRoute);
 app.use('/products', productRoutes);
@@ -76,6 +85,7 @@ export const connection = async()=>{
 app.get('*',(req, res)=>{
  res.send('Not Found 404')
 });
+
 
 // Route to upload and resize product images
 app.post('/upload/products', uploadPhoto.array('images', 10), productImageResize, (req, res) => {

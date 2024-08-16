@@ -4,7 +4,7 @@ const {
   DataTypes
 } = require('sequelize');
 import sequelize from '../config/sequelize';
-const OrderAddress = sequelize.define('OrderAddress',{
+const OrderAddresses = sequelize.define('OrderAddresses',{
   id: {
     allowNull: false,
     primaryKey: true,
@@ -14,11 +14,14 @@ const OrderAddress = sequelize.define('OrderAddress',{
   orderId: {
     type: DataTypes.UUID,
     allowNull:false,
-    references:{model:'Users', key:'id'}
+    references:{model:'Orders', key:'id'}
   },
-  billingAddres:{
-    type:DataTypes.JSONB,
+  shipping:{
+    type:DataTypes.JSON,
     allowNull:false,
+  },
+  billingAddress:{
+    type:DataTypes.JSON,
   },
    createdAt: {
     allowNull: false,
@@ -31,7 +34,7 @@ const OrderAddress = sequelize.define('OrderAddress',{
  
 },{
    timestamps:true,
-   tableName:'OrderAddress'
+   tableName:'OrderAddresses'
 })
 
-export default OrderAddress
+export default OrderAddresses

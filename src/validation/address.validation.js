@@ -1,13 +1,13 @@
 import Joi from "joi";
 const addressProfileSchema = Joi.object({
-    street:Joi.string().max(20),
-    province:Joi.string().max(20),
+    street:Joi.string().max(20).required(),
+    province:Joi.string().max(20).required(),
     district:Joi.string().max(20),
-    city:Joi.string().max(20),
-    pobox:Joi.string().optional(),
-    country:Joi.string().max(20),
-    phoneNo:Joi.string().length(10).pattern(/^[0-9]+$/),
-    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net' , 'org','co'] } })
+    city:Joi.string().max(20).required(),
+    pobox:Joi.string().optional().required(),
+    country:Joi.string().max(20).required(),
+    phoneNo:Joi.string().min(10).pattern(/^\+?[1-9]\d{1,14}$/).required(),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net' , 'org','co'] } }).required()
 
   })
   export const addressProfile = async (req, res, next) => {

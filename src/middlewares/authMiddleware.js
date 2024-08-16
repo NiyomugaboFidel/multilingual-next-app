@@ -17,7 +17,7 @@ const authMiddleware = async(req, res,next)=>{
         if(token){
             const decode = jwt.verify(token,process.env.JWT_SECRET_KEY);
             const user = await findUserById(decode?.payload.id);
-            ;
+            // console.log({'User in auth':user});
             req.user = user
             if(user){
             next()

@@ -323,9 +323,11 @@ const uploadImages = async (req, res) => {
       fs.unlinkSync(path);
     }
 
+    console.log(urls.map(url=> url.url))
+
     await Product.update(
       {
-        images: urls.map((file) => file),
+        images: urls.map(url=> url.url),
       },
       {
         where: { id },

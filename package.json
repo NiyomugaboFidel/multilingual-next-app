@@ -25,6 +25,7 @@
     "connect-pg-simple": "^9.0.1",
     "connect-session-sequelize": "^7.1.7",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
@@ -47,6 +48,7 @@
     "slugify": "^1.6.6",
     "socket.io": "^4.7.5",
     "speakeasy": "^2.0.0",
+    "stripe": "^16.7.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid4": "^2.0.3"
