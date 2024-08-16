@@ -17,6 +17,14 @@ const Notifications  = sequelize.define('Notifications',{
   message: DataTypes.JSONB,
   entityId: DataTypes.JSONB,
   receiver: DataTypes.STRING,
+  receiverId:{
+    type:DataTypes.UUID,
+    references: { model: 'Users', key: 'id' },
+  }, 
+ is_read: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 
 },{
   timestamps:true,

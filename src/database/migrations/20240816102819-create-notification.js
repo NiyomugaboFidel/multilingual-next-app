@@ -12,7 +12,15 @@ module.exports = {
       subject:Sequelize.STRING,
       message:Sequelize.JSONB,
       entityId:Sequelize.JSONB,
-      receiver:Sequelize.STRING,    
+      receiver:Sequelize.STRING,  
+      receiverId:{
+        type:Sequelize.UUID,
+        references: { model: 'Users', key: 'id' },
+      }, 
+     is_read: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },  
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

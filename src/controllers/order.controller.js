@@ -127,7 +127,7 @@ const createOrder = async (req, res) => {
 
     res.status(303).json({ url: session.url });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error: "Failed to create order" });
   }
 };
@@ -209,6 +209,7 @@ const storeOrder = async (customer, data,req) => {
           message,
           entityId: { productWishId: Items.id},
           productImage: Items[0].images[0],
+          receiverId:Items[0].sellerId
       };
 
       io.emit('newOrder-notification', notificationDetails);
@@ -275,8 +276,8 @@ const webhookStript = async (req, res) => {
     stripe.customers
       .retrieve(data.customer)
       .then((customer) => {
-        console.log(customer);
-        console.log(`Data`, data);
+        // console.log(customer);
+        // console.log(`Data`, data);
         storeOrder(customer, data, req);
       })
       .catch((error) => {
@@ -328,7 +329,7 @@ const addOrderAddress = async (req, res) => {
       city,
       pobox,
     });
-    console.log({ orderAddress });
+    // console.log({ orderAddress });
     if (orderAddress) {
       const updatedOrderAdress = await OrderAddresses.update(
         {
@@ -362,7 +363,7 @@ const addOrderAddress = async (req, res) => {
       orderAddress: newOrderAddress,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong!",
@@ -401,7 +402,7 @@ const getOrderPerId = async (req, res) => {
       order,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong!",
@@ -428,7 +429,7 @@ const getOrders = async (req, res) => {
       orders,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong!",
@@ -471,7 +472,7 @@ const changeDeliveryStatus = async(req, res)=>{
     });
     
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong!",

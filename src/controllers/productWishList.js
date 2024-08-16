@@ -93,6 +93,7 @@ const addWishList = async (req, res) => {
           message,
           entityId: { productWishId: wish.id },
           productImage: wishProduct.images[0],
+          receiverId:wishProduct.sellerId,
       };
 
       io.emit('wish-notification', notificationDetails);

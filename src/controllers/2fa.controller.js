@@ -11,7 +11,7 @@ import { sendEmail } from '../services/sendEmail.service';
 // Route to generate OTP and send email
 const createOtp = async (req, res) => {
   const { userId} = req.query;
-  console.log('userId',userId);
+  // console.log('userId',userId);
 
   if(!userId){
     return res.status(401).json({ success: false, message: 'usedId required'});
@@ -25,7 +25,7 @@ const createOtp = async (req, res) => {
   try {
     // Generate OTP
     const otp = generateOtp()
-    console.log('otp',otp);
+    // console.log('otp',otp);
 
     // Save OTP with expiry time in database
    const newOtp= await OTP.create({
@@ -35,7 +35,7 @@ const createOtp = async (req, res) => {
     });
      
     const {email, firstName} = user
-    console.log('user email ',email,firstName);
+    // console.log('user email ',email,firstName);
     const subject = "OTP code -VIRUNGA ONLINE SHOP."
     const content = "OTP code generated Verify your OTP faster it's will be expried in 5minutes only."
 
@@ -44,7 +44,7 @@ const createOtp = async (req, res) => {
     res.status(200).json({ success: true, message: 'Otp generated successfully',newOtp});
 
   } catch (error) {
-    console.error('Error generating OTP:', error);
+    // console.error('Error generating OTP:', error);
     res.status(500).json({ success: false, message: 'Error generating OTP', error });
   }
 };
@@ -92,12 +92,12 @@ const verifyOpt = async(req, res, next) => {
         }
       })
       .catch(error => {
-        console.error('Error authenticating OTP:', error);
+        // console.error('Error authenticating OTP:', error);
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
       });
     
    } catch (error) {
-    console.error('Error authenticating OTP:', error);
+    // console.error('Error authenticating OTP:', error);
     res.status(500).json({ success: false, message: 'Something went worry' });
    }
     

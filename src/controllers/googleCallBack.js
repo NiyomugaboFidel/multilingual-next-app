@@ -7,7 +7,7 @@ const googleAuthotication  = (req, res, next)=>{
 
 const googleCallback = (req, res)=>{
  const  {user , token} = req.user
- console.log('token',token);
+//  console.log('token',token);
  if(token){
   res.cookie('token',token,{
     httpOnly:true,
