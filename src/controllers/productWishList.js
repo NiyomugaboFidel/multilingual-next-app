@@ -4,6 +4,8 @@ import { createAwish } from "../services/addToWishList.js";
 import User from '../database/models/user.js'
 import { sendEmailService } from "../services/sendEmail.service.js";
 import sequelize from "../database/config/sequelize.js";
+import { io } from "../events/events.js";
+import Notifications from "../database/models/notification.js";
 
 const addWishList = async (req, res) => {
     try {
@@ -36,19 +38,19 @@ const addWishList = async (req, res) => {
         const wishProduct = await Product.findOne({ where: { id: productId } });
         const seller = await User.findOne({ where: { id: wishProduct.sellerId } });
   
-        // Function to extract the URL from the JSON string
-        const extractUrl = (data) => {
-          try {
-            const parsed = JSON.parse(data);
-            return parsed.url;
-          } catch (e) {
-            console.error('Error parsing URL from data:', e);
-            return '';
-          }
-        };
+        // // Function to extract the URL from the JSON string
+        // const extractUrl = (data) => {
+        //   try {
+        //     const parsed = JSON.parse(data);
+        //     return parsed.url;
+        //   } catch (e) {
+        //     console.error('Error parsing URL from data:', e);
+        //     return '';
+        //   }
+        // };
   
-        // Extract the URL of the first image
-        const imageUrl = wishProduct.images.length > 0 ? extractUrl(wishProduct.images[0]) : '';
+        // // Extract the URL of the first image
+        // const imageUrl = wishProduct.images.length > 0 ? extractUrl(wishProduct.images[0]) : '';
   
         const sellerEmail = seller.email;
         const sellerName = seller.lastName;
@@ -57,7 +59,7 @@ const addWishList = async (req, res) => {
         const htmlContent = `
           <div class="product">
             <div class="product-details">
-              <img src="${imageUrl}" alt="Product Image">
+              <img src="${wishProduct.images[0]}" alt="Product Image">
               <div class="product-info">
                 <h3>${wishProduct.name}</h3>
                 <p>${wishProduct.price}</p>
@@ -75,7 +77,7 @@ const addWishList = async (req, res) => {
         const htmlContent2 = `
           <div class="product">
             <div class="product-details">
-              <img src="${imageUrl}" alt="Product Image">
+              <img src="${wishProduct.images[0]}" alt="Product Image">
               <div class="product-info">
                 <h3>${wishProduct.name}</h3>
                 <p>${wishProduct.price}</p>
@@ -85,7 +87,17 @@ const addWishList = async (req, res) => {
           </div>
         `;
   
+        const notificationDetails = {
+          receiver: wishProduct.sellerId,
+          subject,
+          message,
+          entityId: { productWishId: wish.id },
+          productImage: wishProduct.images[0],
+      };
+
+      io.emit('wish-notification', notificationDetails);
         await Promise.all([
+          await Notifications.create(notificationDetails),
           sendEmailService(sellerEmail, sellerName, subject, htmlContent),
           sendEmailService(userEmail, userName, subject, htmlContent2)
         ]);

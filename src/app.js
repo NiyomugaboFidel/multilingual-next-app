@@ -34,7 +34,7 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 // Serve Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with your frontend URL
+  origin: '*', // Replace with your frontend URL
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -42,6 +42,8 @@ app.use(cors(corsOptions));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname,'views'));
 
+// const __dirname = path.resolve();
+// Serve static files
 
 // Initialize session middleware
 app.use(session({
@@ -50,6 +52,24 @@ app.use(session({
    saveUninitialized: false,
  
  }));
+
+  // Error handling middleware (optional)
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+   return res.status(500).json({ error: 'Server error' });
+  });
+  
+ // Error-handling middleware
+ app.use((err, req, res, next) => {
+    if (!res.headersSent) {
+    return  res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Serve the dashboard
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
 
 // middlewares
 app.use(express.static(path.join(__dirname,'public')));
@@ -61,8 +81,8 @@ app.use(googleAuthRoute);
 app.post('/home',(req, res)=>{
   res.json({greet:'hello' ,message:req.body})
 })
+
 app.use('/users', userRouter);
-// app.use('/products/category',productCategoryRoute);
 app.use('/products', productRoutes);
 app.use('/api/v1/',allRoute);
 
@@ -86,25 +106,4 @@ app.get('*',(req, res)=>{
  res.send('Not Found 404')
 });
 
-
-// Route to upload and resize product images
-app.post('/upload/products', uploadPhoto.array('images', 10), productImageResize, (req, res) => {
-  return res.status(200).json({ message: 'Product images uploaded and resized successfully' });
-});
-
-// Route to upload and resize blog images
-app.post('/upload/blogs', uploadPhoto.array('images', 10), blogImageResize, (req, res) => {
-  return res.status(200).json({ message: 'Blog images uploaded and resized successfully' });
-});
- // Error handling middleware (optional)
- app.use((err, req, res, next) => {
-   console.error(err.stack);
-  return res.status(500).json({ error: 'Server error' });
- });
-// Error-handling middleware
-app.use((err, req, res, next) => {
-   if (!res.headersSent) {
-   return  res.status(500).json({ error: err.message });
-   }
- });
 export default server

@@ -133,7 +133,7 @@ const createOrder = async (req, res) => {
 };
 
 // create Oder
-const storeOrder = async (customer, data) => {
+const storeOrder = async (customer, data,req) => {
   try {
     const Items = JSON.parse(customer.metadata.products);
     // const productInfo = await getCartProducts(Items.id);
@@ -163,6 +163,60 @@ const storeOrder = async (customer, data) => {
       paymentInfo: JSON.parse(paymentInfo),
       payment_status: data.payment_status,
     });
+
+        const sellerName = 'Seller';
+        const subject = 'Products Order';
+        const message = `Hi ${sellerName}, you have a new Order from ${req.user.email}.`;
+        const htmlContent=  Items.map((item)=>(
+         `
+          <div class="product">
+            <div class="product-details">
+              <img src="${item.images[0]}" alt="Product Image">
+              <div class="product-info">
+                <h3>${item.name}</h3>
+                <p>${item.price}</p>
+                <p>Quantity: ${item.quantity}</p>
+              </div>
+            </div>
+            <p>${message}</p>
+          </div>
+        `
+        ))
+  
+        const userEmail = req.user.email;
+        const userName = req.user.lastName;
+        const message2 = `Hi ${userName}, you have added a new Order of ${Items.length} product.`;
+  
+        const htmlContent2=  Items.map((item)=>(
+          `
+           <div class="product">
+             <div class="product-details">
+               <img src="${item.images[0]}" alt="Product Image">
+               <div class="product-info">
+                 <h3>${item.name}</h3>
+                 <p>${item.price}</p>
+                 <p>Quantity: ${item.quantity}</p>
+               </div>
+             </div>
+             <p>${message2}</p>
+           </div>
+         `
+         ))
+  
+        const notificationDetails = {
+          receiver: Items[0].sellerId,
+          subject,
+          message,
+          entityId: { productWishId: Items.id},
+          productImage: Items[0].images[0],
+      };
+
+      io.emit('newOrder-notification', notificationDetails);
+        await Promise.all([
+          await Notifications.create(notificationDetails),
+          sendEmailService(process.env.MAIL, sellerName, subject, htmlContent),
+          sendEmailService(userEmail, userName, subject, htmlContent2)
+        ]);
 
     const savedOrder = await newOrder.save();
     console.log("Proccessed Order", savedOrder);
@@ -223,7 +277,7 @@ const webhookStript = async (req, res) => {
       .then((customer) => {
         console.log(customer);
         console.log(`Data`, data);
-        storeOrder(customer, data);
+        storeOrder(customer, data, req);
       })
       .catch((error) => {
         console.log(error.message);
