@@ -8,7 +8,7 @@ const router = express.Router();
 router.post(
   "/add",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["buyer"]),
   cartValidation,
   isProductAvailable,
   isProductExpired,
@@ -19,20 +19,21 @@ router.post(
 router.get(
   '/view',
   authMiddleware,
+  checkRole(['buyer']),
   getUsercart,
   viewCart
 )
 router.put(
   '/clear',
   authMiddleware,
-  checkRole(['admin','buyer']),
+  checkRole(['buyer']),
   getUsercart,
   clearCart
 )
 router.patch(
   '/remove/:productId',
   authMiddleware,
-  checkRole(['admin','buyer']),
+  checkRole(['buyer']),
   getUsercart,
   checkProductInCart,
   removeFromCart

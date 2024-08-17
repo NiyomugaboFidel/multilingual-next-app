@@ -21,14 +21,14 @@ const router = express.Router();
 router.post(
   "/create",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["seller"]),
   createNewProduct
 );
 
 router.put(
   "/upload/:id",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["buyer","seller"]),
   uploadPhoto.array("images", 10),
   productImageResize,
   uploadImages
@@ -36,54 +36,53 @@ router.put(
 router.post(
   "/:id/rating",
   authMiddleware,
-  checkRole(["admin", "seller", "buyer"]),
+  checkRole(["seller", "buyer"]),
   averageRating
 );
 
 router.get(
   "/get-items",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["buyer","seller"]),
   retrieveItems
 );
-router.get("/", authMiddleware, checkRole(["admin", "seller"]), getAllProducts);
+router.get("/", authMiddleware, checkRole(["buyer", "seller"]), getAllProducts);
 router.get(
   "/item/:id",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["buyer", "seller"]),
   getaProduct
 );
 
 router.put(
   "/isavailable/:id",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["seller"]),
   productIsAvailable
 );
 router.put(
   "/update/:id",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["seller"]),
   updateProduct
 );
 
 router.get(
   "/search",
   authMiddleware,
-  checkRole(["admin", "seller"]),
   searchProducts
 );
 
 router.delete(
   "/delete/:id",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["seller"]),
   deleteProduct
 );
 router.put(
   "/upload/:id",
   authMiddleware,
-  checkRole(["admin", "seller"]),
+  checkRole(["buyer","admin", "seller"]),
   uploadPhoto.array("images", 10),
   productImageResize,
   uploadImages

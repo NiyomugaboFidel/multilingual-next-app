@@ -3,6 +3,7 @@ import { getCartProducts } from "../services/cart.service";
 import OrderAddresses from "../database/models/orderaddress";
 import User from "../database/models/user";
 import countryCode from "../utils/data";
+import { sendEmailService } from "../services/sendEmail.service";
 const dotenv = require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const DOMAIN = process.env.DOMAIN || "http://localhost:5173";
@@ -12,7 +13,7 @@ const createOrder = async (req, res) => {
     const user = req.user;
     const cart = req.cart;
     const userId = req.user.id;
-    // console.log(req.user, {userId});
+    console.log(req.user, {userId});
 
     const { products } = cart;
 
@@ -45,7 +46,7 @@ const createOrder = async (req, res) => {
     const customer = await stripe.customers.create({
       metadata: {
         userId,
-        products:JSON.stringify(orderItems)
+        products:JSON.stringify(cartProduct)
       },
     });
 
@@ -127,14 +128,18 @@ const createOrder = async (req, res) => {
 
     res.status(303).json({ url: session.url });
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     res.status(500).json({ error: "Failed to create order" });
   }
 };
 
 // create Oder
-const storeOrder = async (customer, data,req) => {
+const storeOrder = async (customer, data) => {
   try {
+    const user = await User.findOne({where:{id: customer.metadata.userId}});
+    if(!user){
+      return;
+    }
     const Items = JSON.parse(customer.metadata.products);
     // const productInfo = await getCartProducts(Items.id);
     let paymentInfo;
@@ -163,58 +168,55 @@ const storeOrder = async (customer, data,req) => {
       paymentInfo: JSON.parse(paymentInfo),
       payment_status: data.payment_status,
     });
-
+      
+    console.log({newOrder});
         const sellerName = 'Seller';
         const subject = 'Products Order';
-        const message = `Hi ${sellerName}, you have a new Order from ${req.user.email}.`;
-        const htmlContent=  Items.map((item)=>(
+        const message = `Hi ${sellerName}, you have a new Order from ${user.email}.`;
+        const htmlContent=
          `
           <div class="product">
             <div class="product-details">
-              <img src="${item.images[0]}" alt="Product Image">
               <div class="product-info">
-                <h3>${item.name}</h3>
-                <p>${item.price}</p>
-                <p>Quantity: ${item.quantity}</p>
+                <h3></h3>
+                <p></p>
+                <p>Quantity:/p>
               </div>
             </div>
             <p>${message}</p>
           </div>
         `
-        ))
   
-        const userEmail = req.user.email;
-        const userName = req.user.lastName;
+        const userEmail = user.email;
+        const userName = user.lastName;
         const message2 = `Hi ${userName}, you have added a new Order of ${Items.length} product.`;
   
-        const htmlContent2=  Items.map((item)=>(
-          `
+        const htmlContent2=  `
            <div class="product">
              <div class="product-details">
-               <img src="${item.images[0]}" alt="Product Image">
                <div class="product-info">
-                 <h3>${item.name}</h3>
-                 <p>${item.price}</p>
-                 <p>Quantity: ${item.quantity}</p>
+                 <h3>Product</h3>
+                 <p></p>
+                 <p>Quantity</p>
                </div>
              </div>
              <p>${message2}</p>
            </div>
          `
-         ))
+        
   
-        const notificationDetails = {
-          receiver: Items[0].sellerId,
-          subject,
-          message,
-          entityId: { productWishId: Items.id},
-          productImage: Items[0].images[0],
-          receiverId:Items[0].sellerId
-      };
+      //   const notificationDetails = {
+      //     receiver: Items[0].sellerId,
+      //     subject,
+      //     message,
+      //     entityId: { productWishId: Items.id},
+      //     productImage: Items[0].images[0],
+      //     receiverId:Items[0].sellerId
+      // };
 
-      io.emit('newOrder-notification', notificationDetails);
+      // io.emit('newOrder-notification', notificationDetails);
         await Promise.all([
-          await Notifications.create(notificationDetails),
+          // await Notifications.create(notificationDetails),
           sendEmailService(process.env.MAIL, sellerName, subject, htmlContent),
           sendEmailService(userEmail, userName, subject, htmlContent2)
         ]);
@@ -276,9 +278,9 @@ const webhookStript = async (req, res) => {
     stripe.customers
       .retrieve(data.customer)
       .then((customer) => {
-        // console.log(customer);
-        // console.log(`Data`, data);
-        storeOrder(customer, data, req);
+        console.log(customer);
+        console.log(`Data`, data);
+        storeOrder(customer, data);
       })
       .catch((error) => {
         console.log(error.message);

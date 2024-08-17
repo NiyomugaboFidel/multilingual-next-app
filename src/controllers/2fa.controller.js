@@ -7,7 +7,6 @@ import { sendEmail } from '../services/sendEmail.service';
 
 
 
-
 // Route to generate OTP and send email
 const createOtp = async (req, res) => {
   const { userId} = req.query;
