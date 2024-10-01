@@ -1,0 +1,17 @@
+{
+    "HomePage": {
+      "title": "exemple next-intl",
+      "description": "Bienvenue dans l'exemple d'internationalisation (i18n) de Next.js ! Cette démo met en valeur la puissance de l'App Router et comment gérer le contenu multilingue de manière transparente en utilisant next-intl."
+    },
+    "NotFoundPage": {
+      "title": "Page non trouvée",
+      "description": "Oups ! Il semble que vous soyez tombé sur une page qui n'existe pas. Ne vous inquiétez pas, notre magie d'internationalisation continue de fonctionner dans d'autres parties de l'application. N'hésitez pas à revenir en arrière pour explorer davantage !"
+    },
+    "Navigation": {
+      "home": "Accueil"
+    },
+    "Footer": {
+      "copyright": "© 2024 Votre application. Tous droits réservés."
+    }
+  }
+  

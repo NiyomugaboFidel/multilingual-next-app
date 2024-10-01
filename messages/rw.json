@@ -1,0 +1,17 @@
+{
+    "HomePage": {
+      "title": "icyitegererezo cya next-intl",
+      "description": "Ikaze mu cyitegererezo cy'icyiciro cy'Igihugu (i18n) cya Next.js! Uyu mwitozo urerekana imbaraga z'App Router n'uburyo bwo gucunga neza ibikubiyemo mu ndimi nyinshi ukoresheje next-intl."
+    },
+    "NotFoundPage": {
+      "title": "Urupapuro Ntiruboneka",
+      "description": "Aho! Birasa nk'aho uhuye n'urupapuro rutaboneka. Ntugire ubwoba, ubukorikori bwacu bwo mu ndimi burakora ku bindi bice by'iyi porogaramu. Wikwibagirwa gusubira inyuma kugira ngo ukomeze gusura byinshi!"
+    },
+    "Navigation": {
+      "home": "Urugo"
+    },
+    "Footer": {
+      "copyright": "© 2024 Porogaramu yawe. Uburenganzira bwose burabitswe."
+    }
+  }
+  
