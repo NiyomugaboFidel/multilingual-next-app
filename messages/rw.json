@@ -8,7 +8,11 @@
       "description": "Aho! Birasa nk'aho uhuye n'urupapuro rutaboneka. Ntugire ubwoba, ubukorikori bwacu bwo mu ndimi burakora ku bindi bice by'iyi porogaramu. Wikwibagirwa gusubira inyuma kugira ngo ukomeze gusura byinshi!"
     },
     "Navigation": {
-      "home": "Urugo"
+      "bestSellers": "Abakora cyane",
+      "deals": "Ibicuruzwa by'igiciro cyiza",
+      "newArrivals": "Ibicuruzwa bishya",
+      "giftCards": "Ikarita z'Impano",
+      "helpCenter": "Ikigo cy'Ubufasha"
     },
     "Footer": {
       "copyright": "© 2024 Porogaramu yawe. Uburenganzira bwose burabitswe."

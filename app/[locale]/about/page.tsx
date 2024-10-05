@@ -1,8 +1,12 @@
+import Header from '@/app/UI/organisms/Header'
 import React from 'react'
-
 const page = () => {
   return (
-    <div>page</div>
+    <>
+    <Header />
+      <div>page</div>
+    </>
+  
   )
 }
 

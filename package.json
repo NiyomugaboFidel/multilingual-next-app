@@ -1,27 +1,41 @@
 {
-  "name": "nextlingo",
+  "name": "virunga",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.13",
+    "@hookform/resolvers": "^3.9.0",
+    "@tanstack/react-query": "^5.56.2",
+    "@tanstack/react-query-devtools": "^5.58.0",
+    "axios": "^1.7.7",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.2.5",
+    "next-auth": "^4.24.8",
     "next-intl": "^3.20.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.53.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "18.3.4",
     "@types/react-dom": "^18",
+    "@types/react-i18next": "^7.8.3",
     "eslint": "^8",
-    "eslint-config-next": "14.2.13",
+    "eslint-config-next": "14.2.5",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "5.5.4"
   }
 }

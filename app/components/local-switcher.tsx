@@ -20,20 +20,42 @@ export default function LocaleSwitcher() {
     });
   };
 
+  const languages = [
+    {
+      value:'en',
+      label:'English'
+    },
+    {
+      value:'id',
+      label:'Indonesian'
+    },
+    {
+      value:'fr',
+      label:'French'
+    },
+    {
+      value:'rw',
+      label:'kinyarwanda'
+    },
+  ]
+
   return (
     <label className="border-2 rounded">
       <p className="sr-only">Change language</p>
       <select
         defaultValue={localeActive}
-        className="bg-transparent py-2"
+        className="bg-transparent py-2 px-2 border-none outline-none duration-0"
         onChange={onSelectChange}
         disabled={isPending}
       >
-        <option value="en">English</option>
-        <option value="id">Indonesian</option>
-        <option value="fr">French</option>
-        <option value="rw">Kinyarwanda</option>
+       {
+        languages.map((item, index)=>(
+          <option className='dark:text-textColor text-textColor-dark dark:bg-primaryColor-dark bg-Gary-100 ' key={index} value={item.value}>{item.label}</option>
+        ))
+       }
       </select>
     </label>
+
+
   );
 }

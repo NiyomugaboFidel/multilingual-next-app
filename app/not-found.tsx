@@ -1,5 +1,4 @@
 'use client'
-import './[locale]/globals.css'
 import Link from "next/link"
 
 export default function Notfound(){
