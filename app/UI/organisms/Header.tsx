@@ -10,7 +10,6 @@ import NavItem from "../molecules/NavItem";
 import LocaleSwitcher from "@/app/components/local-switcher";
 import { navRouter } from "@/app/data/Constant";
 
-
 const Header: React.FC = () => {
   const [searchValue, setSearchValue] = useState("");
   const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -67,8 +66,9 @@ const Header: React.FC = () => {
       </div>
       <nav className="hidden lg:flex w-full py-0 bg-primaryColor-light text-textColor-light">
         <div className="w-full flex justify-between items-end">
-          <div className="flex justify-center items-center">
-            <button className=" relative min-w-[306px] w-full rounded-t-[8px] pl-[24px] pr-[16px] bg-Gary-700 flex justify-between items-center gap-[10px] ">
+          
+          <div className="py-[12px] flex justify-center items-center bg-Gary-700 rounded-t-[8px] ">
+            <button className=" relative min-w-[306px] w-full  pl-[24px] pr-[16px] flex justify-between items-center gap-[10px] ">
               <div className="flex items-center justify-center">
                 <span className="w-full">
                   <Icon iconName="window.svg" className="w-[18px] h-[18px] " />
@@ -82,25 +82,21 @@ const Header: React.FC = () => {
               <NavItem  categoryisOpen={categoryisOpen} />
             </button>
           </div>
-          <ul className="flex justify-center items-center">
+
+          <ul className="py-[12px] flex justify-center items-center px-2">
             {navRouter().map((item, index) => (
               <Link key={index} href={item.href}>
-                <li className="text-[16px] leading-[24px]  py-[12px] px-[20px]">
+                <li className="text-[14px] 2xl:text-[16px] 2xl:leading-[24px] px-[15px]  ">
                   {item.name}
                 </li>
               </Link>
             ))}
           </ul>
-          <div className="flex items-center gap-[8px] justify-center ">
-            <div className="py-[12px] flex justify-center items-center gap-1">
+          <div className="py-[12px] flex  gap-[20px] ">
+            <div className="flex justify-center items-center gap-1">
               <LocaleSwitcher />
             </div>
-            <div className="py-[12px] flex justify-center items-center gap-1 ">
-              <span>Usd($) </span>{" "}
-              <span>
-                <Icon iconTag={svg.dropdown} className="w-[8px] h-[4px]" />
-              </span>
-            </div>
+
           </div>
         </div>
       </nav>
@@ -128,29 +124,23 @@ const Header: React.FC = () => {
           <Icon iconTag={svg.search} />
           <Icon iconTag={svg.cart} className="bg-Gary-700 hover:bg-Gary-300" />
         </div>
-       <div className={`${!isNavOpen ? 'left-[-800%]' : 'left-[0%]'} z-20 w-full top-[64px] text-start bg-primaryColor-light h-full min-h-[300px] absolute  transition-all duration-500 ease-in-out flex flex-col lg:hidden `}>
-       <div className="">
-            <button className="pl-[24px] pr-[16px] bg-Gary-700 flex justify-between items-center gap-[10px] ">
-              <div className="flex items-center justify-center">
-                <span className="w-full">
-                  <Icon iconName="window.svg" />
-                </span>
-                <span>Categories</span>
-              </div>
-              <span>
-                <Icon iconTag={svg.dropdown} className="" />
-              </span>
-            </button>
-          </div>
-        <ul className={` w-full  flex flex-col `}>
+       <div className={`${!isNavOpen ? 'left-[-800%]' : 'left-[0%]'} z-20 w-full top-[64px] text-start bg-primaryColor-light h-full min-h-[100vh] absolute  transition-all duration-500 ease-in-out flex flex-col lg:hidden `}>
+       
+        <ul className={` w-[228px] flex flex-col `}>
             {navRouter().map((item, index) => (
               <Link  key={index} href={item.href}>
-                <li  className=" text-start text-[16px] leading-[24px]  py-[12px] px-[20px]">
+                <li  className=" bg-Gary-700 text-start text-[16px] leading-[24px]  py-[12px] my-[2px] px-[20px] ">
                   {item.name}
                 </li>
               </Link>
             ))}
+           
           </ul>
+          <div className="w-[228px] my-[2px] flex flex-col lg:flex-row justify-start items-start  gap-[20px] ">
+            <div className="flex py-[12px] justify-center items-center gap-1 bg-Gary-700 w-full">
+              <LocaleSwitcher />
+            </div>
+          </div>
        </div>
       </nav>
     </div>

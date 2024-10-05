@@ -14,6 +14,11 @@
     "giftCards": "Gift Cards",
     "helpCenter": "Help Center"
   },
+  "notfound": {
+    "title": "Page not found",
+    "info": "The page you are looking for was moved, removed or might never existed.",
+    "label":"Go to HomePage"
+  },
   "Footer": {
     "copyright": "© 2024 Your App. All rights reserved."
   }

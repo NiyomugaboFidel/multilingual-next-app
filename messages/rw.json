@@ -1,21 +1,26 @@
 {
-    "HomePage": {
-      "title": "icyitegererezo cya next-intl",
-      "description": "Ikaze mu cyitegererezo cy'icyiciro cy'Igihugu (i18n) cya Next.js! Uyu mwitozo urerekana imbaraga z'App Router n'uburyo bwo gucunga neza ibikubiyemo mu ndimi nyinshi ukoresheje next-intl."
-    },
-    "NotFoundPage": {
-      "title": "Urupapuro Ntiruboneka",
-      "description": "Aho! Birasa nk'aho uhuye n'urupapuro rutaboneka. Ntugire ubwoba, ubukorikori bwacu bwo mu ndimi burakora ku bindi bice by'iyi porogaramu. Wikwibagirwa gusubira inyuma kugira ngo ukomeze gusura byinshi!"
-    },
-    "Navigation": {
-      "bestSellers": "Abakora cyane",
-      "deals": "Ibicuruzwa by'igiciro cyiza",
-      "newArrivals": "Ibicuruzwa bishya",
-      "giftCards": "Ikarita z'Impano",
-      "helpCenter": "Ikigo cy'Ubufasha"
-    },
-    "Footer": {
-      "copyright": "© 2024 Porogaramu yawe. Uburenganzira bwose burabitswe."
-    }
-  }
-  
+  "HomePage": {
+    "title": "icyitegererezo cya next-intl",
+    "description": "Ikaze mu cyitegererezo cy'icyiciro cy'Igihugu (i18n) cya Next.js! Uyu mwitozo urerekana imbaraga z'App Router n'uburyo bwo gucunga neza ibikubiyemo mu ndimi nyinshi ukoresheje next-intl."
+  },
+  "NotFoundPage": {
+    "title": "Urupapuro Ntiruboneka",
+    "description": "Aho! Birasa nk'aho uhuye n'urupapuro rutaboneka. Ntugire ubwoba, ubukorikori bwacu bwo mu ndimi burakora ku bindi bice by'iyi porogaramu. Wikwibagirwa gusubira inyuma kugira ngo ukomeze gusura byinshi!"
+  },
+  "Navigation": {
+    "bestSellers": "Abakora cyane",
+    "deals": "Iby'igiciro cyiza",
+    "newArrivals": "Ibicuruzwa bishya",
+    "giftCards": "Ikarita z'Impano",
+    "helpCenter": "Ikigo cy'Ubufasha"
+  },
+  "Footer": {
+    "copyright": "© 2024 Porogaramu yawe. Uburenganzira bwose burabitswe."
+  },
+"notfound": {
+  "title": "Urupapuro ntirwabonetse",
+  "info": "Urupapuro urimo gushaka rwimuwe, rwavanweho cyangwa rwashoboraga kutabaho na rimwe.",
+  "label": "Gusubir'ahabanza"
+}
+
+}

@@ -3,10 +3,8 @@
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation'; // Import usePathname
 import { ChangeEvent, useTransition } from 'react';
-import Icon from '../UI/atoms/Icon';
-import svg from '../data/svgIcon';
 
-export default function LocaleSwitcher() {
+export default function LocaleMoney() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const localeActive = useLocale();
@@ -24,35 +22,33 @@ export default function LocaleSwitcher() {
 
   const languages = [
     {
-      value:'en',
-      label:'English'
+      value:'$',
+      label:'USA($)'
     },
     {
-      value:'fr',
-      label:'French'
+      value:'frw',
+      label:'Rwanda(frw)'
     },
     {
-      value:'rw',
-      label:'kinyarwanda'
+      value:'£',
+      label:'Europe(£)'
     },
   ]
 
   return (
-    <label className="w-full flex lg:border-[1.5px] px-1 rounded-sm">
-      <Icon iconTag={svg.earth} icontype={false} />
+    <label className="border-2 rounded">
+      <p className="sr-only">Change Money</p>
       <select
         defaultValue={localeActive}
-        className="w-full bg-transparent border-none outline-none duration-0"
+        className="bg-transparent py-2 px-2 border-none outline-none duration-0"
         onChange={onSelectChange}
-        disabled={isPending}
+        disabled={true}
       >
-       { 
+       {
         languages.map((item, index)=>(
-          <option className='w-full dark:text-textColor text-textColor-dark dark:bg-primaryColor-dark bg-Gary-100 ' key={index} value={item.value}>{item.label}</option>
+          <option className='dark:text-textColor text-textColor-dark dark:bg-primaryColor-dark bg-Gary-100 ' key={index} value={item.value}>{item.label}</option>
         ))
-
        }
-       
       </select>
     </label>
 
