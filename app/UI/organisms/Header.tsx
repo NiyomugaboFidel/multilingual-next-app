@@ -69,15 +69,15 @@ const Header: React.FC = () => {
           
           <div className="py-[12px] flex justify-center items-center bg-Gary-700 rounded-t-[8px] ">
             <button className=" relative min-w-[306px] w-full  pl-[24px] pr-[16px] flex justify-between items-center gap-[10px] ">
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center gap-2">
                 <span className="w-full">
-                  <Icon iconName="window.svg" className="w-[18px] h-[18px] " />
+                  <Icon width={14} height={14} iconName="window.svg" icontype={false} />
                 </span>
                 <span>Categories</span>
              
               </div>
               <span onClick={()=> setCategoryIsOpen(prev => !prev)} >
-                <Icon iconTag={svg.dropdown} className="" />
+                <Icon  iconTag={svg.dropdown} className="" icontype={false} />
               </span>
               <NavItem  categoryisOpen={categoryisOpen} />
             </button>

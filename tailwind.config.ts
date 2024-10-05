@@ -82,7 +82,7 @@ const config: Config = {
         headingH6: ['16px', { lineHeight: '22px' }],
         bodyLarge: ['18px', { lineHeight: '32px' }],
         bodyDefault: ['16px', { lineHeight: '24px' }],
-        bodySmall: ['12px', { lineHeight: '22px' }],
+        bodySmall: ['14px', { lineHeight: '22px' }],
         textSingle400: ['18px', { lineHeight: '20px' }],
         textSingle300: ['16px', { lineHeight: '18px' }],
         textSingle200: ['14px', { lineHeight: '16px' }],
