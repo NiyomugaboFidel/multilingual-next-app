@@ -1,11 +1,15 @@
 {
   "HomePage": {
-    "title": "next-intl example",
-    "description": "Welcome to the Next.js Internationalization (i18n) example! This demo showcases the power of the App Router and how to manage multilingual content seamlessly using next-intl."
-  },
-  "NotFoundPage": {
-    "title": "Page Not Found",
-    "description": "Oops! It seems like you've stumbled upon a page that doesn't exist. Don't worry, our internationalization magic is still hard at work on other parts of the app. Feel free to navigate back to explore more!"
+    "Hero": {
+      "benefittitle1": "Free Shipping & Returns",
+      "benefitdesc1": "For all orders over $199.00",
+      "benefittitle2": "Secure Payment",
+      "benefitdesc2": "We ensure secure payment",
+      "benefittitle3": "Money Back Guarantee",
+      "benefitdesc3": "Returning money within 30 days",
+      "benefittitle4": "24/7 Customer Support",
+      "benefitdesc4": "Friendly customer support"
+    }
   },
   "Navigation": {
     "bestSellers": "Best Sellers",
@@ -17,9 +21,6 @@
   "notfound": {
     "title": "Page not found",
     "info": "The page you are looking for was moved, removed or might never existed.",
-    "label":"Go to HomePage"
-  },
-  "Footer": {
-    "copyright": "© 2024 Your App. All rights reserved."
+    "label": "Go to HomePage"
   }
 }

@@ -1,11 +1,15 @@
 {
   "HomePage": {
-    "title": "exemple next-intl",
-    "description": "Bienvenue dans l'exemple d'internationalisation (i18n) de Next.js ! Cette démo met en valeur la puissance de l'App Router et comment gérer le contenu multilingue de manière transparente en utilisant next-intl."
-  },
-  "NotFoundPage": {
-    "title": "Page non trouvée",
-    "description": "Oups ! Il semble que vous soyez tombé sur une page qui n'existe pas. Ne vous inquiétez pas, notre magie d'internationalisation continue de fonctionner dans d'autres parties de l'application. N'hésitez pas à revenir en arrière pour explorer davantage !"
+    "Hero": {
+      "benefittitle1": "Livraison & Retours Gratuits",
+      "benefitdesc1": "Pour toutes les commandes de plus de $199.00",
+      "benefittitle2": "Paiement Sécurisé",
+      "benefitdesc2": "Nous assurons un paiement sécurisé",
+      "benefittitle3": "Garantie de Remboursement",
+      "benefitdesc3": "Remboursement sous 30 jours",
+      "benefittitle4": "Support Client 24/7",
+      "benefitdesc4": "Support client amical"
+    }
   },
   "Navigation": {
     "bestSellers": "Meilleures Ventes",
@@ -14,13 +18,9 @@
     "giftCards": "Cartes Cadeaux",
     "helpCenter": "Centre d'Aide"
   },
-  "Footer": {
-    "copyright": "© 2024 Votre application. Tous droits réservés."
-  },
-"notfound": {
-  "title": "Page non trouvée",
-  "info": "La page que vous recherchez a été déplacée, supprimée ou n'a peut-être jamais existé.",
-  "label": "Aller à la page d'accueil"
-}
-
+  "notfound": {
+    "title": "Page non trouvée",
+    "info": "La page que vous recherchez a été déplacée, supprimée ou n'a peut-être jamais existé.",
+    "label": "Aller à la page d'accueil"
+  }
 }

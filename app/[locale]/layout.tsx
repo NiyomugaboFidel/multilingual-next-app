@@ -37,7 +37,7 @@ export default async function RootLayout({
       </head>
       <body className={`${inter.className}`}>
         <div
-          className={`${inter.className} w-[100%] h-full dark:bg-Gary-900 bg-[#FFFFFF] dark:text-Gary-100 text-Gary-800`}
+          className={`${inter.className}   w-[100%] h-full dark:bg-Gary-900 bg-[#FFFFFF] dark:text-Gary-100 text-Gary-800`}
         >
           <ReactQueryContext>
             <DarkModeProvider>

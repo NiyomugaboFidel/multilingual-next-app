@@ -1,11 +1,15 @@
 {
   "HomePage": {
-    "title": "icyitegererezo cya next-intl",
-    "description": "Ikaze mu cyitegererezo cy'icyiciro cy'Igihugu (i18n) cya Next.js! Uyu mwitozo urerekana imbaraga z'App Router n'uburyo bwo gucunga neza ibikubiyemo mu ndimi nyinshi ukoresheje next-intl."
-  },
-  "NotFoundPage": {
-    "title": "Urupapuro Ntiruboneka",
-    "description": "Aho! Birasa nk'aho uhuye n'urupapuro rutaboneka. Ntugire ubwoba, ubukorikori bwacu bwo mu ndimi burakora ku bindi bice by'iyi porogaramu. Wikwibagirwa gusubira inyuma kugira ngo ukomeze gusura byinshi!"
+    "Hero": {
+      "benefittitle1": "Kohereza Kubuntu no Gusubiza",
+      "benefitdesc1": "Ku mabwiriza yose arengeje $199.00",
+      "benefittitle2": "Kwishura Gucungirwa Umutekano",
+      "benefitdesc2": "Dufite umutekano wo kwishyura",
+      "benefittitle3": "Inyungu yo Gusubiza Amafaranga",
+      "benefitdesc3": "Tugarura amafaranga mu minsi 30",
+      "benefittitle4": "Ubufasha bwa 24/7 Kubakiriya",
+      "benefitdesc4": "Ubufasha bw'inshuti bwa buri gihe"
+    }
   },
   "Navigation": {
     "bestSellers": "Abakora cyane",
@@ -14,13 +18,9 @@
     "giftCards": "Ikarita z'Impano",
     "helpCenter": "Ikigo cy'Ubufasha"
   },
-  "Footer": {
-    "copyright": "© 2024 Porogaramu yawe. Uburenganzira bwose burabitswe."
-  },
-"notfound": {
-  "title": "Urupapuro ntirwabonetse",
-  "info": "Urupapuro urimo gushaka rwimuwe, rwavanweho cyangwa rwashoboraga kutabaho na rimwe.",
-  "label": "Gusubir'ahabanza"
-}
-
+  "notfound": {
+    "title": "Urupapuro ntirwabonetse",
+    "info": "Urupapuro urimo gushaka rwimuwe, rwavanweho cyangwa rwashoboraga kutabaho na rimwe.",
+    "label": "Gusubir'ahabanza"
+  }
 }

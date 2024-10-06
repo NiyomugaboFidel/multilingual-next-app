@@ -2,9 +2,38 @@
 import Image from "next/image";
 import Button from "../atoms/Button";
 import { IoMdArrowForward } from "react-icons/io";
-import Icon from "../atoms/Icon";
+import Benefits from "../organisms/Benefits";
+import { useTranslations } from "next-intl";
+interface benefits {
+  icon: string;
+  title: string;
+  desc: string;
+}
 
 const Hero: React.FC = () => {
+  const t = useTranslations('HomePage.Hero')
+  const benefits: benefits[] = [
+    {
+      icon: "car.svg",
+      title: t('benefittitle1'),
+      desc: t('benefitdesc1'),
+    },
+    {
+      icon: "credit-card.svg",
+      title: t('benefittitle2'),
+      desc: t('benefitdesc2'),
+    },
+    {
+      icon: "refresh-cw.svg",
+      title: t('benefittitle3'),
+      desc: t('benefitdesc3'),
+    },
+    {
+      icon: "Vector.svg",
+      title: t('benefittitle4'),
+      desc: t('benefitdesc4'),
+    },
+  ];
   return (
     <section className="w-full h-full flex flex-col gap-[72px]">
       <div className=" flex  w-full pt-[24px]">
@@ -51,44 +80,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
       <div className="w-full ">
-        <div className=" w-full h-full grid grid-cols-2 lg:grid-cols-4 gap-[24px] ">
-        <div className="flex flex-col 2xl:flex-row w-full h-full items-center justify-center gap-[16px]">
-          <span className=" ">
-            <Icon width={30} height={30} iconName="car.svg" className="bg-gray-50 w-[86px] h-[86px] md:w-[86px] md:h-[86px]" />
-          </span>
-          <span className="">
-            <h5 className="text-bodyDefault font-semibold text-Gary-900">Free Shipping & Returns</h5>
-            <p className="text-bodySmall">For all orders over $199.00</p>
-          </span>
-        </div>
-        <div className="flex flex-col 2xl:flex-row w-full h-full items-center justify-center gap-[16px]">
-          <span className=" ">
-            <Icon width={30} height={30} iconName="car.svg" className="bg-gray-50 w-[86px] h-[86px] md:w-[86px] md:h-[86px]" />
-          </span>
-          <span className="">
-            <h5 className="text-bodyDefault font-semibold text-center xl:text-start text-Gary-900 ">Free Shipping & Returns</h5>
-            <p className="text-bodySmall text-center xl:text-start ">For all orders over $199.00</p>
-          </span>
-        </div>
-        <div className="flex flex-col 2xl:flex-row w-full h-full items-center justify-center gap-[16px]">
-          <span className=" ">
-            <Icon width={30} height={30} iconName="car.svg" className="bg-gray-50 w-[86px] h-[86px] md:w-[86px] md:h-[86px]" />
-          </span>
-          <span className="">
-            <h5 className="text-bodyDefault font-semibold text-center xl:text-start text-Gary-900">Free Shipping & Returns</h5>
-            <p className="text-bodySmall text-center xl:text-start ">For all orders over $199.00</p>
-          </span>
-        </div>
-        <div className="flex flex-col 2xl:flex-row w-full h-full items-center justify-center gap-[16px]">
-          <span className=" ">
-            <Icon width={30} height={30} iconName="car.svg" className="bg-gray-50 w-[86px] h-[86px] md:w-[86px] md:h-[86px]" />
-          </span>
-          <span className="">
-            <h5 className="text-bodyDefault font-semibold text-center xl:text-start text-Gary-900">Free Shipping & Returns</h5>
-            <p className="text-bodySmall text-center xl:text-start">For all orders over $199.00</p>
-          </span>
-        </div>
-        </div>
+        <Benefits benefits={benefits} />
       </div>
     </section>
   );
