@@ -46,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
               height={16.5}
               src={`/icons/${iconName}`}
               alt={iconName ? iconName : "icon"}
+              priority
             />
           )}
         </span>

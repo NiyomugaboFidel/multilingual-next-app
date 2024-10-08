@@ -3,37 +3,11 @@ import Image from "next/image";
 import Button from "../atoms/Button";
 import { IoMdArrowForward } from "react-icons/io";
 import Benefits from "../organisms/Benefits";
-import { useTranslations } from "next-intl";
-interface benefits {
-  icon: string;
-  title: string;
-  desc: string;
-}
+import heroData from "../../data/heroData";
 
 const Hero: React.FC = () => {
-  const t = useTranslations('HomePage.Hero')
-  const benefits: benefits[] = [
-    {
-      icon: "car.svg",
-      title: t('benefittitle1'),
-      desc: t('benefitdesc1'),
-    },
-    {
-      icon: "credit-card.svg",
-      title: t('benefittitle2'),
-      desc: t('benefitdesc2'),
-    },
-    {
-      icon: "refresh-cw.svg",
-      title: t('benefittitle3'),
-      desc: t('benefitdesc3'),
-    },
-    {
-      icon: "Vector.svg",
-      title: t('benefittitle4'),
-      desc: t('benefitdesc4'),
-    },
-  ];
+  const {benefits} = heroData();
+
   return (
     <section className="w-full h-full flex flex-col gap-[72px]">
       <div className=" flex  w-full pt-[24px]">
@@ -69,6 +43,7 @@ const Hero: React.FC = () => {
                 src={"/images/hero.png"}
                 alt="hero"
                 className="h-full w-full object-cover object-center"
+                priority
               />
             </div>
           </div>

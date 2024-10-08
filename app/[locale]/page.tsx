@@ -1,5 +1,6 @@
 import Header from "../UI/organisms/Header";
 import Hero from "../UI/sections/Hero";
+import NewArrival from "../UI/templat/NewArrival";
 
 export default function Home() {
 
@@ -8,6 +9,7 @@ export default function Home() {
     <Header />
     <main className="dark:bg-gray-900 bg-white min-h-screen  px-[20px]  md:px-[50px] xl:px-[100px]">
     <Hero />  
+    <NewArrival />
     </main>
     </>
   );

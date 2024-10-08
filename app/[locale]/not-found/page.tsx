@@ -15,6 +15,7 @@ export default function Notfound() {
             height={182}
             src={"/images/404.png"}
             alt="not-found"
+            priority
           />
           <div className="w-full">
             <h2 className="text-Gary-900 dark:text-textColor-light text-headingH2 font-[600] text-center">

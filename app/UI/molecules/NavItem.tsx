@@ -15,7 +15,7 @@ const NavItem: React.FC<CategoryPorps> = ({ categoryisOpen }) => {
       <div
         className={`${
           currentRoute === `/${local}` ? "flex" : !categoryisOpen ? "flex" : "hidden"
-        } lg:h-[424px] 2xl:h-[546px] min-h-full items-start justify-center bg-[#ffffff]  absolute top-[37px] left-0  min-w-[304px] ring-1 dark:bg-[#080B1240] dark:ring-Gary-700 ring-Gary-100 rounded-b-[16px] p-[12px]`}
+        } w-full  lg:h-[424px] 2xl:h-[546px] min-h-full items-start justify-center bg-[#ffffff]  absolute top-[37px] left-0  min-w-[304px] ring-1 dark:bg-[#080B1240] dark:ring-Gary-700 ring-Gary-100 rounded-b-[16px] p-[12px]`}
       >
         <ul className=" h-full w-full max-w-[522px] gap-[6px] flex flex-col">
           <li className="px-[12px] py-[8px] rounded-[8px] hover:bg-Gary-100  dark:hover:bg-Gary-700 w-full flex justify-between items-center text-Gary-700  gap-[12px]">
