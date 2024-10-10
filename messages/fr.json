@@ -9,7 +9,11 @@
       "benefitdesc3": "Remboursement sous 30 jours",
       "benefittitle4": "Support Client 24/7",
       "benefitdesc4": "Support client amical"
-    }
+    },
+    "Heading": {
+    "NewArrivals": "Nouvelles arrivées"
+}
+
   },
   "Navigation": {
     "bestSellers": "Meilleures Ventes",

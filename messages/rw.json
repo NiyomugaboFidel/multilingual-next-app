@@ -9,7 +9,11 @@
       "benefitdesc3": "Tugarura amafaranga mu minsi 30",
       "benefittitle4": "Ubufasha bwa 24/7 Kubakiriya",
       "benefitdesc4": "Ubufasha bw'inshuti bwa buri gihe"
-    }
+    },
+    "Heading": {
+    "NewArrivals": "Ibyaje bishya"
+}
+
   },
   "Navigation": {
     "bestSellers": "Abakora cyane",
