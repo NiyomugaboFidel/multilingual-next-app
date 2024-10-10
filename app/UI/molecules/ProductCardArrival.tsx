@@ -1,13 +1,14 @@
 import Image from "next/image";
+import { ProductItems } from "@/app/types/products";
 
-const ProductCardArrival: React.FC = () => {
+const ProductCardArrival: React.FC<ProductItems> = ({price, name,id,star,image}) => {
   return (
     <div className="w-full flex items-center justify-center gap-[16px]">
       <div className=" w-[110px] h-[110px]">
         <Image
           width={100}
           height={100}
-          src={"/images/product1.png"}
+          src={image}
           alt="newProduct"
           priority
         />
@@ -15,7 +16,7 @@ const ProductCardArrival: React.FC = () => {
       <div className="flex flex-col gap-[8px] justify-center items-start">
         <div className="">
           <span className="w-full flex items-center justify-center">
-            {Array(5)
+            {Array(star)
               .fill(null)
               .map((_, index) => (
                 <Image
@@ -32,10 +33,10 @@ const ProductCardArrival: React.FC = () => {
         </div>
         <span className=" ">
           {" "}
-          <p className="text-bodyDefault">Smart Watch Series 7, White</p>
+          <p className="text-bodyDefault">{name}</p>
         </span>
         <span className="">
-          <b>$449.00 </b>
+          <b>{price}</b>
         </span>
       </div>
     </div>

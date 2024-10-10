@@ -3,13 +3,13 @@ import ProductCardArrival from "../molecules/ProductCardArrival"
 
 const ProductList1 = () => {
   return (
-    <div className="w-full min-w-[300px]  2xl:w-[416px] h-full ">
-      <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-[24px] h-full ">
+    <div className="w-full  min-h-full h-full">
+      <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-[24px] min-h-full h-full ">
         {
           Array(8)
           .fill(null)
           .map((_, index) => (
-            <ProductCardArrival />
+            <ProductCardArrival image="/images/product1.png" id={`${index}`} star={5} price="$449.00 " name="Smart Watch Series 7, White" />
           ))
         }
    

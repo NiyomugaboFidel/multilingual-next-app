@@ -19,7 +19,7 @@ const NewArrivalBanner = () => {
       backgroundImage: `url('/images/${bannerCardData.BgImage}')`,
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
-      height: '100vh', 
+      // height: '100vh', 
       width: '100%', 
     }}
      className={` bg-[#243042] shadow  rounded-[16px] w-full p-[20px]   2xl:w-[416px] h-[535px]   bg-no-repeat bg-cover bg-center`}>
