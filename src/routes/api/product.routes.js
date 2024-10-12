@@ -11,6 +11,7 @@ import {
   getProductsNearingExpiry,
   updateProduct,
   averageRating,
+  getProduct,
 } from "../../controllers/product.controllers";
 
 import { authMiddleware, checkRole } from "../../middlewares/authMiddleware";
@@ -46,12 +47,16 @@ router.get(
   checkRole(["buyer","seller"]),
   retrieveItems
 );
-router.get("/", authMiddleware, checkRole(["buyer", "seller"]), getAllProducts);
+router.get("/",getAllProducts);
 router.get(
   "/item/:id",
   authMiddleware,
   checkRole(["buyer", "seller"]),
   getaProduct
+);
+router.get(
+  "/product/:id",
+  getProduct
 );
 
 router.put(
@@ -69,7 +74,6 @@ router.put(
 
 router.get(
   "/search",
-  authMiddleware,
   searchProducts
 );
 

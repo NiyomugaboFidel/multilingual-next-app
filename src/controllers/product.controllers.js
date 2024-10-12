@@ -129,6 +129,30 @@ const getaProduct = async (req, res) => {
     const sellerId = req.user.id;
     const role = req.user.role;
     const product = await findProduct(productId, sellerId, role);
+  
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    res.status(200).json({ success: true, message: "Product retrieved successfully", product });
+  } catch (error) {
+    console.error(error.stack);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+export const getProduct = async (req, res) => {
+  const productId = req.params.id;
+
+  try {
+    const validId = verifyId(productId);
+    if (!validId) {
+      return res.status(400).json({ success: false, message: "Invalid product ID" });
+    }
+
+
+    const product = await Product.findOne({where:{id:productId , isAvailable:true}});
+  
 
     if (!product) {
       return res.status(404).json({ success: false, message: "Product not found" });

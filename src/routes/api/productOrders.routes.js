@@ -7,11 +7,11 @@ import orderValdation from '../../validation/order.validation';
 
 const router = express.Router();
 
-router.post('/', authMiddleware, checkRole(['buyer']), getUsercart, createOrder) 
+router.post('/', authMiddleware, checkRole(['buyer','seller','admin']), getUsercart, createOrder) 
 router.get('/', authMiddleware,checkRole(['admin','seller']), getOrders) 
 router.get('/:id', authMiddleware,checkRole(['admin','seller']), getOrderPerId) 
 router.post('/delivery/:id', authMiddleware,checkRole(['admin','seller']),orderValdation, changeDeliveryStatus) 
 router.post('/webhook',express.raw({type: 'application/json'}),webhookStript) 
-router.post('/address/:id', authMiddleware,  addressProfile, checkRole(['buyer']), addOrderAddress) 
+router.post('/address/:id', authMiddleware,  addressProfile, checkRole(['buyer','seller','admin']), addOrderAddress) 
 
 export default router

@@ -13,7 +13,7 @@ const createOrder = async (req, res) => {
     const user = req.user;
     const cart = req.cart;
     const userId = req.user.id;
-    console.log(req.user, {userId});
+    // console.log(req.user, {userId});
 
     const { products } = cart;
 
@@ -36,12 +36,14 @@ const createOrder = async (req, res) => {
       images: product.images,
       sellerId: product.sellerId,
     }));
+
     const cartProduct = orderItems.map((item)=>{
       return{
         id:item.id,
         quantity:item.quantity
       }
     })
+  //  console.log({cartProduct});
 
     const customer = await stripe.customers.create({
       metadata: {
@@ -141,7 +143,13 @@ const storeOrder = async (customer, data) => {
       return;
     }
     const Items = JSON.parse(customer.metadata.products);
-    // const productInfo = await getCartProducts(Items.id);
+    const productInfo = Items.map(async(item)=>{
+       return  await getCartProducts(item.id);
+    })
+
+    console.log({productInfo})
+
+
     let paymentInfo;
     paymentInfo = JSON.stringify({
       status: data.payment_status,
@@ -169,7 +177,7 @@ const storeOrder = async (customer, data) => {
       payment_status: data.payment_status,
     });
       
-    console.log({newOrder});
+    // console.log({newOrder});
         const sellerName = 'Seller';
         const subject = 'Products Order';
         const message = `Hi ${sellerName}, you have a new Order from ${user.email}.`;
@@ -217,7 +225,7 @@ const storeOrder = async (customer, data) => {
       // io.emit('newOrder-notification', notificationDetails);
         await Promise.all([
           // await Notifications.create(notificationDetails),
-          sendEmailService(process.env.MAIL, sellerName, subject, htmlContent),
+          sendEmailService(process.env.EMAIL, sellerName, subject, htmlContent),
           sendEmailService(userEmail, userName, subject, htmlContent2)
         ]);
 
@@ -278,8 +286,8 @@ const webhookStript = async (req, res) => {
     stripe.customers
       .retrieve(data.customer)
       .then((customer) => {
-        console.log(customer);
-        console.log(`Data`, data);
+        // console.log(customer);
+        // console.log(`Data`, data);
         storeOrder(customer, data);
       })
       .catch((error) => {

@@ -18,6 +18,7 @@ import validateUUID from "../validation/isValidateId";
 // ====================
 const createUser = async (req, res) => {
   const { firstName, lastName, email, password, isActive } = req.body;
+  console.log(req.body)
 
   try {
     const data = {
@@ -41,7 +42,7 @@ const createUser = async (req, res) => {
     if (token) {
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: 15* 24 * 60 * 60 * 1000,
+        maxAge: 7* 24 * 60 * 60 * 1000,
       });
     }
     await sendVerificationEmail(email, firstName, token);
@@ -126,13 +127,16 @@ const loginUser = async (req, res) => {
     if (token) {
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: 15* 24 * 60 * 60 * 1000,
+        maxAge: 7* 24 * 60 * 60 * 1000,
       });
     }
     res.status(200).json({
       success: true,
       message: "Login Successfully",
-      user: user,
+      firstName: user.firstName,
+      email:user.email,
+      profilePic:user.profilePic,
+      id:user.id,
       token: token,
     });
   } catch (error) {

@@ -4,7 +4,7 @@ import 'dotenv/config'
 import bodyParser from 'body-parser';
 import sequelize from'./database/config/sequelize'
 
-import userRouter  from'./routes/api/user.routes';
+// import userRouter  from'./routes/api/user.routes';
 import { notFound,errorHandler } from './middlewares/errorHandler';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -14,8 +14,8 @@ import googleAuthRoute from'../src/routes/api/user.authgoogle.routes'
 import swaggerUi  from'swagger-ui-express';
 import swaggerJsdoc from'swagger-jsdoc';
 import swaggerOptions from './swagger';
-import productRoutes from './routes/api/product.routes'
-import { blogImageResize, productImageResize, uploadPhoto } from './middlewares/uploadImage';
+// import productRoutes from './routes/api/product.routes'
+
 import { app, server } from './events/socket/socket';
 import cors from 'cors'
 // import productCategoryRoute from'./routes/api/category.routes'
@@ -82,8 +82,8 @@ app.post('/home',(req, res)=>{
   res.json({greet:'hello' ,message:req.body})
 })
 
-app.use('/users', userRouter);
-app.use('/products', productRoutes);
+// app.use('/users', userRouter);
+// app.use('/products', productRoutes);
 app.use('/api/v1/',allRoute);
 
 app.use(passport.initialize());

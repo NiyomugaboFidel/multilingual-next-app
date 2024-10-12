@@ -51,7 +51,8 @@ const checkRole = (roles) => async(req, res, next)=>{
     }else{
         return res
         .status(401)
-        .json({ success: false, error: `You are not is not match to a ${roles.join(' / ')}` });
+        .json({ success: false, error: `Access denied: Your role is not permitted. Allowed roles are: ${roles.join(' / ')}` });
+
     }
  } catch (error) {
     console.error(error.message)
