@@ -26,5 +26,18 @@
     "title": "Page non trouvée",
     "info": "La page que vous recherchez a été déplacée, supprimée ou n'a peut-être jamais existé.",
     "label": "Aller à la page d'accueil"
-  }
+  },
+    "categories": {
+      "computer": "Ordinateurs et accessoires",
+      "smartphones": "Smartphones et tablettes",
+      "tv": "TV, vidéo et audio",
+      "music_devices": "Haut-parleurs et musique à domicile",
+      "cameras": "Caméras, photo et vidéo",
+      "printers": "Imprimantes et encre",
+      "charging": "Stations de charge",
+      "headphones": "Casques",
+      "wearables": "Électronique portable"
+    }
+  
+  
 }

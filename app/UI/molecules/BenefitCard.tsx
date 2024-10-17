@@ -18,7 +18,7 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ items }) => {
             width={30}
             height={30}
             iconName={items.icon}
-            className="bg-gray-50 w-[86px] h-[86px] md:w-[86px] md:h-[86px] hover:hover:bg-gray-200 dark:hover:bg-Gary-300"
+            className="bg-gray-50 w-[86px] h-[86px] md:w-[86px] md:h-[86px] hover:hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-Gary-800"
           />
         </span>
         <span className="">

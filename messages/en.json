@@ -26,5 +26,19 @@
     "info": "The page you are looking for was moved, removed or might never existed.",
     "label": "Go to HomePage"
   }
- 
+  ,
+    "categories": {
+      "computer": "Computers & Accessories",
+      "smartphones": "Smartphones & Tablets",
+      "tv": "TV, Video & Audio",
+      "music_devices": "Speakers & Home Music",
+      "cameras": "Cameras, Photo & Video",
+      "printers": "Printers & Ink",
+      "charging": "Charging Stations",
+      "headphones": "Headphones",
+      "wearables": "Wearable Electronics"
+    }
+  
+  
+
 }

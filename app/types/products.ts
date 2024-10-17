@@ -4,4 +4,5 @@ export interface ProductItems {
     image:string
     price:string
     star:number
+    title:string
 }
