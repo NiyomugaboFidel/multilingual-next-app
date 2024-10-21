@@ -6,11 +6,17 @@ interface ProductCardArrivalProps extends ProductItems {
   isLoading: boolean;
 }
 
-const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({ price, name, id, star, image, title, isLoading }) => {
+const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({
+  price,
+  name,
+  id,
+  star,
+  image,
+  title,
+  isLoading,
+}) => {
   if (isLoading) {
-    return (
-         <ProductsArrivalLoader isLoading={isLoading} />
-    );
+    return <ProductsArrivalLoader isLoading={isLoading} />;
   }
 
   return (
@@ -33,7 +39,6 @@ const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({ price, name, id
                   priority
                 />
               ))}
-            
           </span>
           <p className=" text-[12px] leading-[18px] text-gray-500">45</p>
         </div>

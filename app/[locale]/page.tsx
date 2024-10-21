@@ -1,6 +1,8 @@
-import Header from "../UI/organisms/Header";
+
+import Header from "../UI/organisms/Header";import OfferProducts from "../UI/organisms/OfferProducts";
 import Hero from "../UI/sections/Hero";
 import NewArrival from "../UI/templat/NewArrival";
+import SpecialOfferTemplate from "../UI/templat/SpecialOfferTemplate";
 import TrendProductsTemplate from "../UI/templat/TrendProductsTemplate";
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
     <Hero />  
     <NewArrival />
     <TrendProductsTemplate />
+    <SpecialOfferTemplate />
     </main>
     </>
   );

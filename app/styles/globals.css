@@ -52,6 +52,12 @@ body {
   background-color: #05fb1e; /* Yellow */
   animation-delay: 0s;
 }
+button {
+  cursor: pointer;
+}
+img{
+  cursor: pointer;
+}
 
 /* Bounce animation */
 @keyframes bounce {

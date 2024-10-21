@@ -9,7 +9,7 @@ interface ProductCardProps extends ProductItems {
   bonus: number;
 }
 
-const ProductCard1: React.FC<ProductCardProps> = ({
+const ProductSliderCard: React.FC<ProductCardProps> = ({
   price,
   bonus,
   name,
@@ -27,24 +27,11 @@ const ProductCard1: React.FC<ProductCardProps> = ({
   const discountedPrice = originalPrice - discountAmount;
 
   return (
-    <div className="lg:w-[306px] lg:h-[448px]  w-full flex flex-col items-center justify-center gap-[10px] lg:p-[20px] relative">
-          <span className=" lg:hidden absolute dark:border-Gary-700 border-[#E0E5EB] top-0 right-0 w-[32px] h-[32px] text-center border shadow rounded flex items-center justify-center "><CiMenuKebab /></span>
-      
-      {index < 2 ? (
-        <span
-          className={`bg-[#2F6ED5] text-textColor-light top-0 left-0 rounded-sm absolute text-center py-[2px] shadow px-[6px] text-[12px] leading-[16px] font-[500]`}
-        >
-          New
-        </span>
-      ) : bonus / 10 < 10 ? null : (
-        <span
-          className={`bg-[#F03D3D] top-0 left-0 text-textColor-light rounded-sm absolute text-center py-[2px] shadow px-[6px] text-[12px] leading-[16px] font-[500]`}
-        >{`-${discountPercentage}%`}</span>
-      )}
-
+    <div className=" w-[270px] md:w-[306px] lg:h-[448px]  flex flex-col items-start gap-[10px] lg:p-[20px] relative ">
+          <span className="  lg:hidden absolute dark:border-Gary-700 top-[8px] border-[#E0E5EB] right-[8px] w-[32px] h-[32px] text-center border shadow rounded flex items-center justify-center "><CiMenuKebab /></span>
       {/* products image */}
-      <div className="lg:w-[306px] lg:h-[288px] p-[20px]">
-        <Image src={image} width={258} height={240} alt={name} className="hover:scale-110 object-contain object-center " />
+      <div className=" lg:w-[306px] h-[288px] p-[20px]">
+        <Image src={image} width={258} height={240} alt={name} className=" hover:scale-150 object-contain object-center  " />
       </div>
 
       {/* product content */}
@@ -67,7 +54,7 @@ const ProductCard1: React.FC<ProductCardProps> = ({
                 ))}
             </span>
             <p className="text-[12px]  dark:text-Gary-100 text-textColor-dark">
-              (45)
+            (45)
             </p>
           </div>
           <p className=" line-clamp-2 w-full text-bodyDefault text-Gary-900 font-[500] dark:text-textColor ">
@@ -94,4 +81,4 @@ const ProductCard1: React.FC<ProductCardProps> = ({
   );
 };
 
-export default ProductCard1;
+export default ProductSliderCard;
