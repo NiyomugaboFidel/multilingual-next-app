@@ -13,7 +13,7 @@ const MySlider = ({ children }: { children: ReactNode }) => {
         options={{
           type: 'loop',
           drag: 'free',
-          // focus: 'center',
+          focus: 'center',
           perPage: 3,
           perMove: 2,
           gap: '32px',

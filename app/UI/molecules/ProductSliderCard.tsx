@@ -76,6 +76,11 @@ const ProductSliderCard: React.FC<ProductCardProps> = ({
             />
           </span>
         </div>
+
+      </div>
+      <div className="w-full h-1 bg-Gary-100 rounded-full">
+        <span className="bg-Red-100 absolute w-[50%] h-1 rounded-full"></span>
+        <div className="text-bodySmall font-[400] py-1 text-gray-500">Available: <span className="text-Gary-900 text-bodySmall font-[500]">45</span> </div>
       </div>
     </div>
   );

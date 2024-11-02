@@ -2,6 +2,7 @@
 import useFetchProducts from "@/app/hooks/useFetchProducts";
 import ProductCard1 from "../molecules/ProductCards"
 import { IoIosArrowForward } from "react-icons/io";
+import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 
 const TrendingProducts:React.FC = () => {
   const { data, error, isFetched , isLoading} = useFetchProducts();
@@ -14,7 +15,12 @@ const TrendingProducts:React.FC = () => {
 
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px] py-[24px]">
-        {products?.rows?.map((item:any, index:number) => (
+
+        {  isLoading || !products ? Array(6).fill(null).map((_,i)=>(
+           <ProductCard1Skeleton key={i} />
+        ))
+        
+        : products?.rows?.map((item:any, index:number) => (
               <ProductCard1 key={item.id} index={index} 
               image={item.images && item.images.length > 0 ? item.images[0] : '/images/product1.png'}
               id={item.id}

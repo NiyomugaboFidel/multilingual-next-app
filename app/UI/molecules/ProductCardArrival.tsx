@@ -15,9 +15,7 @@ const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({
   title,
   isLoading,
 }) => {
-  if (isLoading) {
-    return <ProductsArrivalLoader isLoading={isLoading} />;
-  }
+
 
   return (
     <div className="w-full flex items-center justify-center gap-[16px]">

@@ -61,7 +61,7 @@ const config: Config = {
           400: '#FF3A46',
           300: '#FF9DA3',
           200: '#FFCDDO',
-          100: '#FFECED',
+          100: '#F55266',
         },
         gradientStart: '#ACCBEE',
         gradientEnd: '#E7F0FD',

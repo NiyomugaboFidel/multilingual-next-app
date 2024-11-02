@@ -4,7 +4,7 @@ import Hero from "../UI/sections/Hero";
 import NewArrival from "../UI/templat/NewArrival";
 import SpecialOfferTemplate from "../UI/templat/SpecialOfferTemplate";
 import TrendProductsTemplate from "../UI/templat/TrendProductsTemplate";
-
+import CampanyTemplate from "../UI/templat/CampanyTemplate";
 export default function Home() {
 
   return (
@@ -15,6 +15,7 @@ export default function Home() {
     <NewArrival />
     <TrendProductsTemplate />
     <SpecialOfferTemplate />
+    <CampanyTemplate />
     </main>
     </>
   );
