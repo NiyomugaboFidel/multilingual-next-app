@@ -56,6 +56,12 @@ const NewArrivalBanner = () => {
           >
             <div className="relative flex items-center justify-center">
               <Image
+                   style={
+                    {
+                      width:'auto',
+                      height:'auto'
+                    }
+                   }
                 priority
                 width={294}
                 height={313}

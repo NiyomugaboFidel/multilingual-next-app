@@ -39,11 +39,17 @@ const Hero: React.FC = () => {
             </div>
             <div className="w-full  h-full">
               <Image
+               style={
+                {
+                  width:'auto',
+                  height:'auto'
+                }
+               }
                 width={1034}
                 height={1032}
                 src={"/images/hero.png"}
                 alt="hero"
-                className="h-full w-full object-cover object-center"
+                className="h-auto w-auto object-cover object-center"
                 priority
               />
             </div>

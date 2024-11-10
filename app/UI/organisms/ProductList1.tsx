@@ -26,6 +26,7 @@ const ProductList1 = () => {
             id={item.id}
             star={5}
             price={item.price}
+            ratings={item.ratings}
             name={item.name}
             title={item.title}
             isLoading={isLoading}

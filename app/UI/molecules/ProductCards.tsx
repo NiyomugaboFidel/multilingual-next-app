@@ -1,98 +1,123 @@
-import Image from "next/image";
-import Icon from "../atoms/Icon";
-import svg from "@/app/data/svgIcon";
-import { ProductItems } from "@/app/types/products";
-import { CiMenuKebab } from "react-icons/ci";
+import StarRating from '@/app/components/StatRating';
+import React from 'react';
 
-
-interface ProductCardProps extends ProductItems {
-  isLoading?: boolean;
-  index: number;
+interface ProductItem {
+  id: string;
+  name: string;
+  title: string;
+  price: string;
+  image: string;
   bonus: number;
+  ratings: number[];
+  createdAt: string; // Add createdAt property
 }
 
-const ProductCard1: React.FC<ProductCardProps> = ({
+interface ProductCardProps extends ProductItem {
+  isLoading?: boolean;
+  index: number;
+}
+
+// Function to check if product is new (within the last 24 hours)
+const isProductNew = (createdAt: string) => {
+  const createdDate = new Date(createdAt);
+  const now = new Date();
+  
+  // Calculate the time difference in hours
+  const timeDiffInHours = (now.getTime() - createdDate.getTime()) / (1000 * 60 * 60);
+  
+  return timeDiffInHours < 24; // True if less than 24 hours
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({
   price,
   bonus,
   name,
-  id,
-  star,
-  image,
   title,
-  isLoading,
+  image,
   index,
+  ratings,
+  createdAt, // Destructure createdAt
 }) => {
   const originalPrice = Number(price);
   const discountPercentage = bonus / 10;
   const discountAmount = (discountPercentage / 100) * originalPrice;
   const discountedPrice = originalPrice - discountAmount;
+  const hasDiscount = discountPercentage >= 10;
 
   return (
-    <div className="lg:w-[306px] lg:h-[448px] w-full flex flex-col items-center justify-center gap-[10px] lg:p-[20px] relative">
-      <span className="lg:hidden absolute dark:border-Gary-700 border-[#E0E5EB] top-0 right-0 w-[32px] h-[32px] text-center border shadow rounded flex items-center justify-center">
-        <CiMenuKebab />
-      </span>
+    <div className="group relative flex h-full flex-col items-center justify-center gap-3 rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-lg dark:border-gray-700">
+      {/* Mobile Menu Icon */}
+      <button className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 lg:hidden dark:border-gray-700">
+        <svg 
+          viewBox="0 0 24 24" 
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M12 12h.01M12 6h.01M12 18h.01M" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
 
-      {index < 2 ? (
-        <span className={`bg-[#2F6ED5] text-textColor-light top-0 left-0 rounded-sm absolute text-center py-[2px] shadow px-[6px] text-[12px] leading-[16px] font-[500]`}>
+      {/* Badge */}
+      {isProductNew(createdAt) ? (
+        <span className="absolute left-2 top-2 rounded bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">
           New
         </span>
-      ) : bonus / 10 < 10 ? null : (
-        <span className={`bg-[#F03D3D] top-0 left-0 text-textColor-light rounded-sm absolute text-center py-[2px] shadow px-[6px] text-[12px] leading-[16px] font-[500]`}>
-          {`-${discountPercentage}%`}
+      ) : hasDiscount ? (
+        <span className="absolute left-2 top-2 rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white">
+          -{discountPercentage}%
         </span>
-      )}
+      ) : null}
 
       {/* Product Image */}
-      <div className="lg:w-[306px] lg:h-[288px] p-[20px]">
-        <Image src={image} width={258} height={240} alt={name} className="hover:scale-110 object-contain object-center" />
+      <div className="relative h-64 w-full overflow-hidden">
+        <img
+          src={image}
+          alt={name}
+          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110"
+        />
       </div>
 
-      {/* Product Content */}
-      <div className="w-full flex flex-col gap-[8px]">
-        <div className="flex flex-col gap-[2px]">
-          <div className="w-full flex items-center justify-start gap-[8px]">
-            {/* Stats */}
-            <span className="flex items-center justify-center gap-[2px]">
-              {Array(5).fill(null).map((_, index) => (
-                <Image
-                  key={index}
-                  width={10}
-                  height={10}
-                  src={"/icons/star-fill.svg"}
-                  alt="star"
-                  priority
-                />
-              ))}
+      {/* Product Details */}
+      <div className="flex w-full flex-col gap-2">
+        {/* Ratings */}
+        <div className="flex items-center gap-2">
+          <StarRating ratings={ratings} />
+        </div>
+
+        {/* Title */}
+        <h3 className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
+          {name}, {title}
+        </h3>
+
+        {/* Price and Cart */}
+        <div className="mt-auto flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-2">
+            <span className="text-lg font-bold text-gray-900 dark:text-white">
+              ${hasDiscount ? discountedPrice.toFixed(2) : originalPrice.toFixed(2)}
             </span>
-            <p className="text-[12px] dark:text-Gary-100 text-textColor-dark">(45)</p>
+            {hasDiscount && (
+              <span className="text-sm text-gray-500 line-through">
+                ${originalPrice.toFixed(2)}
+              </span>
+            )}
           </div>
-          <p className="line-clamp-2 w-full text-bodyDefault text-Gary-900 font-[500] dark:text-textColor">
-            {name}, {title}
-          </p>
+          <button className="rounded-lg bg-gray-100 p-2 transition-colors hover:bg-gray-200 dark:bg-gray-700">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
-
-        <div className="w-[90%] flex justify-between items-center">
-          <span className="w-full text-start flex lg:flex-row flex-col lg:gap-2">
-            <b className="text-[20px] leading-[28px] dark:text-[#ffffff] text-textColor-dark">
-              ${bonus / 10 < 10 ? originalPrice : discountedPrice}
-            </b>
-            {bonus / 10 > 10 ? <del className="">{originalPrice}</del> : null}
-          </span>
-          <span>
-            <Icon
-              iconTag={svg.cartblack}
-              className="bg-Gary-100 dark:bg-Gary-700 hover:bg-gray-200 rounded-lg"
-            />
-          </span>
-        </div>
-
-      </div>
-      <div>
-       
       </div>
     </div>
   );
 };
 
-export default ProductCard1;
+export default ProductCard;

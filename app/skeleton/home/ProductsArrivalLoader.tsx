@@ -19,8 +19,8 @@ const ProductsArrivalLoader: React.FC<ProductsArrivalLoaderProps> = ({
         <span className="flex gap-1">
           {Array(5)
             .fill(null)
-            .map(() => (
-              <Skeleton circle={true} height={10} width={10} />
+            .map((_,i) => (
+              <Skeleton key={i} circle={true} height={10} width={10} />
             ))}
         </span>
         <Skeleton height={15} width={100} />

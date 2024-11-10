@@ -18,8 +18,13 @@ const MySlider = ({ children }: { children: ReactNode }) => {
           perMove: 2,
           gap: '32px',
           pagination: true,
-          arrows: true, // Ensure arrows are enabled for navigation
-          autoplay: true, // Optional: Auto-play slides
+          arrows:true,
+          autoScroll: {
+            speed: 0.3,
+            pauseOnHover: true,
+            pauseOnFocus: true,
+            rewind: false,
+          },// Optional: Auto-play slides
           breakpoints: {
             640: {
               perPage: 1,

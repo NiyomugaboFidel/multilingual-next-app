@@ -24,12 +24,13 @@ const TrendingProducts:React.FC = () => {
               <ProductCard1 key={item.id} index={index} 
               image={item.images && item.images.length > 0 ? item.images[0] : '/images/product1.png'}
               id={item.id}
-              star={5}
+              ratings={item.ratings}
               price={item.price}
               name={item.name}
               bonus={item.bonus}
               title={item.title}
               isLoading={isLoading}
+              createdAt={item.updateAt}
               />
         ))
           }

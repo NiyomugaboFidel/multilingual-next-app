@@ -1,89 +1,124 @@
-import Image from "next/image";
-import Icon from "../atoms/Icon";
-import svg from "@/app/data/svgIcon";
-import { ProductItems } from "@/app/types/products";
-import { CiMenuKebab } from "react-icons/ci";
-interface ProductCardProps extends ProductItems {
-  isLoading: boolean;
-  index: number;
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import StarRating from '@/app/components/StatRating';
+
+interface Product {
+  id: string;
+  name: string;
+  title: string;
+  price: string;
+  image: string;
   bonus: number;
+  ratings:number[]
+  available: number;
+  totalStock: number;
 }
 
-const ProductSliderCard: React.FC<ProductCardProps> = ({
+const ProductSliderCard: React.FC<Product> = ({
   price,
   bonus,
   name,
-  id,
-  star,
-  image,
   title,
-  isLoading,
-  index,
+  image,
+  ratings,
+  available,
+  totalStock
 }) => {
-  const originalPrice = Number(price); // example price
-  const discountPercentage = bonus / 10; // 10% discount
-
+  const originalPrice = Number(price);
+  const discountPercentage = bonus / 10;
   const discountAmount = (discountPercentage / 100) * originalPrice;
   const discountedPrice = originalPrice - discountAmount;
+  const hasDiscount = discountPercentage >= 10;
+  const availabilityPercentage = (available / totalStock) * 100;
 
   return (
-    <div className=" w-[270px] md:w-[306px] lg:h-[448px]  flex flex-col items-start gap-[10px] lg:p-[20px] relative ">
-          <span className="  lg:hidden absolute dark:border-Gary-700 top-[8px] border-[#E0E5EB] right-[8px] w-[32px] h-[32px] text-center border shadow rounded flex items-center justify-center "><CiMenuKebab /></span>
-      {/* products image */}
-      <div className=" lg:w-[306px] h-[288px] p-[20px]">
-        <Image src={image} width={258} height={240} alt={name} className=" hover:scale-150 object-contain object-center  " />
+    <div className="group relative flex w-[270px] flex-col items-start gap-3 p-4 md:w-[306px]">
+      {/* Menu Button */}
+      <button className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-500 shadow-sm transition-colors hover:bg-gray-50 lg:hidden dark:border-gray-700 dark:hover:bg-gray-800">
+        <svg 
+          viewBox="0 0 24 24" 
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M12 12h.01M12 6h.01M12 18h.01M" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+
+      {/* Product Image */}
+      <div className="relative h-[288px] w-full overflow-hidden p-5">
+        <img
+          src={image}
+          alt={name}
+          className="h-full w-full object-contain transition-transform duration-500 hover:scale-150"
+        />
       </div>
 
-      {/* product content */}
-      <div className="w-full flex flex-col gap-[8px]">
-        <div className=" flex flex-col gap-[2px]">
-          <div className="w-full flex  items-center justify-start gap-[8px]">
-            {/* stats */}
-            <span className="flex items-center justify-center gap-[2px]">
-              {Array(5)
-                .fill(null)
-                .map((_, index) => (
-                  <Image
-                    key={index} // Add key for each item
-                    width={10}
-                    height={10}
-                    src={"/icons/star-fill.svg"}
-                    alt="star"
-                    priority
-                  />
-                ))}
+      {/* Product Details */}
+      <div className="flex w-full flex-col gap-2">
+        {/* Ratings */}
+        <div className="flex items-center gap-2">
+          {/* <div className="flex">
+            {Array(5).fill(null).map((_, i) => (
+              <svg
+                key={i}
+                viewBox="0 0 24 24"
+                className="h-3 w-3 fill-current text-yellow-400"
+              >
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            ))}
+          </div> */}
+          <StarRating ratings={ratings} />
+        
+        </div>
+
+        {/* Title */}
+        <h3 className="line-clamp-1 text-base font-medium text-gray-900 dark:text-white">
+          {name}, {title}
+        </h3>
+
+        {/* Price and Cart */}
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-2">
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
+              ${hasDiscount ? discountedPrice.toFixed(2) : originalPrice.toFixed(2)}
             </span>
-            <p className="text-[12px]  dark:text-Gary-100 text-textColor-dark">
-            (45)
-            </p>
+            {hasDiscount && (
+              <span className="text-sm text-gray-500 line-through">
+                ${originalPrice.toFixed(2)}
+              </span>
+            )}
           </div>
-          <p className=" line-clamp-2 w-full text-bodyDefault text-Gary-900 font-[500] dark:text-textColor ">
-            {name} , {title}
-          </p>
+          <button className="rounded-lg bg-gray-100 p-2 transition-colors hover:bg-gray-200 dark:bg-gray-700">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
 
-        <div className="w-[90%] flex justify-between items-center">
-          <span className="w-full text-start flex lg:flex-row flex-col lg:gap-2">
-            <b className="text-[20px] leading-[28px] dark:text-[#ffffff] text-textColor-dark">
-              ${bonus / 10 < 10 ? originalPrice : discountedPrice}
-            </b>
-            {bonus / 10 > 10 ? <del className="">${originalPrice}</del> : null}
-          </span>
-          <span>
-            <Icon
-              iconTag={svg.cartblack}
-              className=" bg-Gary-100 dark:bg-Gary-700 hover:bg-gray-200 rounded-lg "
+        {/* Availability Bar */}
+        <div className="w-full">
+          <div className="relative h-1 w-full rounded-full bg-gray-100 dark:bg-gray-700">
+            <div 
+              className="absolute h-1 rounded-full bg-red-500"
+              style={{ width: `${availabilityPercentage}%` }}
             />
-          </span>
+          </div>
+          <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            Available: <span className="font-medium text-gray-900 dark:text-white">{available.toFixed()}</span>
+          </div>
         </div>
-
-      </div>
-      <div className="w-full h-1 bg-Gary-100 rounded-full">
-        <span className="bg-Red-100 absolute w-[50%] h-1 rounded-full"></span>
-        <div className="text-bodySmall font-[400] py-1 text-gray-500">Available: <span className="text-Gary-900 text-bodySmall font-[500]">45</span> </div>
       </div>
     </div>
   );
 };
 
-export default ProductSliderCard;
+ export default ProductSliderCard
