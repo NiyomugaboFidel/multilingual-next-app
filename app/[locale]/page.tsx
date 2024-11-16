@@ -17,8 +17,11 @@ export default function Home() {
     <TrendProductsTemplate />
     <SpecialOfferTemplate />
     <CampanyTemplate />
-    {/* <NewsletterSectionTempalete /> */}
+   
     </main>
+      <div className="w-full h-full pt-[72px] ">
+      <NewsletterSectionTempalete />
+      </div>
     </>
   );
 }

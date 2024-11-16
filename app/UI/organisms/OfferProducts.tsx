@@ -6,8 +6,10 @@ import { SplideSlide } from "@splidejs/react-splide";
 import { IoIosArrowForward } from "react-icons/io";
 import TimeCountdown from "@/app/components/TimeCountdown";
 import ProductSliderCard from "../molecules/ProductSliderCard";
+import { useTranslations } from "next-intl";
 const OfferProducts = () => {
   const { data, error, isFetched, isLoading } = useFetchProducts();
+  const t =  useTranslations()
   const products: any = data;
   if (isLoading) {
     return <p className="text-center py-8">Loading products...</p>;
@@ -21,12 +23,13 @@ const OfferProducts = () => {
       <div className="flex justify-between items-start w-full  border-gray-500 border-b-[1px] pb-[24px] ">
         <div className="flex lg:flex-row flex-col items-start lg:items-center justify-center gap-[32px]">
           <h3 className=" flex items-start  justify-start lg:text-[28px] text-[23px] leading-[30px] lg:leading-[36px] font-semibold ">
-            Special offers for you
+           { t("specialOffers.title")}
           </h3>
           <TimeCountdown />
            
         </div>
-        <button className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] "><p>View All</p> <IoIosArrowForward /> </button>
+        <button className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] "><p>
+       {t("viewAll.title")}</p> <IoIosArrowForward /> </button>
       </div>
 
       <div className="pt-6">

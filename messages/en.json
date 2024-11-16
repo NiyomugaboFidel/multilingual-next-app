@@ -37,7 +37,19 @@
       "charging": "Charging Stations",
       "headphones": "Headphones",
       "wearables": "Wearable Electronics"
-    }
+    },
+    "newsletter": {
+      "title": "Sign up to our newsletter",
+      "description": "Receive our latest updates about our products & promotions"
+    },
+    "specialOffers": {
+  "title": "Special offers for you"
+},  "trendingProducts": {
+  "title": "Trending Products"
+}, "viewAll": {
+  "title": "View All"
+}
+
   
   
 

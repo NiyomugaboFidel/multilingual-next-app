@@ -11,9 +11,8 @@
       "benefitdesc4": "Ubufasha bw'inshuti bwa buri gihe"
     },
     "Heading": {
-    "NewArrivals": "Ibyaje bishya"
-}
-
+      "NewArrivals": "Ibyaje bishya"
+    }
   },
   "Navigation": {
     "bestSellers": "Abakora cyane",
@@ -27,18 +26,28 @@
     "info": "Urupapuro urimo gushaka rwimuwe, rwavanweho cyangwa rwashoboraga kutabaho na rimwe.",
     "label": "Gusubir'ahabanza"
   },
-  
-    "categories": {
-      "computer": "Mudasobwa n'ibikoresho",
-      "smartphones": "Telefoni n'ibikoresho",
-      "tv": "TV, Videwo n'ijwi",
-      "music_devices": "ibyuma by'umuziki murugo",
-      "cameras": "Camera, amafoto na videwo",
-      "printers": "Imashini zisohora inyandiko n'amavuta",
-      "charging": "Ibyuma bikwirakwiza umuriro",
-      "headphones": "Amatwi",
-      "wearables": "Amasaha"
-    }
-  
-  
+  "categories": {
+    "computer": "Mudasobwa n'ibikoresho",
+    "smartphones": "Telefoni n'ibikoresho",
+    "tv": "TV, Videwo n'ijwi",
+    "music_devices": "ibyuma by'umuziki murugo",
+    "cameras": "Camera, amafoto na videwo",
+    "printers": "Imashini zisohora inyandiko n'amavuta",
+    "charging": "Ibyuma bikwirakwiza umuriro",
+    "headphones": "Amatwi",
+    "wearables": "Amasaha"
+  },
+  "newsletter": {
+    "title": "Iyandikishe kuri nyandiko zacu",
+    "description": "Wakire amakuru agezweho ku bicuruzwa byacu n'ibikorwa byacu byihariye"
+  },
+  "specialOffers": {
+  "title": "Ibiciro bidasanzwe kuri wowe"
+},
+"trendingProducts":{
+"title":"Ibicuruzwa biri mu gihe"
+} , "viewAll": {
+  "title": "Reba byose"
+}
+
 }

@@ -40,7 +40,7 @@ const Header: React.FC = () => {
           />
         </div>
         <div className="w-full flex justify-center items-center gap-[8px]">
-          <Icon iconName="percent.svg" className="bg-Gary-700" />
+          <Icon variant="dark" iconName="percent.svg" className="bg-Gary-700" />
           <div className="flex items-start justify-center flex-col gap-[2px]">
             <p className="text-[12px] leading-[18px] text-Gary-100  ">
               Only this month
@@ -53,15 +53,15 @@ const Header: React.FC = () => {
         <div className="w-full flex justify-center items-center gap-[4px]">
           <button className="" onClick={toggleDarkMode}>
             {isDarkMode ? (
-              <Icon iconTag={svg.moon} />
+              <Icon variant="dark" iconTag={svg.moon} />
             ) : (
-              <Icon iconTag={svg.sun} />
+              <Icon variant="dark" iconTag={svg.sun} />
             )}
           </button>
 
-          <Icon iconTag={svg.heart} />
-          <Icon iconTag={svg.person} />
-          <Icon iconTag={svg.cart} className="bg-Gary-700 hover:bg-Gary-300" />
+          <Icon variant="dark" iconTag={svg.heart} />
+          <Icon variant="dark" iconTag={svg.person} />
+          <Icon  variant="dark" iconTag={svg.cart} className="bg-Gary-700 hover:bg-Gary-300" />
         </div>
       </div>
       <nav className="hidden lg:flex w-full py-0 bg-primaryColor-light text-textColor-light">
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
              
               </div>
               <span onClick={()=> setCategoryIsOpen(prev => !prev)} >
-                <Icon  iconTag={svg.dropdown} className="" icontype={false} />
+                <Icon variant="dark" iconTag={svg.dropdown} className="" icontype={false} />
               </span>
               <NavItem  categoryisOpen={categoryisOpen} />
             </button>
@@ -106,23 +106,23 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-center">
         <button className="" onClick={toggleNavOpen}>
             {isNavOpen ? (
-              <Icon iconTag={svg.menuclose} />
+              <Icon variant="dark" iconTag={svg.menuclose} />
             ) : (
-              <Icon iconTag={svg.menu} />
+              <Icon variant="dark" iconTag={svg.menu} />
             )}
           </button>
         </div>
         <div className=" flex justify-center items-center gap-[4px]">
         <button className="" onClick={toggleDarkMode}>
             {isDarkMode ? (
-              <Icon iconTag={svg.moon} />
+              <Icon variant="dark" iconTag={svg.moon} />
             ) : (
-              <Icon iconTag={svg.sun} />
+              <Icon variant="dark" iconTag={svg.sun} />
             )}
           </button>
 
-          <Icon iconTag={svg.search} />
-          <Icon iconTag={svg.cart} className="bg-Gary-700 hover:bg-Gary-300" />
+          <Icon variant="dark" iconTag={svg.search} />
+          <Icon variant="dark" iconTag={svg.cart} className="bg-Gary-700 hover:bg-Gary-300" />
         </div>
        <div className={`${!isNavOpen ? 'left-[-800%]' : 'left-[0%]'} z-20 w-full top-[64px] text-start bg-primaryColor-light h-full min-h-[100vh] absolute  transition-all duration-500 ease-in-out flex flex-col lg:hidden `}>
        

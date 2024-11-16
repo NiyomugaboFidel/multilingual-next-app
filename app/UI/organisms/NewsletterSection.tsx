@@ -1,5 +1,9 @@
 import React from 'react';
 import { Send, Instagram, Facebook, Youtube } from 'lucide-react';
+import Icon from '../atoms/Icon';
+import Button from '../atoms/Button';
+import FormField from '../molecules/FormField';
+import { useTranslations } from 'next-intl';
 
 const NewsletterSection = () => {
   const articles = [
@@ -7,67 +11,64 @@ const NewsletterSection = () => {
       id: 1,
       title: "Getting Started with Smart Home Devices",
       duration: "6:16",
-      thumbnail: "./images/product1.png"
+      thumbnail: "./images/hero.png"
     },
     {
       id: 2,
       title: "Must-Have Tech Accessories for Productivity",
       duration: "10:20",
-      thumbnail: "./images/product1.png"
+      thumbnail: "./images/hero.png"
     },
     {
       id: 3,
       title: "Latest Tech Innovations Review",
       duration: "8:40",
-      thumbnail: "./images/product1.png"
+      thumbnail: "./images/hero.png"
     }
   ];
-
+  const t  = useTranslations() ;
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-8 bg-gray-50">
+    <div className="flex flex-col md:flex-row  items-start justify-between gap-8 p-8 bg-gray-50  px-[20px]  md:px-[50px] xl:px-[100px]">
       {/* Newsletter Signup Section */}
-      <div className="md:w-1/2">
-        <h2 className="text-2xl font-bold mb-2">Sign up to our newsletter</h2>
-        <p className="text-gray-600 mb-4">
-          Receive our latest updates about our products & promotions
-        </p>
+      <div className="md:w-1/2 flex flex-col  gap-[28px] lg:gap-[36px]">
+    <div>
+    <h2 className="text-2xl font-bold mb-2">{t("newsletter.title")}</h2>
+    <p className="text-gray-600 mb-4">{t("newsletter.description")}</p>
+    </div>
         
-        <div className="flex gap-2 mb-6">
-          <input
-            type="email"
-            placeholder="Your email"
-            className="flex-1 p-2 border rounded-md"
-          />
-          <button className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600">
-            Subscribe
-          </button>
-        </div>
+        <form className="flex gap-2 mb-6 flex-col lg:flex-row">
+           <FormField placeholder='Your email' />
+          <Button label='Subscribe' />
 
-        <div className="flex gap-4">
-          <Instagram className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />
-          <Facebook className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />
-          <Youtube className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />
-          <Send className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />
+        </form>
+
+        <div className="flex gap-4 xl:pt-[12px]">
+          <Icon  hoverStyle='hover:bg-gray-200' className='bg-gray-100' iconTag={<Instagram className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon  hoverStyle='hover:bg-gray-200' className='bg-gray-100 ' iconTag={<Facebook className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon   hoverStyle='hover:bg-gray-200' className='bg-gray-100 ' iconTag={<Youtube className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon   hoverStyle='hover:bg-gray-200'  className='bg-gray-100 ' iconTag={<Send className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+
+    
         </div>
       </div>
 
       {/* Featured Articles Section */}
       <div className="md:w-1/2">
         {articles.map(article => (
-          <div key={article.id} className="flex gap-4 mb-4">
+          <div key={article.id} className="flex gap-4 mb-4 items-center justify-start">
             <img
               src={article.thumbnail}
               alt={article.title}
-              className="w-32 h-24 object-cover rounded-md"
+              className="w-[140px] h-[86px] rounded-[8px] object-cover object-center border relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] "
             />
-            <div className="flex flex-col justify-center">
-              <span className="text-gray-500 text-sm">{article.duration}</span>
+            <div className="flex flex-col justify-center gap-5 max-w-[260px]">
+              <span className="text-gray-500 text-sm line-clamp-2  ">{article.duration}</span>
               <h3 className="font-medium">{article.title}</h3>
             </div>
           </div>
         ))}
         
-        <button className="text-gray-600 hover:text-gray-800 flex items-center gap-2">
+        <button className="text-textColor-dark dark:text-textColor-light hover:text-gray-800 flex items-center gap-1 text-[14px] leading-[20px] font-[500] px-2 ">
           View all
           <span className="text-lg">›</span>
         </button>

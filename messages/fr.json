@@ -11,9 +11,8 @@
       "benefitdesc4": "Support client amical"
     },
     "Heading": {
-    "NewArrivals": "Nouvelles arrivées"
-}
-
+      "NewArrivals": "Nouvelles arrivées"
+    }
   },
   "Navigation": {
     "bestSellers": "Meilleures Ventes",
@@ -27,17 +26,26 @@
     "info": "La page que vous recherchez a été déplacée, supprimée ou n'a peut-être jamais existé.",
     "label": "Aller à la page d'accueil"
   },
-    "categories": {
-      "computer": "Ordinateurs et accessoires",
-      "smartphones": "Smartphones et tablettes",
-      "tv": "TV, vidéo et audio",
-      "music_devices": "Haut-parleurs et musique à domicile",
-      "cameras": "Caméras, photo et vidéo",
-      "printers": "Imprimantes et encre",
-      "charging": "Stations de charge",
-      "headphones": "Casques",
-      "wearables": "Électronique portable"
-    }
-  
-  
+  "categories": {
+    "computer": "Ordinateurs et accessoires",
+    "smartphones": "Smartphones et tablettes",
+    "tv": "TV, vidéo et audio",
+    "music_devices": "Haut-parleurs et musique à domicile",
+    "cameras": "Caméras, photo et vidéo",
+    "printers": "Imprimantes et encre",
+    "charging": "Stations de charge",
+    "headphones": "Casques",
+    "wearables": "Électronique portable"
+  },
+  "newsletter": {
+    "title": "Inscrivez-vous à notre newsletter",
+    "description": "Recevez nos dernières mises à jour sur nos produits et promotions"
+  },
+  "specialOffers": {
+  "title": "Offres spéciales pour vous"
+},  "trendingProducts": {
+  "title": "Produits tendance"
+},  "viewAll": {
+    "title": "Voir tout"
+  }
 }
