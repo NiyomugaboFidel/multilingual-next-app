@@ -1,9 +1,9 @@
 import React from 'react'
-import CampanyList from '../organisms/CampanyList'
+import CompanyList from '../organisms/CompanyList'
 
 const CampanyTemplate = () => {
   return (
-       <CampanyList />
+       <CompanyList />
   )
 }
 
