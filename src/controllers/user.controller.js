@@ -18,7 +18,7 @@ import validateUUID from "../validation/isValidateId";
 // ====================
 const createUser = async (req, res) => {
   const { firstName, lastName, email, password, isActive } = req.body;
-  console.log(req.body)
+  // console.log(req.body)
 
   try {
     const data = {
@@ -41,8 +41,10 @@ const createUser = async (req, res) => {
     const token = generateToken(newUser, { expiresIn: "15d" });
     if (token) {
       res.cookie("token", token, {
-        httpOnly: true,
-        maxAge: 7* 24 * 60 * 60 * 1000,
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === "production", 
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+        sameSite: 'Strict',
       });
     }
     await sendVerificationEmail(email, firstName, token);
@@ -53,7 +55,7 @@ const createUser = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
@@ -66,7 +68,7 @@ const createUser = async (req, res) => {
 const verifyEmail = async (req, res) => {
   const { t } = req.query;
   const token = t;
-  console.log(token);
+  // console.log(token);
   try {
     if (token) {
       const decode = verifyToke(token);
@@ -99,7 +101,7 @@ const verifyEmail = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Email verified successfully" });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
@@ -126,21 +128,27 @@ const loginUser = async (req, res) => {
     const token = generateToken(user, { expiresIn: "15d" });
     if (token) {
       res.cookie("token", token, {
-        httpOnly: true,
-        maxAge: 7* 24 * 60 * 60 * 1000,
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === "production", 
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+        sameSite: 'Strict',
       });
     }
     res.status(200).json({
       success: true,
       message: "Login Successfully",
-      firstName: user.firstName,
-      email:user.email,
-      profilePic:user.profilePic,
-      id:user.id,
+      user:{
+        firstName: user.firstName,
+        lastName:user.lastName,
+        email:user.email,
+        profilePic:user.profilePic,
+        id:user.id,
+        role:user.role,
+      },
       token: token,
     });
   } catch (error) {
-    console.log(error?.message, error?.stack);
+    // console.log(error?.message, error?.stack);
     return res
       .status(500)
       .json({ success: false, error: "Semothing went wrong" });
@@ -153,9 +161,11 @@ const logoutUser = async (req, res) => {
   try {
     // Clear the token cookie
     res.clearCookie("token");
+    console.log('logout');
     res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     console.error("Logout error:", error);
+    console.log('logout error');
     res
       .status(500)
       .json({ success: false, error: "Something went wrong during logout" });
@@ -240,7 +250,7 @@ const forgetPasswordToken = async (req, res) => {
   const email = req.body.email;
 
   const user = await User.findOne({ where: { email } });
-  console.log(user);
+  // console.log(user);
   if (!user) throw new Error("User not found with this email");
   const data = {
     email,
@@ -262,7 +272,7 @@ const resetPassword = async (req, res) => {
   try {
     const { t } = req.query;
     const { payload } = verifyToke(t);
-    console.log(payload.email);
+    // console.log(payload.email);
 
     if (payload) {
       const hashPassword = hashString(req.body.password);
@@ -330,7 +340,7 @@ const changePassword = async (req, res) => {
       .status(201)
       .json({ success: true, message: "Password Updated successful" });
   } catch (error) {
-    console.log(error?.message, error?.stack);
+    // console.log(error?.message, error?.stack);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
@@ -350,15 +360,16 @@ const getAllUsers = async (req, res) => {
         message: "No user found",
       });
     }
-    return res.status(200).json({ success: true, message: "All users", users });
+    return res.status(200).json(users);
   } catch (error) {
-    console.log(error?.message, error?.stack);
+    // console.log(error?.message, error?.stack);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
       error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
   });
 };
+
 };
 // get a user
 //  ==========================
@@ -370,7 +381,7 @@ const getUser = async (req, res) => {
       .status(401)
       .json({ success: false, error: "user id is not validate" });
   }
-  console.log(id);
+  // console.log(id);
   try {
     const user = await findUserById(id);
     if (!user) {
@@ -382,9 +393,9 @@ const getUser = async (req, res) => {
 
     return res
       .status(200)
-      .json({ success: true, message: "User is found", user });
+      .json(user);
   } catch (error) {
-    console.log(error?.message, error?.stack);
+    // console.log(error?.message, error?.stack);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
@@ -421,7 +432,7 @@ const deleteUser = async (req, res) => {
       deletedUser: deletedUser,
     });
   } catch (error) {
-    console.log(error.message, error.stack);
+    // console.log(error.message, error.stack);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",

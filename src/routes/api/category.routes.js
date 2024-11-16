@@ -21,9 +21,9 @@ router.post(
   createCategory
 );
 
-router.get("/", authMiddleware, getCategories);
+router.get("/", getCategories);
 
-router.get("/:id", authMiddleware, getCategory);
+router.get("/:id", getCategory);
 
 router.put(
   "/update/:id",

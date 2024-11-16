@@ -1,109 +1,93 @@
-//dependencies
+// ------------------------ DEPENDENCIES ------------------------
 import express from 'express';
-import 'dotenv/config'
+import 'dotenv/config';
 import bodyParser from 'body-parser';
-import sequelize from'./database/config/sequelize'
-
-// import userRouter  from'./routes/api/user.routes';
-import { notFound,errorHandler } from './middlewares/errorHandler';
+import sequelize from './database/config/sequelize';
+import { notFound, errorHandler } from './middlewares/errorHandler';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import passport from 'passport';
 import path from 'path';
-import googleAuthRoute from'../src/routes/api/user.authgoogle.routes'
-import swaggerUi  from'swagger-ui-express';
-import swaggerJsdoc from'swagger-jsdoc';
+import googleAuthRoute from '../src/routes/api/user.authgoogle.routes';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerOptions from './swagger';
-// import productRoutes from './routes/api/product.routes'
-
+import cors from 'cors';
+import allRoute from './routes/index';
 import { app, server } from './events/socket/socket';
-import cors from 'cors'
-// import productCategoryRoute from'./routes/api/category.routes'
-import allRoute from './routes/index'
 
-// declaretions
-
-const PORT  = process.env.PORT || 6000
-
-
-
-
-
+// ------------------------ DECLARATIONS ------------------------
+const PORT = process.env.PORT || 6000;
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
+// ------------------------ CONFIGURATION ------------------------
+
 // Serve Swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const corsOptions = {
   origin: '*', // Replace with your frontend URL
   optionsSuccessStatus: 200,
+  credentials: true,
 };
-app.use(cors(corsOptions));
-//ejs for test
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname,'views'));
 
-// const __dirname = path.resolve();
-// Serve static files
+// Middlewares for static files and body parsing
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(cors(corsOptions));
+
+// EJS setup for testing purposes
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Initialize session middleware
 app.use(session({
-   secret: process.env.SESSION_SECRET,
-   resave: false,
-   saveUninitialized: false,
- 
- }));
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}));
 
-  // Error handling middleware (optional)
-  app.use((err, req, res, next) => {
-    console.error(err.stack);
-   return res.status(500).json({ error: 'Server error' });
-  });
-  
- // Error-handling middleware
- app.use((err, req, res, next) => {
-    if (!res.headersSent) {
-    return  res.status(500).json({ error: err.message });
-    }
-  });
+// ------------------------ ROUTES ------------------------
 
-  // Serve the dashboard
+// Serve Swagger documentation at '/api-docs'
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Serve the dashboard
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
-// middlewares
-app.use(express.static(path.join(__dirname,'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
+// Google Authentication route
 app.use(googleAuthRoute);
 
-app.post('/home',(req, res)=>{
-  res.json({greet:'hello' ,message:req.body})
-})
+// Test route
+app.post('/home', (req, res) => {
+  res.json({ greet: 'hello', message: req.body });
+});
 
-// app.use('/users', userRouter);
-// app.use('/products', productRoutes);
-app.use('/api/v1/',allRoute);
+// Main API routes
+app.use('/api/v1/', allRoute);
 
-app.use(passport.initialize());
-app.use(passport.session());
+// ------------------------ ERROR HANDLING ------------------------
+
+// Custom error-handling middleware
 app.use(notFound);
 app.use(errorHandler);
 
+// Test database connection
+export const connection = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connected successfully');
+  } catch (error) {
+    console.log('Failed to connect to database:', error);
+  }
+};
 
-// test connection
-export const connection = async()=>{
-    try {
-       await sequelize.authenticate();
-       console.log('database connected successfully');
-    } catch (error) {
-       console.log('Failed to connect to db', error);
-    }
-   };
-
-app.get('*',(req, res)=>{
- res.send('Not Found 404')
+// Catch-all route for 404 errors
+app.get('*', (req, res) => {
+  res.send('Not Found 404');
 });
 
-export default server
+// ------------------------ SERVER SETUP ------------------------
+export default server;

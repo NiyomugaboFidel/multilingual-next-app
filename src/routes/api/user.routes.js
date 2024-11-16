@@ -97,10 +97,10 @@ router.get(
 ); // Verify otp
 
 // Admin routes (require admin role)
-router.get("/all-users", authMiddleware, isAdmin, getAllUsers); // Get all users
-router.get("/user/:id", authMiddleware, isAdmin, getUser); // Get a user
+router.get("/all-users", authMiddleware,isAdmin, getAllUsers); // Get all users
+router.get("/:id", authMiddleware,checkRole(['admin','seller', 'buyer']), getUser); // Get a user
 
 // Logout route
-router.get("/logout", authMiddleware, logoutUser); // Logout user
+router.post("/logout", authMiddleware, logoutUser); // Logout user
 
 export default router;
