@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['res.cloudinary.com'], // Add the Cloudinary domain here
+        domains: ['res.cloudinary.com','upload.wikimedia.org'], // Add the Cloudinary domain here
       },
 };
  

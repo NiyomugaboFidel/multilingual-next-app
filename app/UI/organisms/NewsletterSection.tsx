@@ -28,7 +28,7 @@ const NewsletterSection = () => {
   ];
   const t  = useTranslations() ;
   return (
-    <div className="flex flex-col md:flex-row  items-start justify-between gap-8 p-8 bg-gray-50  px-[20px]  md:px-[50px] xl:px-[100px]">
+    <div className="flex flex-col md:flex-row  items-start justify-between gap-8 p-8 dark:bg-Gary-900 bg-gray-50  px-[20px]  md:px-[50px] xl:px-[100px]">
       {/* Newsletter Signup Section */}
       <div className="md:w-1/2 flex flex-col  gap-[28px] lg:gap-[36px]">
     <div>
@@ -43,10 +43,10 @@ const NewsletterSection = () => {
         </form>
 
         <div className="flex gap-4 xl:pt-[12px]">
-          <Icon  hoverStyle='hover:bg-gray-200' className='bg-gray-100' iconTag={<Instagram className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
-          <Icon  hoverStyle='hover:bg-gray-200' className='bg-gray-100 ' iconTag={<Facebook className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
-          <Icon   hoverStyle='hover:bg-gray-200' className='bg-gray-100 ' iconTag={<Youtube className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
-          <Icon   hoverStyle='hover:bg-gray-200'  className='bg-gray-100 ' iconTag={<Send className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon  hoverStyle='hover:bg-gray-200' className='dark:bg-Gary-700 bg-gray-100' iconTag={<Instagram className="w-6 h-6 dark:text-Gary-300 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon  hoverStyle='hover:bg-gray-200' className='dark:bg-Gary-700 bg-gray-100 ' iconTag={<Facebook className="w-6 h-6 dark:text-Gary-300 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon   hoverStyle='hover:bg-gray-200' className=' dark:bg-Gary-700 bg-gray-100 ' iconTag={<Youtube className="w-6 h-6 dark:text-Gary-300 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
+          <Icon   hoverStyle='hover:bg-gray-200'  className='dark:bg-Gary-700 bg-gray-100 ' iconTag={<Send className="w-6 h-6 dark:text-Gary-300 text-gray-600 hover:text-gray-800 cursor-pointer" />} />
 
     
         </div>
@@ -59,7 +59,7 @@ const NewsletterSection = () => {
             <img
               src={article.thumbnail}
               alt={article.title}
-              className="w-[140px] h-[86px] rounded-[8px] object-cover object-center border relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] "
+              className="w-[140px] h-[86px] rounded-[8px] object-cover object-center  relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] "
             />
             <div className="flex flex-col justify-center gap-5 max-w-[260px]">
               <span className="text-gray-500 text-sm line-clamp-2  ">{article.duration}</span>

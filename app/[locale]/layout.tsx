@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import DarkModeProvider from "../context/DarkModeContext";
 import ReactQueryContext from "../context/ReactQueryContext";
 import { getMessages } from "next-intl/server";
+import Footer from "../UI/organisms/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default async function RootLayout({
               <NextIntlClientProvider locale={locale} messages={messages}>
                 <Toaster />
                 {children}
-              
+                <Footer />
               </NextIntlClientProvider>
             </DarkModeProvider>
           </ReactQueryContext>
