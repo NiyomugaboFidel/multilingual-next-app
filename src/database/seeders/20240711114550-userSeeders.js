@@ -5,26 +5,26 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const hashedPassword = await bcrypt.hash('password123', 10); // Change the password as needed
+    const hashedPassword = await bcrypt.hash('Admin@123', 10); // Change the password as needed
     await queryInterface.bulkInsert('Users', [
       {
         id: uuidv4(),
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
+        firstName: 'Niyomugabo',
+        lastName: 'Fidele',
+        email: 'fidelniyomugabo67@gmail.com',
         password: hashedPassword,
-        role: 'buyer',
+        role: 'admin',
         gender: 'male',
         prefferedLanguage: 'English',
         prefferedCurrency: 'USD',
-        userAddress: JSON.stringify({ street: '123 Main St', city: 'Anytown', state: 'CA', postalCode: '12345' }),
-        phoneN: '+1234567890',
+        userAddress: JSON.stringify({ street: '123 Main St', city: 'Kigali', state: 'CA', postalCode: '12345' }),
+        phoneN: '+250798366977',
         isBlock: false,
         refreshToken: null,
         refreshTokenExpired: null,
-        profilePic: 'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
+        profilePic: 'https://images.squarespace-cdn.com/content/v1/606ee84c9fd45e6380f05c97/929ba793-8baf-4b2a-afd6-add15941a83d/Creator+Logo+2018.jpg?format=1500w',
         isActive: true,
-        isEmailVerified: false,
+        isEmailVerified:true,
         mustUpdatePassword: false,
         lastTimePasswordUpdated: new Date(),
         expired: false,

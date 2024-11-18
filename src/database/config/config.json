@@ -1,25 +1,33 @@
+
 {
   "development": {
-    "username": "fidele",
-    "password": "fidele",
-    "database": "akagera-ec",
-    "host": "127.0.0.1",
+    "username": "root",
+    "password": "qw0cAWt0PaqkWlzfH6QncRKBeDafRmxQ",
+    "database": "test_database_tfa0",
+    "host": "dpg-cstk09m8ii6s73fjkfrg-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "port": 5432,
-    "logging": false
+    "logging": false,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
-  "test": {
-    "username": "fidele",
-    "password": "fidele",
-    "database": "akagera-ec",
-    "host": "127.0.0.1",
+    "test": {
+      "username": "root",
+    "password": "qw0cAWt0PaqkWlzfH6QncRKBeDafRmxQ",
+    "database": "test_database_tfa0",
+    "host": "dpg-cstk09m8ii6s73fjkfrg-a.oregon-postgres.render.com",
     "dialect": "postgres"
-  },
-  "production": {
-    "username": "fidele",
-    "password": "fidele",
-    "database": "akagera-ec",
-    "host": "127.0.0.1",
+    },
+    "production": {
+    "username": "root",
+    "password": "qw0cAWt0PaqkWlzfH6QncRKBeDafRmxQ",
+    "database": "test_database_tfa0",
+    "host": "dpg-cstk09m8ii6s73fjkfrg-a.oregon-postgres.render.com",
     "dialect": "postgres"
+    }
   }
-}
+  
