@@ -21,11 +21,11 @@
     "giftCards": "Cartes Cadeaux",
     "helpCenter": "Centre d'Aide"
   },
-  "notfound": {
-    "title": "Page non trouvée",
-    "info": "La page que vous recherchez a été déplacée, supprimée ou n'a peut-être jamais existé.",
-    "label": "Aller à la page d'accueil"
-  },
+"notfound": {
+  "title": "Page non trouvée",
+  "info": "La page que vous recherchez a été déplacée, supprimée ou n&#39;a peut-être jamais existé.",
+  "label": "Aller à la page d&#39;accueil"
+},
   "categories": {
     "computer": "Ordinateurs et accessoires",
     "smartphones": "Smartphones et tablettes",
