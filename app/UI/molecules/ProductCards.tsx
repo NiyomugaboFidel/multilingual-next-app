@@ -17,14 +17,15 @@ interface ProductCardProps extends ProductItem {
   index: number;
 }
 
-// Function to check if product is new (within the last 24 hours)
+
 const isProductNew = (createdAt: string) => {
   const createdDate = new Date(createdAt);
   const now = new Date();
+  // console.log('now:',now,'createdAt:',createdAt )
   
-  // Calculate the time difference in hours
+
   const timeDiffInHours = (now.getTime() - createdDate.getTime()) / (1000 * 60 * 60);
-  
+
   return timeDiffInHours < 24; // True if less than 24 hours
 };
 
@@ -61,11 +62,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Badge */}
       {isProductNew(createdAt) ? (
-        <span className="absolute left-2 top-2 rounded bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">
+        <span className="absolute z-30 left-2 top-2 rounded bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">
           New
         </span>
       ) : hasDiscount ? (
-        <span className="absolute left-2 top-2 rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white">
+        <span className="absolute z-30 left-2 top-2 rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white">
           -{discountPercentage}%
         </span>
       ) : null}

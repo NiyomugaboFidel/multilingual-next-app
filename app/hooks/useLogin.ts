@@ -12,6 +12,7 @@ interface Login {
 
 async function loginUser(data: Login) {
   const response = await api.post("/user/login", data);
+  console.log('login:',response)
   return response.data;
 }
 

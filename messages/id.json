@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "contoh next-intl",
+    "title": "contoh",
     "description": "Selamat datang di contoh Internasionalisasi (i18n) Next.js! Demo ini menunjukkan kekuatan App Router dan bagaimana mengelola konten multibahasa dengan lancar menggunakan next-intl."
   },
   "NotFoundPage": {

@@ -47,5 +47,63 @@
   "title": "Produits tendance"
 },  "viewAll": {
     "title": "Voir tout"
-  }
+  },
+    "footerLinks": {
+      "title": {
+        "company": "Entreprise",
+        "account": "Compte",
+        "customerService": "Service Client"
+      },
+      "company": {
+        "about": "À propos de l’entreprise",
+        "team": "Notre équipe",
+        "careers": "Carrières",
+        "contact": "Nous contacter",
+        "news": "Actualités"
+      },
+      "account": {
+        "yourAccount": "Votre compte",
+        "shipping": "Tarifs et politiques d’expédition",
+        "refunds": "Remboursements et remplacements",
+        "delivery": "Informations de livraison",
+        "tracking": "Suivi de commande",
+        "taxes": "Taxes et frais"
+      },
+      "customerService": {
+        "payment": "Modes de paiement",
+        "guarantee": "Garantie de remboursement",
+        "returns": "Retour des produits",
+        "support": "Centre d’assistance",
+        "shipping": "Expédition",
+        "terms": "Termes et conditions"
+      },
+      "categories": {
+        "computers": "Ordinateurs",
+        "smartphones": "Smartphones",
+        "tvVideo": "TV, Vidéo",
+        "speakers": "Enceintes",
+        "cameras": "Appareils photo",
+        "printers": "Imprimantes",
+        "videoGames": "Jeux vidéo",
+        "headphones": "Casques audio",
+        "wearable": "Montres connectées",
+        "hddSsd": "HDD/SSD",
+        "smartHome": "Maison intelligente",
+        "appleDevices": "Appareils Apple",
+        "tablets": "Tablettes",
+        "monitors": "Moniteurs",
+        "scanners": "Scanners",
+        "servers": "Serveurs",
+        "heatingCooling": "Chauffage et climatisation",
+        "eReaders": "Liseuses électroniques",
+        "dataStorage": "Stockage de données",
+        "networking": "Réseautique",
+        "powerStrips": "Multiprises",
+        "plugsOutlets": "Prises et adaptateurs",
+        "detectorsSensors": "Détecteurs et capteurs",
+        "accessories": "Accessoires"
+      }
+    }
+  
+  
 }

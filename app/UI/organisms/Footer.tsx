@@ -2,44 +2,66 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '../atoms/Logo';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+    const t = useTranslations('footerLinks');
+
   const footerLinks = {
     company: [
-      { label: 'About company', href: '/about' },
-      { label: 'Our team', href: '/team' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Contact us', href: '/contact' },
-      { label: 'News', href: '/news' }
+      { label: t('company.about'), href: '/about' },
+      { label: t('company.team'), href: '/team' },
+      { label: t('company.careers'), href: '/careers' },
+      { label: t('company.contact'), href: '/contact' },
+      { label: t('company.news'), href: '/news' }
     ],
     account: [
-      { label: 'Your account', href: '/account' },
-      { label: 'Shipping rates & policies', href: '/shipping' },
-      { label: 'Refunds & replacements', href: '/refunds' },
-      { label: 'Delivery info', href: '/delivery' },
-      { label: 'Order tracking', href: '/tracking' },
-      { label: 'Taxes & fees', href: '/taxes' }
+      { label: t('account.yourAccount'), href: '/account' },
+      { label: t('account.shipping'), href: '/shipping' },
+      { label: t('account.refunds'), href: '/refunds' },
+      { label: t('account.delivery'), href: '/delivery' },
+      { label: t('account.tracking'), href: '/tracking' },
+      { label: t('account.taxes'), href: '/taxes' }
     ],
     customerService: [
-      { label: 'Payment methods', href: '/payment' },
-      { label: 'Money back guarantee', href: '/guarantee' },
-      { label: 'Product returns', href: '/returns' },
-      { label: 'Support center', href: '/support' },
-      { label: 'Shipping', href: '/shipping' },
-      { label: 'Term and conditions', href: '/terms' }
+      { label: t('customerService.payment'), href: '/payment' },
+      { label: t('customerService.guarantee'), href: '/guarantee' },
+      { label: t('customerService.returns'), href: '/returns' },
+      { label: t('customerService.support'), href: '/support' },
+      { label: t('customerService.shipping'), href: '/shipping' },
+      { label: t('customerService.terms'), href: '/terms' }
     ],
     categories: [
-      'Computers', 'Smartphones', 'TV, Video', 'Speakers', 'Cameras', 'Printers',
-      'Video Games', 'Headphones', 'Wearable', 'HDD/SSD', 'Smart Home', 
-      'Apple Devices', 'Tablets', 'Monitors', 'Scanners', 'Servers',
-      'Heating and Cooling', 'E-readers', 'Data Storage', 'Networking',
-      'Power Strips', 'Plugs and Outlets', 'Detectors and Sensors', 'Accessories'
+      t('categories.computers'),
+      t('categories.smartphones'),
+      t('categories.tvVideo'),
+      t('categories.speakers'),
+      t('categories.cameras'),
+      t('categories.printers'),
+      t('categories.videoGames'),
+      t('categories.headphones'),
+      t('categories.wearable'),
+      t('categories.hddSsd'),
+      t('categories.smartHome'),
+      t('categories.appleDevices'),
+      t('categories.tablets'),
+      t('categories.monitors'),
+      t('categories.scanners'),
+      t('categories.servers'),
+      t('categories.heatingCooling'),
+      t('categories.eReaders'),
+      t('categories.dataStorage'),
+      t('categories.networking'),
+      t('categories.powerStrips'),
+      t('categories.plugsOutlets'),
+      t('categories.detectorsSensors'),
+      t('categories.accessories')
     ]
   };
 
   return (
-    <footer className="bg-Gary-800 text-gray-300 py-12 px-4">
+    <footer className="dark:bg-Gary-900 bg-Gary-800 text-gray-300 py-12 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Top Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-8  md:grid-cols-4 md:gap-8 mb-8">
@@ -49,7 +71,7 @@ const Footer = () => {
           <Logo textDark="dark:text-[#ffffff]" textLight="text-[#ffffff]" />
         </div>
             <p className="text-sm">Got question? Contact us 24/7</p>
-            <button className="bg-gray-900 text-white px-4 py-2 rounded-md flex items-center space-x-2">
+            <button className="bg-gray-700 text-white px-4 py-2 rounded-md flex items-center space-x-2">
               <span>Help and consultation</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -59,7 +81,7 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Company</h3>
+            <h3 className="text-white font-semibold mb-4">{t("title.company")}</h3>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
@@ -73,7 +95,7 @@ const Footer = () => {
 
           {/* Account Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Account</h3>
+            <h3 className="text-white font-semibold mb-4">{t("title.account")}</h3>
             <ul className="space-y-2">
               {footerLinks.account.map((link) => (
                 <li key={link.href}>
@@ -87,7 +109,7 @@ const Footer = () => {
 
           {/* Customer Service Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Customer service</h3>
+            <h3 className="text-white font-semibold mb-4">{t("title.customerService")}</h3>
             <ul className="space-y-2">
               {footerLinks.customerService.map((link) => (
                 <li key={link.href}>
@@ -113,9 +135,9 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-
+   <hr className="w-full border border-Gary-700" />
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-gray-800  pt-[24px] flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm mb-4 md:mb-0">
             © {currentYear} All rights reserved. Made by Virunga
           </p>

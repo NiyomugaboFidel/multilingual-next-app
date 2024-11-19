@@ -5,9 +5,18 @@ const withNextIntl = createNextIntlPlugin();
  
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    appDir: true, 
+  },
     images: {
-        domains: ['res.cloudinary.com','upload.wikimedia.org'], // Add the Cloudinary domain here
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: '**', 
+        },
+      ],
       },
 };
- 
+export const dynamic = 'force-dynamic' 
+
 export default withNextIntl(nextConfig);

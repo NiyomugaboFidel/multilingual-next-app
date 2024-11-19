@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
     <Header />
-    <main className="flex flex-col gap-[72px] dark:bg-gray-900 bg-white min-h-screen  px-[20px]  md:px-[50px] xl:px-[100px]">
+    <main className="flex flex-col gap-[72px] dark:bg-[#181D25] bg-white min-h-screen  px-[20px]  md:px-[50px] xl:px-[100px]">
     <Hero />  
     <NewArrival />
     <TrendProductsTemplate />

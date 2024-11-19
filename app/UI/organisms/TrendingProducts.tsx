@@ -31,7 +31,7 @@ const TrendingProducts: React.FC = () => {
                 image={
                   item.images && item.images.length > 0
                     ? item.images[0]
-                    : "/images/product1.png"
+                    : ""
                 }
                 id={item.id}
                 ratings={item.ratings}
@@ -40,7 +40,7 @@ const TrendingProducts: React.FC = () => {
                 bonus={item.bonus}
                 title={item.title}
                 isLoading={isLoading}
-                createdAt={item.updateAt}
+                createdAt={item.createdAt}
               />
             ))}
       </div>

@@ -26,7 +26,7 @@ const StarRating: React.FC<StarRatingProps> = ({ ratings }) => {
   return (
     <div className='flex items-center justify-center gap-[10px]'>
         <div className='flex gap-[4px] items-center justify-center text-[14px]'>
-      {[...Array(fullStars)].map((_, i) => (
+      {[...Array(fullStars === 0 ? 1 : fullStars)].map((_, i) => (
         <FaStar key={`full-${i}`} color="gold" />
       ))}
       {halfStar && <FaStarHalfAlt color="gold" />}
@@ -34,7 +34,7 @@ const StarRating: React.FC<StarRatingProps> = ({ ratings }) => {
         <FaRegStar key={`empty-${i}`} color="gold" />
       ))}
     </div>
-      <span className="text-xs text-gray-600 dark:text-gray-300">({averageRating.toFixed()})</span>
+      <span className="text-xs text-gray-600 dark:text-gray-300">({averageRating.toFixed() === "0" ? 1:averageRating.toFixed() })</span>
     </div>
   );
 };

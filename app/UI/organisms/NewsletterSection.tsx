@@ -28,7 +28,7 @@ const NewsletterSection = () => {
   ];
   const t  = useTranslations() ;
   return (
-    <div className="flex flex-col md:flex-row  items-start justify-between gap-8 p-8 dark:bg-Gary-900 bg-gray-50  px-[20px]  md:px-[50px] xl:px-[100px]">
+    <div className="flex flex-col md:flex-row  items-start justify-between gap-8 p-8 dark:bg-Gary-800 bg-gray-50  px-[20px]  md:px-[50px] xl:px-[100px]">
       {/* Newsletter Signup Section */}
       <div className="md:w-1/2 flex flex-col  gap-[28px] lg:gap-[36px]">
     <div>

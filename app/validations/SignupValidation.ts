@@ -9,6 +9,6 @@ export const SignupValidationSchema = Yup.object().shape({
     .email("Invalid email format")
     .required("Email is required"),
   password: Yup.string()
-    .min(8, "Password must be  8 characters").max(8, "Password must be  8 characters")
+    .min(6, "Password must be  8 characters").max(20, "Password must be  8 characters")
     .required("Password is required"),
 });
