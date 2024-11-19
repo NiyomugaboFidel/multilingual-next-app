@@ -76,7 +76,7 @@ const ProductSliderCard: React.FC<Product> = ({
 
         {/* Title */}
         <h3 className="line-clamp-1 text-base font-medium text-gray-900 dark:text-white">
-          {name}, {title}
+          {name}
         </h3>
 
         {/* Price and Cart */}

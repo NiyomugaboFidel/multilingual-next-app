@@ -65,15 +65,15 @@ const NewArrivalBanner = () => {
                 priority
                 width={294}
                 height={313}
-                className="top-[25px] w-[294px] h-[313px] absolute"
-                src={bannerCardData.ProductImage}
+                className="top-[25px] w-[294px] h-[313px] absolute rounded-sm shadow"
+                src={item.images[0]}
                 alt={item.name}
               />
             </div>
 
             <div className="h-full w-full flex flex-col justify-end pb-[40px] items-center gap-[20px]">
               <h3 className="text-headingH2 text-white font-bold text-center">
-                {item.images && item.images.length > 0 ? item.images[0] : ""}
+                {item.name}
               </h3>
               <p className="text-bodyDefault text-textColor">{item.title}</p>
               <Button

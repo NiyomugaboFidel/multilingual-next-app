@@ -89,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Title */}
         <h3 className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
-          {name}, {title}
+          {name}
         </h3>
 
         {/* Price and Cart */}

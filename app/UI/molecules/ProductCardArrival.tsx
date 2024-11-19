@@ -30,7 +30,7 @@ const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({
         </div>
         <span>
           <p className="text-bodyDefault">
-            {name}, {title}
+            {name}
           </p>
         </span>
         <span>
