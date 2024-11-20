@@ -85,7 +85,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
+                  <Link href={link.href} className="hover:text-white transition-colors text-bodySmall">
                     {link.label}
                   </Link>
                 </li>
@@ -99,7 +99,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.account.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
+                  <Link href={link.href} className="hover:text-white transition-colors text-bodySmall">
                     {link.label}
                   </Link>
                 </li>
@@ -113,7 +113,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.customerService.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
+                  <Link href={link.href} className="hover:text-white transition-colors text-bodySmall">
                     {link.label}
                   </Link>
                 </li>
@@ -128,7 +128,7 @@ const Footer = () => {
             {footerLinks.categories.map((category, i) => (
               <li key={category}>
                 <span className={`${i === 0 ? 'hidden' : '' } text-Gary-700 items-center justify-center` }> / </span> <Link href={`/category/${category.toLowerCase().replace(/ /g, '-')}`} 
-                      className="text-sm hover:text-white transition-colors">
+                      className=" hover:text-white transition-colors text-bodySmall">
                   {category}
                 </Link>
               </li>
@@ -138,10 +138,10 @@ const Footer = () => {
    <hr className="w-full border border-Gary-700" />
         {/* Bottom Section */}
         <div className="border-t border-gray-800  pt-[24px] flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm mb-4 md:mb-0">
+          <p className="text-bodySmall mb-4 md:mb-0">
             © {currentYear} All rights reserved. Made by Virunga
           </p>
-          <div className="space-x-4 grid grid-cols-3 md:grid-cols-5 ">
+          <div className="space-x-4 grid grid-cols-3 md:grid-cols-5 gap-3 ">
             <div className='bg-Gary-800 rounded-[6px] hover:bg-Gary-900 flex items-center justify-normal p-2 w-[58px] h-[40px]'>
             <Image src="/icons/visa-logo.svg" alt="Visa" width={40} height={25} className=" w-auto" />
             </div>

@@ -5,20 +5,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import { useTranslations } from "next-intl";
 
-const TrendingProducts: React.FC = () => {
+const ProductsList: React.FC = () => {
   const { data, error, isFetched, isLoading } = useFetchProducts();
   const products: any = data;
   const t = useTranslations();
   return (
     <div className="flex flex-col w-full h-full my-[100px]">
-      <div className="flex justify-between items-start w-full  border-gray-500 border-b-[1px] pb-[24px] ">
-        <h3 className="lg:text-[28px]  lg:leading-[36px] text-[23px] leading-[30px] font-semibold">
-          {t("trendingProducts.title")}{" "}
-        </h3>
-        <button className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] ">
-          <p> {t("viewAll.title")}</p> <IoIosArrowForward />{" "}
-        </button>
-      </div>
       <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px] py-[24px]">
         {isLoading || !products
           ? Array(6)
@@ -49,4 +41,4 @@ const TrendingProducts: React.FC = () => {
   );
 };
 
-export default TrendingProducts;
+export default ProductsList

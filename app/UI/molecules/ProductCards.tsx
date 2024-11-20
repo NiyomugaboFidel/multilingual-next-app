@@ -14,6 +14,7 @@ interface ProductItem {
 
 interface ProductCardProps extends ProductItem {
   isLoading?: boolean;
+  descriptions:string;
   index: number;
 }
 
@@ -36,6 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   title,
   image,
   index,
+  descriptions,
   ratings,
   createdAt, // Destructure createdAt
 }) => {
@@ -89,7 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Title */}
         <h3 className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
-          {name}
+        {name}{" "}{descriptions}
         </h3>
 
         {/* Price and Cart */}

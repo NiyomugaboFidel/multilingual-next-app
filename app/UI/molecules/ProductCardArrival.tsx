@@ -5,6 +5,7 @@ import StarRating from "@/app/components/StatRating";
 
 interface ProductCardArrivalProps extends ProductItems {
   isLoading: boolean;
+  descriptions:string;
   ratings:number[]
 }
 
@@ -14,6 +15,7 @@ const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({
   ratings,
   image,
   title,
+  descriptions
   
 }) => {
 
@@ -29,8 +31,8 @@ const ProductCardArrival: React.FC<ProductCardArrivalProps> = ({
          
         </div>
         <span>
-          <p className="text-bodyDefault">
-            {name}
+          <p className="text-bodyDefault line-clamp-2">
+            {name}{" "}{descriptions}
           </p>
         </span>
         <span>

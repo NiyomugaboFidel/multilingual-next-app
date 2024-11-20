@@ -12,6 +12,7 @@ interface Product {
   ratings:number[]
   available: number;
   totalStock: number;
+  descriptions:string
 }
 
 const ProductSliderCard: React.FC<Product> = ({
@@ -22,7 +23,9 @@ const ProductSliderCard: React.FC<Product> = ({
   image,
   ratings,
   available,
-  totalStock
+  totalStock,
+  descriptions
+
 }) => {
   const originalPrice = Number(price);
   const discountPercentage = bonus / 10;
@@ -75,8 +78,8 @@ const ProductSliderCard: React.FC<Product> = ({
         </div>
 
         {/* Title */}
-        <h3 className="line-clamp-1 text-base font-medium text-gray-900 dark:text-white">
-          {name}
+        <h3 className="line-clamp-2 text-base font-medium text-gray-900 dark:text-white">
+        {name}{" "}{descriptions}
         </h3>
 
         {/* Price and Cart */}

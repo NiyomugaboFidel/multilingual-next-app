@@ -42,6 +42,7 @@ const OfferProducts = () => {
             {products?.rows?.map((item: any, index: number) => (
               <SplideSlide key={item.id}>
                 <ProductSliderCard
+                descriptions={item.description}
                   available={item.quantity}
                   totalStock={400}
                   key={item.id}

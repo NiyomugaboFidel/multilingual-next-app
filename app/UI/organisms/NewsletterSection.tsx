@@ -11,19 +11,19 @@ const NewsletterSection = () => {
       id: 1,
       title: "Getting Started with Smart Home Devices",
       duration: "6:16",
-      thumbnail: "./images/hero.png"
+      thumbnail: "/images/hero.png"
     },
     {
       id: 2,
       title: "Must-Have Tech Accessories for Productivity",
       duration: "10:20",
-      thumbnail: "./images/hero.png"
+      thumbnail: "/images/hero.png"
     },
     {
       id: 3,
       title: "Latest Tech Innovations Review",
       duration: "8:40",
-      thumbnail: "./images/hero.png"
+      thumbnail: "/images/hero.png"
     }
   ];
   const t  = useTranslations() ;

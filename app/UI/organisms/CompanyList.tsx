@@ -2,17 +2,14 @@
 import React, { useState } from 'react';
 import CompanyCard from '../molecules/CampanyCard';
 import ComapanyData from '@/app/data/ComapanyData';
+import Link from 'next/link';
 
-interface Company {
-  name: string;
-  logo: string;
-}
+
 
 const CompanyList: React.FC = () => {
-  const [showAll, setShowAll] = useState(false); // State to toggle visibility of all companies
 
-  // Determine the companies to display based on the `showAll` state
-  const visibleCompanies = showAll ? ComapanyData : ComapanyData.slice(0, 4);
+
+  const visibleCompanies = ComapanyData ;
 
   return (
     <div>
@@ -21,17 +18,17 @@ const CompanyList: React.FC = () => {
           <CompanyCard key={index} name={company.label} logo={company.logo} />
         ))}
               <button
-            onClick={() => setShowAll(prev => !prev)} // Toggle the state to show all companies
+      
             className="h-[70px] w-[150px] md:w-[196px] items-center justify-center rounded-[8px] bg-[#fff] dark:border-[#333D4C] border-[#E0E5EB] border dark:bg-transparent flex font-semibold text-textColor-dark dark:text-textColor-light "
           >
-            {showAll ?'Hidden' :  'All brands ➔'}
+            <Link href={'/categories'}>
+            {'All brands ➔'}
+            </Link>
+          
           </button>
       </div>
-     
-        {/* <div className="flex justify-center mt-4">
-    
-        </div> */}
-    
+ 
+   
     </div>
   );
 };

@@ -30,6 +30,7 @@ const ProductList1 = () => {
             name={item.name}
             title={item.title}
             isLoading={isLoading}
+            descriptions={item.description}
           />
         ))}
       </div>
