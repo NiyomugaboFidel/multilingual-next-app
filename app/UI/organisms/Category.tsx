@@ -39,6 +39,7 @@ export default function ShopCategories() {
       <div className=" py-[24px] grid items-center grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-[20px] transition-all ease-in-out duration-300">
         {CompanyData.map((company, index) => (
           <Image
+          key={index}
             src={company.logo}
             alt={company.label}
             width={200}
@@ -56,7 +57,7 @@ export default function ShopCategories() {
             className="bg-white dark:bg-primaryColor-dark  rounded-[8px] overflow-hidden   transition-shadow"
           >
             {/* Category Image */}
-            <Link href={`/category/${category.href.toLowerCase()}`}>
+            <Link href={`/categories/el?=${category.href.toLowerCase()}`}>
               <div className="relative min-h-48  bg-gray-50 dark:bg-Gary-800 rounded-[6px] p-2">
                 <Image
                   src={category.image}
@@ -77,7 +78,7 @@ export default function ShopCategories() {
                 {category.items.map((item) => (
                   <li key={item.name}>
                     <Link
-                      href={item.link}
+                      href={`/categories/el?=${item.link}`}
                       className="text-Gary-700 text-bodySmall dark:text-Gary-300 hover:text-gray-900 transition-colors block  rounded-[6px] hover:underline "
                     >
                       {item.name}

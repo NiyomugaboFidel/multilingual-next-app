@@ -4,17 +4,17 @@ import NewsletterSectionTempalete from '@/app/UI/templat/NewsletterSectionTempal
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Categories',
-  description: 'This is a Products Categories',
+  title: 'Not-found',
+  description: 'This is a Not-found page Virunga online shop',
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="">
       <Header />
-      <main className="">{children}</main>
+      <main>{children}</main>
       <NewsletterSectionTempalete />
-      <Footer />
+      <Footer/>
     </div>
   );
 };

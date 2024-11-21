@@ -83,8 +83,8 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">{t("title.company")}</h3>
             <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
+              {footerLinks.company.map((link, index) => (
+                <li key={link.href + index}>
                   <Link href={link.href} className="hover:text-white transition-colors text-bodySmall">
                     {link.label}
                   </Link>
@@ -97,8 +97,8 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">{t("title.account")}</h3>
             <ul className="space-y-2">
-              {footerLinks.account.map((link) => (
-                <li key={link.href}>
+              {footerLinks.account.map((link, i) => (
+                <li key={link.href + i}>
                   <Link href={link.href} className="hover:text-white transition-colors text-bodySmall">
                     {link.label}
                   </Link>
@@ -111,8 +111,8 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">{t("title.customerService")}</h3>
             <ul className="space-y-2">
-              {footerLinks.customerService.map((link) => (
-                <li key={link.href}>
+              {footerLinks.customerService.map((link, i) => (
+                <li key={link.href + i }>
                   <Link href={link.href} className="hover:text-white transition-colors text-bodySmall">
                     {link.label}
                   </Link>
@@ -126,7 +126,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 py-8">
           <ul className="flex flex-wrap gap-4">
             {footerLinks.categories.map((category, i) => (
-              <li key={category}>
+              <li key={category + i}>
                 <span className={`${i === 0 ? 'hidden' : '' } text-Gary-700 items-center justify-center` }> / </span> <Link href={`/category/${category.toLowerCase().replace(/ /g, '-')}`} 
                       className=" hover:text-white transition-colors text-bodySmall">
                   {category}

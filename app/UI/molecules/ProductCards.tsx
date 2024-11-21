@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const hasDiscount = discountPercentage >= 10;
 
   return (
-    <div className="group relative flex h-full flex-col items-center justify-center gap-3 rounded-lg p-4 transition-shadow hover:shadow-lg dark:border-gray-700">
+    <div className="group relative flex h-full flex-col items-center justify-center gap-3 rounded-[6px] p-4  dark:border-gray-700">
       {/* Mobile Menu Icon */}
       <button className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 lg:hidden dark:border-gray-700">
         <svg 

@@ -7,7 +7,6 @@ export default function Notfound() {
   const t = useTranslations('notfound');
   return (
     <section className=" min-h-screen dark:bg-Gary-900 bg-[#FFFFFF]">
-      <Header />
       <div className="h-full pt-[20px] w-full  flex flex-col justify-center items-center">
         <div className="w-full h-full flex flex-col items-center justify-center gap-[32px] px-[20px]">
           <Image

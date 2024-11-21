@@ -10,6 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'dark-purple-1': '#362131',
+        'dark-purple-2': '#322730',
         primaryColor:{
           light:'#222934',
           DEFAULT:'#222934',
