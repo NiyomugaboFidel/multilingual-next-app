@@ -62,17 +62,7 @@ const ProductSliderCard: React.FC<Product> = ({
       <div className="flex w-full flex-col gap-2">
         {/* Ratings */}
         <div className="flex items-center gap-2">
-          {/* <div className="flex">
-            {Array(5).fill(null).map((_, i) => (
-              <svg
-                key={i}
-                viewBox="0 0 24 24"
-                className="h-3 w-3 fill-current text-yellow-400"
-              >
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-            ))}
-          </div> */}
+    
           <StarRating ratings={ratings} />
         
         </div>

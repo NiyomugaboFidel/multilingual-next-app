@@ -6,16 +6,16 @@ import Benefits from "../organisms/Benefits";
 import heroData from "../../data/heroData";
 
 const Hero: React.FC = () => {
-  const {benefits} = heroData();
+  const { benefits } = heroData();
 
   return (
     <section className="w-full h-full flex flex-col gap-[72px]">
       <div className=" flex items-center justify-center gap-[20px]  w-full pt-[24px]">
-        <div className=" hidden lg:block lg:w-1/3 2xl:w-1/4"></div>
-        
-        <div className=" relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] w-full h-full  lg:w-2/3 xl:w-3/4 lg:h-[400px] 2xl:h-[522px] flex flex-col items-center justify-center rounded-[12px]">
-          <div className="flex lg:flex-row flex-col items-center justify-center w-full h-full">
-            <div className="lg:w-[351px] h-full flex flex-col gap-[40px] items-center lg:items-start pt-[40px] lg:pt-0 lg:pl-[40px] justify-center ">
+        <div className=" hidden lg:block min-w-[304px] "></div>
+
+        <div className=" relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] w-full h-full   lg:min-h-[400px] flex flex-col items-center justify-center rounded-[12px]">
+          <div className="flex lg:flex-row flex-col items-center justify-between w-full h-full ">
+            <div className=" h-full flex flex-col gap-[40px] items-center lg:items-start pt-[40px] lg:pt-0 lg:pl-[40px] justify-center ">
               <p className="text-center lg:text-start font-[400] text-[16px] leading-[24px] py-[]">
                 Feel the real quality sound{" "}
               </p>
@@ -37,25 +37,23 @@ const Hero: React.FC = () => {
                 />
               </span>
             </div>
-            <div className="w-full  h-full">
+            <div className="w-full  h-full flex items-end justify-end">
               <Image
-               style={
-                {
-                  width:'auto',
-                  height:'auto'
-                }
-               }
-                width={1034}
-                height={1032}
+                style={{
+                  width: "auto",
+                  height: "auto",
+                }}
+                width={6034}
+                height={6032}
                 src={"/images/hero.png"}
                 alt="hero"
-                className="h-auto w-auto object-cover object-center"
+                className="h-full w-full object-cover object-center"
                 priority
               />
             </div>
           </div>
           <div className=" relative w-full flex items-center justify-center ">
-            <div className="absolute h-1 bottom-[32px]  w-[88%] bg-gray-50/35 rounded-full ">
+            <div className="absolute h-1 bottom-[30px]  w-[95%] bg-gray-50/35 rounded-full ">
               <span className=" absolute z-10 bg-white rounded-full h-full w-1/4"></span>
             </div>
           </div>

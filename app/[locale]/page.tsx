@@ -1,5 +1,5 @@
 
-import Header from "../UI/organisms/Header";import OfferProducts from "../UI/organisms/OfferProducts";
+import Header from "../UI/organisms/Header";
 import Hero from "../UI/sections/Hero";
 import NewArrival from "../UI/templat/NewArrival";
 import SpecialOfferTemplate from "../UI/templat/SpecialOfferTemplate";
@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
     <Header />
-    <main className="flex flex-col gap-[72px] dark:bg-[#181D25] bg-white min-h-screen  px-[20px]  md:px-[50px] xl:px-[100px]">
+    <main className="flex flex-col  2xl:gap-[20px]  min-h-screen  px-[20px]  md:px-[50px] xl:px-[100px]">
     <Hero />  
     <NewArrival />
     <TrendProductsTemplate />
@@ -19,7 +19,7 @@ export default function Home() {
     <CampanyTemplate />
    
     </main>
-      <div className="w-full h-full pt-[72px] ">
+      <div className="w-full h-full 2xl:pt-[72px] ">
       <NewsletterSectionTempalete />
       </div>
     </>

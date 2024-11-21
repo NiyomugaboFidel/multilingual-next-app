@@ -15,7 +15,7 @@ const MySlider = ({ children }: { children: ReactNode }) => {
           drag: 'free',
           focus: 'center',
           perPage: 3,
-          perMove: 2,
+          perMove: 1,
           gap: '32px',
           pagination: true,
           arrows:true,

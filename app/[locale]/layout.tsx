@@ -36,9 +36,9 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/icons/virunga-logo.svg" />
       </head>
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} dark:bg-[#181D25] bg-white `}>
         <div
-          className={`${inter.className}   w-[100%] h-full dark:bg-Gary-900 bg-[#FFFFFF] dark:text-Gary-100 text-Gary-800`}
+          className={`${inter.className}   w-[100%] h-full dark:bg-[#181D25] bg-[#ffffff]  dark:text-textColor-light text-textColor-dark`}
         >
           <ReactQueryContext>
             <DarkModeProvider>

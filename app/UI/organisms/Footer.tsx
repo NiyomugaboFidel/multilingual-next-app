@@ -62,7 +62,7 @@ const Footer = () => {
 
   return (
     <footer className="dark:bg-Gary-900 bg-Gary-800 text-gray-300 py-12 px-6">
-      <div className="max-w-7xl mx-auto">
+      <div className=" px-[20px]  md:px-[50px] xl:px-[100px]">
         {/* Top Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-8  md:grid-cols-4 md:gap-8 mb-8">
           {/* Brand Section */}
@@ -141,22 +141,22 @@ const Footer = () => {
           <p className="text-bodySmall mb-4 md:mb-0">
             © {currentYear} All rights reserved. Made by Virunga
           </p>
-          <div className="space-x-4 grid grid-cols-3 md:grid-cols-5 gap-3 ">
-            <div className='bg-Gary-800 rounded-[6px] hover:bg-Gary-900 flex items-center justify-normal p-2 w-[58px] h-[40px]'>
+          <div className="flex items-center justify-center gap-1 sm:gap-2 ">
+            <div className='hover:bg-Gary-900 rounded-[6px] flex items-center justify-normal p-2 w-[58px] h-[40px]'>
             <Image src="/icons/visa-logo.svg" alt="Visa" width={40} height={25} className=" w-auto" />
             </div>
-            <div className='bg-Gary-800 rounded-[6px] hover:bg-Gary-900 flex items-center justify-normal p-2 w-[58px] h-[40px]'>
+            <div className='hover:bg-Gary-900 rounded-[6px] flex items-center justify-normal p-2 w-[58px] h-[40px]'>
             <Image src="/icons/Mastercard-logo.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
             </div>
 
-            <div className='bg-Gary-800 rounded-[6px] hover:bg-Gary-900 flex items-center justify-normal p-2 w-[58px] h-[40px]'>
+            <div className='hover:bg-Gary-900 rounded-[6px] flex items-center justify-normal p-2 w-[58px] h-[40px]'>
             <Image src="/icons/PayPal-logo.svg" alt="PayPal" width={40} height={25} className="h-6 w-auto" />
             </div>
-            <div className='bg-Gary-800 rounded-[6px] hover:bg-Gary-900 flex items-center justify-normal p-2 w-[58px] h-[40px]'>
+            <div className='hover:bg-Gary-900 rounded-[6px] flex items-center justify-normal p-2 w-[58px] h-[40px]'>
             <Image src="/icons/GooglePay-logo.svg" alt="Google Pay" width={40} height={25} className="h-6 w-auto" />
 
             </div>
-            <div className='bg-Gary-800 rounded-[6px] hover:bg-Gary-900 flex items-center justify-normal p-2 w-[58px] h-[40px]'>
+            <div className='hover:bg-Gary-900 rounded-[6px] flex items-center justify-normal p-2 w-[58px] h-[40px]'>
             <Image src="/icons/ApplePay-logo.svg" alt="Apple Pay" width={40} height={25} className="h-6 w-auto" />
             </div>
            

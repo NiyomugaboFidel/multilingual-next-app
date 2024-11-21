@@ -73,7 +73,7 @@ const Header: React.FC = () => {
                 <span className="w-full">
                   <Icon width={14} height={14} iconName="window.svg" icontype={false} />
                 </span>
-                <span>Categories</span>
+                <span className=" text-bodySmall font-semibold">Categories</span>
              
               </div>
               <span onClick={()=> setCategoryIsOpen(prev => !prev)} >
@@ -86,7 +86,7 @@ const Header: React.FC = () => {
           <ul className="py-[12px] flex justify-center items-center px-2">
             {navRouter().map((item, index) => (
               <Link key={index} href={item.href}>
-                <li className="text-[14px] 2xl:text-[16px] 2xl:leading-[24px] px-[15px]  ">
+                <li className="text-bodySmall 2xl:text-[16px] 2xl:leading-[24px] px-[15px] 2xl:px-[30px]  ">
                   {item.name}
                 </li>
               </Link>

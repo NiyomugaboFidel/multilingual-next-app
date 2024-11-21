@@ -11,7 +11,7 @@ const ProductsList: React.FC = () => {
   const t = useTranslations();
   return (
     <div className="flex flex-col w-full h-full my-[100px]">
-      <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px] py-[24px]">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[24px] py-[24px]">
         {isLoading || !products
           ? Array(6)
               .fill(null)

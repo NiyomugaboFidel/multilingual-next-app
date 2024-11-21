@@ -12,15 +12,11 @@ const OfferProducts = () => {
   const t = useTranslations();
   const products: any = data;
   if (isLoading) {
-    return <p className="text-center py-8">Loading products...</p>;
+    return null
   }
 
   if (error) {
-    return (
-      <p className="text-center py-8 text-red-500">
-        Failed to load products. Please try again later.
-      </p>
-    );
+    return null
   }
   return (
     <div className="flex flex-col w-full h-full">

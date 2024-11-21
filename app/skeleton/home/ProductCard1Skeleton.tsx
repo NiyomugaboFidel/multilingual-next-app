@@ -4,10 +4,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const ProductCard1Skeleton = () => {
   return (
-    <div className="lg:w-[306px] lg:h-[448px] p-[20px] w-full flex flex-col items-center justify-center gap-[10px] lg:p-[20px] relative bg-gray-50 dark:bg-Gary-800 rounded-md">
+    <div className="lg:w-[240px] lg:h-[380px] p-[20px] w-full flex flex-col items-center justify-center gap-[10px] lg:p-[20px] relative bg-gray-50 dark:bg-Gary-800 rounded-md">
 
-    <div className=" hidden sm:block lg:w-[306px] lg:h-[288px] p-[20px] ">
-      <Skeleton height={240} width={254} className=''  />
+    <div className=" hidden sm:block ">
+      <Skeleton height={210} width={210} className=''  />
     </div>
     <div className=" block sm:hidden">
       <Skeleton className='hidden' height={240} width={100}  />

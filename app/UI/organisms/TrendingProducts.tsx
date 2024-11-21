@@ -19,7 +19,7 @@ const TrendingProducts: React.FC = () => {
           <p> {t("viewAll.title")}</p> <IoIosArrowForward />{" "}
         </button>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px] py-[24px]">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[24px] py-[24px]">
         {isLoading || !products
           ? Array(6)
               .fill(null)
