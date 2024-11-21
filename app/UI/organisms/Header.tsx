@@ -9,12 +9,14 @@ import Link from "next/link";
 import NavItem from "../molecules/NavItem";
 import LocaleSwitcher from "@/app/components/local-switcher";
 import { navRouter } from "@/app/data/Constant";
+import { useTranslations } from "next-intl";
 
 const Header: React.FC = () => {
   const [searchValue, setSearchValue] = useState("");
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [isNavOpen, setNavOpen ] = useState(false);
   const [categoryisOpen, setCategoryIsOpen ] = useState(true);
+  const t= useTranslations();
 
   // search input values
   console.log(searchValue);
@@ -73,7 +75,7 @@ const Header: React.FC = () => {
                 <span className="w-full">
                   <Icon width={14} height={14} iconName="window.svg" icontype={false} />
                 </span>
-                <span className=" text-bodySmall font-semibold">Categories</span>
+                <span className=" text-bodySmall font-semibold">{t("Categories")}</span>
              
               </div>
               <span onClick={()=> setCategoryIsOpen(prev => !prev)} >

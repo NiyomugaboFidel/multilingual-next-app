@@ -104,7 +104,92 @@
       "detectorsSensors": "Ibikoresho byo gusuzuma",
       "accessories": "Ibikoresho byunganira"
     }
-  }
+  },
+    "ECategories": {
+      "smartphones": {
+        "title": "Telefoni zigezweho",
+        "items": {
+          "apple": "Apple iPhone",
+          "samsung": "Samsung",
+          "xiaomi": "Xiaomi",
+          "nokia": "Nokia",
+          "meizu": "Meizu"
+        }
+      },
+      "accessories": {
+        "title": "Ibikoresho",
+        "items": {
+          "kits": "Udukoresho",
+          "batteries": "Bateri n’udupaki",
+          "cables": "Insinga",
+          "carAccessories": "Ibikoresho by'imodoka",
+          "chargers": "Ibikoresho byo gushyira umuriro",
+          "fmTransmitters": "Ibikoresho bya FM"
+        }
+      },
+      "tablets": {
+        "title": "Tablets",
+        "items": {
+          "ipad": "Apple iPad",
+          "android": "Tablets za Android",
+          "samsung": "Samsung",
+          "xiaomi": "Xiaomi",
+          "lenovo": "Lenovo"
+        }
+      },
+      "wearables": {
+        "title": "Ibikoresho byambikwa",
+        "items": {
+          "watches": "Amasaha y’ubwenge",
+          "fitness": "Ibikoresho by’imyitozo ngororamubiri",
+          "glasses": "Indorerwamo z’ubwenge",
+          "ebooks": "Ibitabo by’ikoranabuhanga",
+          "accessories": "Ibikoresho byiyongera",
+          "recorders": "Ibikoresho bifata amajwi"
+        }
+      },
+      "computersLaptops": {
+        "title": "Mudasobwa na za laptops",
+        "items": {
+          "laptops": "Laptops",
+          "desktops": "Mudasobwa zikomeye",
+          "monitors": "Ecrans",
+          "accessories": "Ibikoresho bya mudasobwa"
+        }
+      },
+      "camerasPhotoVideo": {
+        "title": "Camera, amafoto na video",
+        "items": {
+          "digitalCameras": "Camera zigezweho",
+          "videoCameras": "Camera za video",
+          "lenses": "Udutiyo twa camera",
+          "tripods": "Ibikoresho bifasha camera"
+        }
+      },
+      "headphones": {
+        "title": "Udukombusho",
+        "items": {
+          "overEar": "Amasikyo yo ku matwi",
+          "inEar": "Amasikyo yo mu matwi",
+          "noiseCanceling": "Amasikyo akumira urusaku",
+          "gaming": "Amasikyo yo gukina"
+        }
+      },
+      "videoGames": {
+        "title": "Imikino ya video",
+        "items": {
+          "playstation": "Imikino ya PlayStation",
+          "xbox": "Imikino ya Xbox",
+          "pc": "Imikino ya PC",
+          "accessories": "Ibikoresho by'imikino"
+        }
+      }
+    },
+    "Categories":"Ibyiciro",
+     "ShopCategory": "Ibyiciro by'ububiko",
+     "Home": "Ahabanza"
+  
+  
 
 
 

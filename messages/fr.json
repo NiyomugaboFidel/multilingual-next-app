@@ -103,7 +103,92 @@
         "detectorsSensors": "Détecteurs et capteurs",
         "accessories": "Accessoires"
       }
-    }
+    },
+      "ECategories": {
+        "smartphones": {
+          "title": "Smartphones",
+          "items": {
+            "apple": "Apple iPhone",
+            "samsung": "Samsung",
+            "xiaomi": "Xiaomi",
+            "nokia": "Nokia",
+            "meizu": "Meizu"
+          }
+        },
+        "accessories": {
+          "title": "Accessoires",
+          "items": {
+            "kits": "Kits d'accessoires",
+            "batteries": "Batteries et packs",
+            "cables": "Câbles",
+            "carAccessories": "Accessoires pour voiture",
+            "chargers": "Chargeurs et adaptateurs secteur",
+            "fmTransmitters": "Transmetteurs FM"
+          }
+        },
+        "tablets": {
+          "title": "Tablettes",
+          "items": {
+            "ipad": "Apple iPad",
+            "android": "Tablettes Android",
+            "samsung": "Samsung",
+            "xiaomi": "Xiaomi",
+            "lenovo": "Lenovo"
+          }
+        },
+        "wearables": {
+          "title": "Électronique portable",
+          "items": {
+            "watches": "Montres intelligentes",
+            "fitness": "Suiveurs de fitness",
+            "glasses": "Lunettes intelligentes",
+            "ebooks": "Livres électroniques",
+            "accessories": "Clips, bracelets et brassards",
+            "recorders": "Enregistreurs vocaux"
+          }
+        },
+        "computersLaptops": {
+          "title": "Ordinateurs et portables",
+          "items": {
+            "laptops": "Portables",
+            "desktops": "Ordinateurs de bureau",
+            "monitors": "Moniteurs",
+            "accessories": "Accessoires pour ordinateurs"
+          }
+        },
+        "camerasPhotoVideo": {
+          "title": "Appareils photo, photo et vidéo",
+          "items": {
+            "digitalCameras": "Appareils photo numériques",
+            "videoCameras": "Caméras vidéo",
+            "lenses": "Objectifs",
+            "tripods": "Trépieds et accessoires"
+          }
+        },
+        "headphones": {
+          "title": "Casques audio",
+          "items": {
+            "overEar": "Casques circum-auriculaires",
+            "inEar": "Écouteurs intra-auriculaires",
+            "noiseCanceling": "Casques antibruit",
+            "gaming": "Casques gaming"
+          }
+        },
+        "videoGames": {
+          "title": "Jeux vidéo",
+          "items": {
+            "playstation": "Jeux PlayStation",
+            "xbox": "Jeux Xbox",
+            "pc": "Jeux PC",
+            "accessories": "Accessoires de gaming"
+          }
+        }
+      },
+      "Categories":"Catégories",
+      "ShopCategory": "Catégorie de boutique",
+       "Home": "Accueil"
+    
+    
   
   
 }

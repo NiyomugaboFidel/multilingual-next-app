@@ -105,5 +105,89 @@
       "detectorsSensors": "Detectors and Sensors",
       "accessories": "Accessories"
     }
-  }
+  },
+
+  "ECategories": {
+    "smartphones": {
+      "title": "Smartphones",
+      "items": {
+        "apple": "Apple iPhone",
+        "samsung": "Samsung",
+        "xiaomi": "Xiaomi",
+        "nokia": "Nokia",
+        "meizu": "Meizu"
+      }
+    },
+    "accessories": {
+      "title": "Accessories",
+      "items": {
+        "kits": "Accessory Kits",
+        "batteries": "Batteries & Battery Packs",
+        "cables": "Cables",
+        "carAccessories": "Car Accessories",
+        "chargers": "Chargers & Power Adapters",
+        "fmTransmitters": "FM Transmitters"
+      }
+    },
+    "tablets": {
+      "title": "Tablets",
+      "items": {
+        "ipad": "Apple iPad",
+        "android": "Android Tablets",
+        "samsung": "Samsung",
+        "xiaomi": "Xiaomi",
+        "lenovo": "Lenovo"
+      }
+    },
+    "wearables": {
+      "title": "Wearable Electronics",
+      "items": {
+        "watches": "Smart Watches",
+        "fitness": "Fitness Trackers",
+        "glasses": "Smart Glasses",
+        "ebooks": "E-books",
+        "accessories": "Clips, Arm & Wristbands",
+        "recorders": "Voice Recorders"
+      }
+    },
+    "computersLaptops": {
+      "title": "Computers & Laptops",
+      "items": {
+        "laptops": "Laptops",
+        "desktops": "Desktops",
+        "monitors": "Monitors",
+        "accessories": "Computer Accessories"
+      }
+    },
+    "camerasPhotoVideo": {
+      "title": "Cameras, Photo & Video",
+      "items": {
+        "digitalCameras": "Digital Cameras",
+        "videoCameras": "Video Cameras",
+        "lenses": "Camera Lenses",
+        "tripods": "Tripods & Accessories"
+      }
+    },
+    "headphones": {
+      "title": "Headphones",
+      "items": {
+        "overEar": "Over-Ear Headphones",
+        "inEar": "In-Ear Headphones",
+        "noiseCanceling": "Noise-Canceling Headphones",
+        "gaming": "Gaming Headsets"
+      }
+    },
+    "videoGames": {
+      "title": "Video Games",
+      "items": {
+        "playstation": "PlayStation Games",
+        "xbox": "Xbox Games",
+        "pc": "PC Games",
+        "accessories": "Gaming Accessories"
+      }
+    }
+  },
+  "Categories":"Categories",
+  "ShopCategory": "Shop Category",
+  "Home":"Home"
 }
