@@ -13,6 +13,7 @@ import {
 import { MdClose } from "react-icons/md";
 import IndexPage from "./_category-El-Sidebar";
 import SiderbarFilter from "./_category-El-Sidebar";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 interface Product {
   id: number;
@@ -82,7 +83,7 @@ function CategoryElFilter() {
          </div>
           <div className="h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 items-center justify-center">
            {Array(5).fill(null).map((_,i)=>(
-             <button className="bg-Gary-100 rounded-[6px] p-1 px-3 flex gap-1 items-center justify-center" key={i}><MdClose/> Sale</button>
+             <button className="bg-Gary-100 dark:bg-Gary-700 text-bodySmall rounded-[6px] p-1 px-3 flex gap-1 items-center justify-center" key={i}><MdClose/> Sale</button>
            ))}
            <button className=" underline text-bodySmall">Clear all</button>
           </div>
@@ -143,20 +144,24 @@ function CategoryElFilter() {
                   />
                 ))}
           </div>
-
+  <hr className="w-full border border-textColor-dark dark:border-Gary-700 " />
           {/* Pagination */}
-          <div className="flex justify-center gap-2 mt-8">
+       <div className="flex w-full  items-center justify-center p-5  ">
+         <button className="p-2 flex items-center justify-start hover:bg-Gary-100 dark:hover:bg-Gary-700 rounded-full "><FaAngleLeft /></button>
+         <div className="w-full h-full flex justify-center items-center gap-2 ">
             {[1, 2, 3, 4, "...", 16].map((page, index) => (
               <button
                 key={index}
                 className={`w-8 h-8 flex items-center justify-center rounded ${
-                  page === 1 ? "bg-blue-500 text-white" : "bg-white"
+                  page === 1 ? "dark:bg-Gary-700 bg-gray-200 " : "dark:bg-Gary-800 bg-gray-50"
                 }`}
               >
                 {page}
               </button>
             ))}
           </div>
+          <button className=" flex items-center justify-end p-2 hover:bg-Gary-100 dark:hover:bg-Gary-700 rounded-full"><FaAngleRight /></button>
+       </div>
         </div>
       </div>
     </div>

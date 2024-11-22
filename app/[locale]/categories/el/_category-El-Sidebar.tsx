@@ -32,12 +32,12 @@ const SiderbarFilter = () => {
   ];
 
   const colors = [
-    { value: "green-500", label: "Green" },
-    { value: "red-500", label: "Coral red" },
-    { value: "pink-600", label: "Light pink" },
-    { value: "blue-500", label: "Sky blue" },
-    { value: "black", label: "Black" },
-    { value: "white", label: "White" },
+    { value: "#8BC4AB", label: "Green" },
+    { value: "#EE7976", label: "Coral red" },
+    { value: "#DF8FBF", label: "Light pink" },
+    { value: "#9ACBF1", label: "Sky blue" },
+    { value: "#364254", label: "Black" },
+    { value: "gray", label: "White" },
   ];
 
   return (
@@ -134,12 +134,12 @@ const SiderbarFilter = () => {
         {/* Card 6 */}
         <div className="lex gap-2 flex-col w-full h-full border  border-gray-200 dark:border-Gary-700 rounded-[8px] p-5">
           <div>
-            <p className="font-semibold text-bodyDefault">SSD Size</p>
+            <p className="font-semibold text-bodyDefault">Colors</p>
           </div>
           <RadioGroup className="pt-2 " defaultValue="green">
             {colors.map((color, i) => (
               <div key={color.label} className="flex items-center space-x-2">
-                <RadioGroupItem className={` bg-${color.value} border-gray-300 outline-gray-300`}  value={color.value} id={color.value} />
+                <RadioGroupItem  style={{ color: color.value , border: `1.5px solid  ${ color.value}` }} className={`  outline-[${color.value}] `}  value={color.value} id={color.value} />
                 <Label className="text-bodySmall " htmlFor={color.value}>
                   {color.label}
                 </Label>
