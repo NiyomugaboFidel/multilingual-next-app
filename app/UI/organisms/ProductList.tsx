@@ -1,9 +1,8 @@
 "use client";
 import useFetchProducts from "@/app/hooks/useFetchProducts";
-import ProductCard1 from "../molecules/ProductCards";
-import { IoIosArrowForward } from "react-icons/io";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import { useTranslations } from "next-intl";
+import ProductCard from "../molecules/ProductCards";
 
 const ProductsList: React.FC = () => {
   const { data, error, isFetched, isLoading } = useFetchProducts();
@@ -17,7 +16,7 @@ const ProductsList: React.FC = () => {
               .fill(null)
               .map((_, i) => <ProductCard1Skeleton key={i} />)
           : products?.rows?.map((item: any, index: number) => (
-              <ProductCard1
+              <ProductCard
                 key={item.id}
                 index={index}
                 image={

@@ -68,3 +68,8 @@ img{
     transform: scale(1);
   }
 }
+@layer base {
+  :root {
+  --radius: 0.5rem;
+ }
+}

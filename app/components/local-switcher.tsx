@@ -1,61 +1,71 @@
-'use client';
+"use client";
 
-import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation'; // Import usePathname
-import { ChangeEvent, useTransition } from 'react';
-import Icon from '../UI/atoms/Icon';
-import svg from '../data/svgIcon';
+import { useLocale } from "next-intl";
+import { useRouter, usePathname } from "next/navigation";
+import { useTransition } from "react";
+import Icon from "../UI/atoms/Icon";
+import svg from "../data/svgIcon";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+  SelectItem,
+} from "@/components/ui/select";
 
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const localeActive = useLocale();
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
 
-  const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = e.target.value;
-
+  const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
       // Replace the current locale in the path with the new locale
-      const newPath = `/${nextLocale}${pathname.slice(3)}`; // Adjust the path by replacing the locale part
+      const newPath = `/${nextLocale}${pathname.slice(3)}`;
       router.replace(newPath);
     });
   };
 
   const languages = [
     {
-      value:'en',
-      label:'English'
+      value: "en",
+      label: "English",
     },
     {
-      value:'fr',
-      label:'French'
+      value: "fr",
+      label: "French",
     },
     {
-      value:'rw',
-      label:'kinyarwanda'
+      value: "rw",
+      label: "Kinyarwanda",
     },
-  ]
+  ];
 
   return (
-    <label className="w-full flex lg:border-[1.5px] px-1 rounded-sm">
+    <label className=" lg:px-4 w-full flex items-center justify-center border-gray-100y border-[1.5px] px-1 rounded gap-1">
       <Icon iconTag={svg.earth} icontype={false} />
-      <select
+      <Select
         defaultValue={localeActive}
-        className="w-full bg-transparent border-none outline-none duration-0"
-        onChange={onSelectChange}
+        onValueChange={onSelectChange}
         disabled={isPending}
+        
       >
-       { 
-        languages.map((item, index)=>(
-          <option className='w-full dark:text-textColor text-textColor-dark dark:bg-primaryColor-dark bg-Gary-100 ' key={index} value={item.value}>{item.label}</option>
-        ))
-
-       }
-       
-      </select>
+        <SelectTrigger className=" w-full bg-transparent border-none outline-none p-0">
+          <SelectValue placeholder="Select a language" className="p-0" />
+        </SelectTrigger>
+        <SelectContent>
+          {languages.map((item, index) => (
+            <SelectItem
+              key={index}
+              value={item.value}
+              className="w-full my-1"
+            >
+              {item.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </label>
-
-
   );
 }

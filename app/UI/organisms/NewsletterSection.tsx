@@ -31,13 +31,13 @@ const NewsletterSection = () => {
     <div className="flex flex-col md:flex-row w-full items-start justify-between gap-8 p-8 dark:bg-Gary-800 bg-gray-50  px-[20px]  md:px-[50px] xl:px-[100px]">
       {/* Newsletter Signup Section */}
 
-      <div className=" w-1/2 flex flex-col  gap-[28px] items-start justify-center">
+      <div className=" w-full  lg:w-1/2 flex flex-col  gap-[28px] items-start justify-center">
     <div>
     <h2 className="text-2xl font-bold mb-2">{t("newsletter.title")}</h2>
     <p className="text-gray-600 mb-4">{t("newsletter.description")}</p>
     </div>
         
-        <form className="flex gap-2 mb-6 flex-col lg:flex-row">
+        <form className="w-full flex gap-2 mb-6 flex-col lg:flex-row">
            <FormField  placeholder='Your email' />
           <Button  label='Subscribe' />
 
@@ -54,7 +54,7 @@ const NewsletterSection = () => {
       </div>
 
       {/* Featured Articles Section */}
-      <div className="w-1/2 flex flex-col items-start justify-center">
+      <div className=" w-full lg:w-1/2 flex flex-col items-start justify-center">
        <div>
        {articles.map(article => (
           <div key={article.id} className="flex gap-4 mb-4 items-center justify-start">
@@ -63,7 +63,7 @@ const NewsletterSection = () => {
               alt={article.title}
               className="w-[140px] h-[86px] rounded-[8px] object-cover object-center  relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] "
             />
-            <div className="flex flex-col justify-center gap-5 max-w-[260px]">
+            <div className="flex flex-col justify-center gap-5 ">
               <span className="text-gray-500 text-bodySmall line-clamp-2  ">{article.duration}</span>
               <h3 className="font-medium text-bodySmall">{article.title}</h3>
             </div>
