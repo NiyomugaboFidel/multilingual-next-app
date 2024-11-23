@@ -1,9 +1,11 @@
 import express from "express";
 import {
   createCategory,
+  createSubcategory,
   deleteCategory,
   getCategories,
   getCategory,
+  nestedCreateSubcategory,
   updateCategory,
 } from "../../controllers/category.controllers";
 import { authMiddleware, checkRole } from "../../middlewares/authMiddleware";
@@ -19,6 +21,18 @@ router.post(
   categoryValidation,
   isCategoryExistByName,
   createCategory
+);
+router.post(
+  "/subcategory",
+  authMiddleware,
+  checkRole(["seller", "admin"]),
+  createSubcategory
+);
+router.post(
+  "/nestedsubcategory",
+  authMiddleware,
+  checkRole(["seller", "admin"]),
+  nestedCreateSubcategory
 );
 
 router.get("/", getCategories);
