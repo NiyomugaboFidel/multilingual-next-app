@@ -1,22 +1,21 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Subcategories', {
+    await queryInterface.createTable('NestedSubcategories', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      category_id: {
+      subcategory_id: {
         type: Sequelize.UUID,
+        allowNull: false,
         references: {
-          model: 'Categories', // Reference to Categories table
+          model: 'Subcategories',
           key: 'id',
         },
-        onDelete: 'CASCADE', // Delete subcategory when category is deleted
-        allowNull: false,
+        onDelete: 'CASCADE',
       },
       name: {
         type: Sequelize.STRING,
@@ -32,8 +31,7 @@ module.exports = {
       },
     });
   },
-
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Subcategories');
+    await queryInterface.dropTable('NestedSubcategories');
   },
 };

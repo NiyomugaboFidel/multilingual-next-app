@@ -17,15 +17,6 @@ const Subcategory = sequelize.define('Subcategory', {
     },
     onDelete: 'CASCADE',
   },
-  parent_id: {
-    type: DataTypes.UUID,
-    allowNull: true,
-    references: {
-      model: 'Subcategories',
-      key: 'id',
-    },
-    onDelete: 'CASCADE',
-  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -38,7 +29,5 @@ const Subcategory = sequelize.define('Subcategory', {
 // Define associations
 Category.hasMany(Subcategory, { foreignKey: 'category_id', as: 'subcategories' });
 Subcategory.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
-Subcategory.hasMany(Subcategory, { foreignKey: 'parent_id', as: 'subcategories' });
-Subcategory.belongsTo(Subcategory, { foreignKey: 'parent_id', as: 'parent' });
 
 export default Subcategory;
