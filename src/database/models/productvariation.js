@@ -2,6 +2,7 @@
 
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/sequelize';
+import Product from './product';
 
 const ProductVariation = sequelize.define('ProductVariation', {
   id: {
@@ -36,12 +37,7 @@ const ProductVariation = sequelize.define('ProductVariation', {
   tableName: 'ProductVariations',
   timestamps: true,
 });
-
-ProductVariation.associate = (models) => {
-  ProductVariation.belongsTo(models.Product, {
-    foreignKey: 'product_id',
-    as: 'product',
-  });
-};
+Product.hasMany(ProductVariation, { foreignKey: 'product_id', as: 'productvariations' });
+ProductVariation.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
 
 export default ProductVariation;

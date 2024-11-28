@@ -3,6 +3,8 @@
 const { DataTypes } = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
 import sequelize from '../config/sequelize';
+import Category from './category';
+import User from './user';
 
 const Product = sequelize.define('Product', {
   id: {
@@ -115,4 +117,7 @@ const Product = sequelize.define('Product', {
   timestamps: true, // Adjust based on your requirements
 });
 
+Product.belongsTo(User, { as: 'user', foreignKey: 'seller_id' });
+Category.hasMany(Product, { foreignKey: 'category_id', as: 'categories' });
+Product.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
 export default Product;

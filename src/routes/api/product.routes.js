@@ -52,7 +52,7 @@ router.get("/",getAllProducts);
 router.get(
   "/item/:id",
   authMiddleware,
-  checkRole(["buyer", "seller"]),
+  checkRole(["buyer", "admin", "seller"]),
   getaProduct
 );
 router.get(

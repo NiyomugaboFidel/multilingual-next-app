@@ -2,6 +2,7 @@
 
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/sequelize';
+import Product from './product';
 
 const RelatedProduct = sequelize.define('RelatedProduct', {
   id: {
@@ -28,15 +29,9 @@ const RelatedProduct = sequelize.define('RelatedProduct', {
   timestamps: true,
 });
 
-RelatedProduct.associate = (models) => {
-  RelatedProduct.belongsTo(models.Product, {
-    foreignKey: 'product_id',
-    as: 'product',
-  });
-  RelatedProduct.belongsTo(models.Product, {
-    foreignKey: 'related_product_id',
-    as: 'relatedProduct',
-  });
-};
+Product.hasMany(RelatedProduct, { foreignKey: 'product_id', as: 'RelatedProducts' });
+RelatedProduct.belongsTo(Product, { foreignKey: 'product_id', as: 'Products' });
+Product.hasMany(RelatedProduct, { foreignKey: 'related_product_id', as: 'Products' });
+// RelatedProduct.belongsTo(Product, { foreignKey: 'related_product_idd', as: 'Products' });
 
 export default RelatedProduct;

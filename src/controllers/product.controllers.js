@@ -6,7 +6,7 @@ import {
   getPagenation,
 } from "../services/product.service";
 import slugify from "slugify";
-import cloudinaryUploadImg from "../utils/cloudinary";
+import cloudinaryUploadImg, { cloudinaryDeleteImg } from "../utils/cloudinary";
 import fs from "fs";
 import { verifyId } from "../validation/isValidateId";
 import sequelize from '../database/config/sequelize.js';
@@ -14,50 +14,21 @@ import ProductImage from "../database/models/productimages.js";
 import ProductSpecification from "../database/models/productspecifications.js";
 import ProductVariation from "../database/models/productvariation.js";
 import RelatedProduct from "../database/models/relatedproduct.js";
+import User from "../database/models/user.js";
+import Category from "../database/models/category";
+import NestedSubcategory from "../database/models/nextedsubcategory";
+import Subcategory from "../database/models/subcategory"; // Import subcategory model
 
-// const createNewProduct = async (req, res) => {
-//   const { name, price, brand, quantity, bonus, expiryDate, categoryId, description } = req.body;
 
-//   try {
-//     if (req.body.title) {
-//       req.body.slug = slugify(req.body.title);
-//     }
-//     const productDetails = {
-//       title: req.body.title,
-//       slug: req.body.slug,
-//       name,
-//       description,
-//       price,
-//       quantity,
-//       bonus,
-//       expiryDate,
-//       categoryId,
-//       brand,
-//     };
-
-//     const newProduct = await createProduct(productDetails);
-//     newProduct.sellerId = req.user.id;
-//     await newProduct.save();
-//     res.status(201).json({
-//       success: true,
-//       message: "Product created successfully",
-//       newProduct,
-//     });
-//   } catch (error) {
-//     console.error(error.stack);
-//     res.status(500).json({ success: false, message: "Internal Server Error" });
-//   }
-// };
 
 
 
 
 const createNewProduct = async (req, res) => {
-
-
+  const transaction = await sequelize.transaction(); // Start a transaction
   try {
+    // Step 1: Create the Product
     const productData = {
-      id: req.body.id,
       title: req.body.title,
       description: req.body.description,
       category_id: req.body.category_id,
@@ -82,16 +53,60 @@ const createNewProduct = async (req, res) => {
       return_policy: req.body.return_policy,
     };
 
-    const newProduct = await Product.create(productData);
+    const newProduct = await Product.create(productData, { transaction });
+
+    // Step 2: Add Product Specifications
+    if (req.body.specifications && req.body.specifications.length > 0) {
+      const specifications = req.body.specifications.map((spec) => ({
+        product_id: newProduct.id,
+        spec_key: spec.key,
+        spec_value: spec.value,
+      }));
+
+      await ProductSpecification.bulkCreate(specifications, { transaction });
+    }
+
+    // Step 3: Add Product Variations
+    if (req.body.variations && req.body.variations.length > 0) {
+      const variations = req.body.variations.map((variation) => ({
+        product_id: newProduct.id,
+        color: variation.color,
+        price: variation.price,
+      }));
+
+      await ProductVariation.bulkCreate(variations, { transaction });
+    }
+
+    // Step 4: Add Related Products
+    if (req.body.relatedProducts && req.body.relatedProducts.length > 0) {
+      const relatedProducts = req.body.relatedProducts.map((relatedProductId) => ({
+        product_id: newProduct.id,
+        related_product_id: relatedProductId,
+      }));
+
+      await RelatedProduct.bulkCreate(relatedProducts, { transaction });
+    }
+
+    // Commit the transaction
+    await transaction.commit();
+   
+
     res.status(201).json({
-      message: 'Product created successfully',
+      message: 'Product created successfully with associated data',
       data: newProduct,
     });
   } catch (error) {
     console.error(error);
+
+    // Rollback the transaction
+    await transaction.rollback();
+
     res.status(500).json({ message: 'Error creating product', error });
   }
 };
+
+export default createNewProduct;
+
 
 const retrieveItems = async (req, res) => {
   try {
@@ -174,21 +189,72 @@ const getaProduct = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid product ID" });
     }
 
-    const sellerId = req.user.id;
-    const role = req.user.role;
-    const product = await findProduct(productId, sellerId, role);
+    // const sellerId = req.user.id;
+    // const role = req.user.role;
+    // const product = await findProduct(productId, sellerId, role);
   
 
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
+          const product = await Product.findOne({
+              where: { id: productId },
+              include: [
+                { model: Category, as: 'category',
+                  include: [
+                    {
+                      model: Subcategory,
+                      as: 'subcategories', // First level subcategories
+                      include: [
+                        {
+                          model: NestedSubcategory,
+                          as: 'nestedsubcategories', // Nested subcategories (children of subcategories)
+                        },
+                      ],
+                    }]
 
-    res.status(200).json({ success: true, message: "Product retrieved successfully", product });
-  } catch (error) {
-    console.error(error.stack);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-};
+                 },
+                {
+                  model: ProductImage,
+                  as: 'productimages', 
+                },
+                {
+                  model: ProductVariation,
+                  as: 'productvariations', 
+                },
+                {
+                  model: ProductSpecification,
+                  as: 'productspecifications', 
+                },
+                {
+                  model:RelatedProduct,
+                  as: 'RelatedProducts', 
+                  include: [
+                    {
+                        model: Product,
+                        as: 'Products',
+                        include:[
+                          {
+                            model: ProductImage,
+                            as: 'productimages', 
+                          }
+                        ]
+                    
+                    },
+                ],
+                },
+               
+              ]
+          });
+  
+          if (!product) {
+              return { message: 'Product not found' };
+          }
+  
+          res.status(200).json({ success: true, message: "Product retrieved successfully", product });
+      } catch (error) {
+          console.error('Error fetching product details:', error);
+          throw error;
+      }
+  };
+  
 export const getProduct = async (req, res) => {
   const productId = req.params.id;
 
@@ -444,28 +510,17 @@ const uploadImages = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
-const { uploader } = require("cloudinary").v2;
 
-const cloudinaryDeleteImg = async (url) => {
-  try {
-    // Extract public_id from the URL
-    const publicId = url.split("/").slice(-1)[0].split(".")[0];
-    const result = await uploader.destroy(publicId);
-    return result;
-  } catch (error) {
-    console.error("Cloudinary Delete Error:", error);
-    throw error;
-  }
-};
+
 
 const deleteImage = async (req, res) => {
   const { id, imageId } = req.params;
 
   try {
     const validProductId = verifyId(id);
-    // const validImageId = verifyId(imageId);
 
-    if (!id || !validProductId) {
+
+    if (!id || !validProductId || !imageId) {
       return res.status(400).json({ success: false, message: "Invalid ID(s)" });
     }
 
