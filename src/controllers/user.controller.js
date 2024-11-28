@@ -18,7 +18,6 @@ import validateUUID from "../validation/isValidateId";
 // ====================
 const createUser = async (req, res) => {
   const { firstName, lastName, email, password, isActive } = req.body;
-  // console.log(req.body)
 
   try {
     const data = {
@@ -55,7 +54,6 @@ const createUser = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    // console.log(error);
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
@@ -63,12 +61,13 @@ const createUser = async (req, res) => {
   });
 };
 }
+
 //verify email of user
 // =======================
 const verifyEmail = async (req, res) => {
   const { t } = req.query;
   const token = t;
-  // console.log(token);
+
   try {
     if (token) {
       const decode = verifyToke(token);
@@ -101,7 +100,7 @@ const verifyEmail = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Email verified successfully" });
   } catch (error) {
-    // console.log(error.message);
+
     return res.status(500).json({
       success:false,
       message: "something went wrong!",
@@ -159,91 +158,156 @@ const loginUser = async (req, res) => {
 // =======================
 const logoutUser = async (req, res) => {
   try {
-    // Clear the token cookie
-    res.clearCookie("token");
-    console.log('logout');
-    res.status(200).json({ success: true, message: "Logged out successfully" });
+ 
+    if (req.headers.authorization) {
+      delete req.headers.authorization;
+    }
+
+ 
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Session destruction error:", err);
+          return res
+            .status(500)
+            .json({ success: false, error: "Failed to destroy session" });
+        }
+      });
+    }
+
+
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+  
+    res.clearCookie("sessionId", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully, headers, session, and cookies cleared",
+    });
   } catch (error) {
-    console.error("Logout error:", error);
-    console.log('logout error');
-    res
-      .status(500)
-      .json({ success: false, error: "Something went wrong during logout" });
+    
+
+res.status(500).json({
+      success: false,
+      error: "Something went wrong during logout",
+    });
   }
 };
+
 
 const editUserProfile = async (req, res) => {
   const {
     firstName,
     lastName,
     email,
-    password,
     gender,
-    prefferedLanguage,
-    prefferedCurrency,
+    preferredLanguage,
+    preferredCurrency,
     phoneN,
+    province,
+    district,
+    street,
+    city,
+    state,
+    postalCode,
+    dateOfBirth,
+    nationality,
+    preferredContactMethod,
+    marketingPreferences,
+    socialLinks,
+    preferredCategories,
   } = req.body;
+
   try {
-    const id = req.user.id;
-    const isId = validateUUID(id);
-    if (!isId) {
-      return res
-        .status(401)
-        .json({ success: false, error: "user not Defined Please login again" });
+   
+    const id = req.user?.id;
+    if (!id || !validateUUID(id)) {
+      return res.status(401).json({
+        success: false,
+        error: "User not defined. Please login again.",
+      });
     }
+
+ 
     const user = await findUserById(id);
     if (!user) {
-      return res.status(401).json({ success: false, error: "user not found" });
+      return res.status(404).json({
+        success: false,
+        error: "User not found.",
+      });
     }
-    let billingAddress;
-    billingAddress = JSON.stringify({
-      province: req.body.province,
-      district: req.body.district,
-      street: req.body.street,
-      phoneN: req.body.phoneN,
-      email: req.body.email,
-      city: req.body.city,
-      state: req.body.state,
-      postalCode: req.body.postalCode,
-    });
-    let profilePic;
-    if (req.body.gender === "male") {
+
+
+    const userAddress = province || district || street || city || state || postalCode ? {
+      province,
+      district,
+      street,
+      city,
+      state,
+      postalCode,
+    } : user.userAddress;
+
+   
+    let profilePic = user.profilePic;
+    if (gender === "male") {
       profilePic =
         "https://res.cloudinary.com/dboqnapgi/image/upload/v1687259119/172628_user_male_icon_hqmwjh.svg";
-    }
-    if (req.body.gender === "female") {
+    } else if (gender === "female") {
       profilePic =
         "https://res.cloudinary.com/dboqnapgi/image/upload/v1687259111/172624_female_user_icon_pgj7lc.svg";
     }
-    const newUser = await User.update(
-      {
-        firstName: firstName || user.firstName,
-        lastName: lastName || user.lastName,
-        gender: gender,
-        prefferedLanguage: prefferedLanguage,
-        prefferedCurrency: prefferedCurrency,
-        userAddress: JSON.parse(billingAddress),
-        phoneN,
-        profilePic,
-      },
-      {
-        where: { id: user.id },
-      }
-    );
-    await user.save();
+
+  
+    const updatedFields = {
+      firstName: firstName || user.firstName,
+      lastName: lastName || user.lastName,
+      email: email || user.email,
+      gender: gender || user.gender,
+      preferredLanguage: preferredLanguage || user.preferredLanguage,
+      preferredCurrency: preferredCurrency || user.preferredCurrency,
+      userAddress: userAddress || user.userAddress,
+      phoneN: phoneN || user.phoneN,
+      dateOfBirth: dateOfBirth || user.dateOfBirth,
+      nationality: nationality || user.nationality,
+      preferredContactMethod: preferredContactMethod || user.preferredContactMethod,
+      marketingPreferences: marketingPreferences || user.marketingPreferences,
+      socialLinks: socialLinks || user.socialLinks,
+      preferredCategories: preferredCategories || user.preferredCategories,
+      profilePic,
+    };
+
+   
+    await User.update(updatedFields, { where: { id } });
+
+
+    const updatedUser = await findUserById(id);
     return res.status(200).json({
       success: true,
-      message: "edit profile successfully",
-      newUser: user,
+      message: "Profile updated successfully.",
+      user: updatedUser,
     });
   } catch (error) {
+    console.error("Error in editUserProfile:", error);
+
     return res.status(500).json({
-      success:false,
-      message: "something went wrong!",
-      error:error.message.replace(/[^a-zA-Z0-9 ]/g, '')
-  });
+      success: false,
+      message: "Something went wrong!",
+      error: error.message.replace(/[^a-zA-Z0-9 ]/g, ""),
+    });
+  }
 };
-};
+
+
 //forget password token
 // =======================
 const forgetPasswordToken = async (req, res) => {

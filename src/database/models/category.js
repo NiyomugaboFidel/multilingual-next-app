@@ -1,34 +1,19 @@
-'use strict';
-const {
-  Model,
-  DataTypes
-} = require('sequelize');
+import { DataTypes } from 'sequelize';
 import sequelize from '../config/sequelize';
-const { v4: uuidv4 } = require('uuid');
-const Category = sequelize.define('Category',{
-  id:{
-    type:DataTypes.UUIDV4,
-    defaultValue:uuidv4,
-    allowNull: false,
+
+const Category = sequelize.define('Category', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  name:{
-    type:DataTypes.STRING,
-  },
-  isVailable:{
-    type:DataTypes.BOOLEAN,
-    defaultValue:true
-  },
-  createdAt: {
+  name: {
+    type: DataTypes.STRING,
     allowNull: false,
-    type: DataTypes.DATE
   },
-  updatedAt: {
-    allowNull: false,
-    type: DataTypes.DATE
-  }
-},{
-  tableName:'Categories',
-  timestamps:true
-})
-export default Category
+}, {
+  tableName: 'Categories',
+  timestamps: true,
+});
+
+export default Category;

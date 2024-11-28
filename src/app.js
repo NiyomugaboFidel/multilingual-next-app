@@ -64,15 +64,15 @@ app.use(googleAuthRoute);
 app.post('/home', (req, res) => {
   res.json({ greet: 'hello', message: req.body });
 });
-
+// Custom error-handling middleware
+app.use(notFound);
+app.use(errorHandler);
 // Main API routes
 app.use('/api/v1/', allRoute);
 
 // ------------------------ ERROR HANDLING ------------------------
 
-// Custom error-handling middleware
-app.use(notFound);
-app.use(errorHandler);
+
 
 // Test database connection
 export const connection = async () => {

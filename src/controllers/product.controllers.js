@@ -1,49 +1,112 @@
 import { Op, where } from "sequelize";
 import Product from "../database/models/product";
 import {
-  createProduct,
   findAllProduct,
   findProduct,
   getPagenation,
 } from "../services/product.service";
 import slugify from "slugify";
-import cloudinaryUploadImg from "../utils/cloudinary";
+import cloudinaryUploadImg, { cloudinaryDeleteImg } from "../utils/cloudinary";
 import fs from "fs";
 import { verifyId } from "../validation/isValidateId";
+import sequelize from '../database/config/sequelize.js';
+import ProductImage from "../database/models/productimages.js";
+import ProductSpecification from "../database/models/productspecifications.js";
+import ProductVariation from "../database/models/productvariation.js";
+import RelatedProduct from "../database/models/relatedproduct.js";
+import User from "../database/models/user.js";
+import Category from "../database/models/category";
+import NestedSubcategory from "../database/models/nextedsubcategory";
+import Subcategory from "../database/models/subcategory"; // Import subcategory model
+
+
+
+
+
 
 const createNewProduct = async (req, res) => {
-  const { name, price, brand, quantity, bonus, expiryDate, categoryId, description } = req.body;
-
+  const transaction = await sequelize.transaction(); // Start a transaction
   try {
-    if (req.body.title) {
-      req.body.slug = slugify(req.body.title);
-    }
-    const productDetails = {
+    // Step 1: Create the Product
+    const productData = {
       title: req.body.title,
-      slug: req.body.slug,
-      name,
-      description,
-      price,
-      quantity,
-      bonus,
-      expiryDate,
-      categoryId,
-      brand,
+      description: req.body.description,
+      category_id: req.body.category_id,
+      sub_category_id: req.body.sub_category_id,
+      brand: req.body.brand,
+      price: req.body.price,
+      discount: req.body.discount || 0,
+      currency: req.body.currency,
+      stock_availability: req.body.stock_availability || 'In Stock',
+      stock_quantity: req.body.stock_quantity || 0,
+      average_rating: req.body.average_rating || 0,
+      review_count: req.body.review_count || 0,
+      tags: req.body.tags || [],
+      isAvailable: req.body.isAvailable || false,
+      expiry_date: req.body.expiry_date,
+      isExpired: req.body.isExpired || false,
+      seller_id: req.body.seller_id,
+      seller_name: req.body.seller_name,
+      seller_rating: req.body.seller_rating,
+      free_shipping: req.body.free_shipping || false,
+      delivery_time: req.body.delivery_time,
+      return_policy: req.body.return_policy,
     };
 
-    const newProduct = await createProduct(productDetails);
-    newProduct.sellerId = req.user.id;
-    await newProduct.save();
+    const newProduct = await Product.create(productData, { transaction });
+
+    // Step 2: Add Product Specifications
+    if (req.body.specifications && req.body.specifications.length > 0) {
+      const specifications = req.body.specifications.map((spec) => ({
+        product_id: newProduct.id,
+        spec_key: spec.key,
+        spec_value: spec.value,
+      }));
+
+      await ProductSpecification.bulkCreate(specifications, { transaction });
+    }
+
+    // Step 3: Add Product Variations
+    if (req.body.variations && req.body.variations.length > 0) {
+      const variations = req.body.variations.map((variation) => ({
+        product_id: newProduct.id,
+        color: variation.color,
+        price: variation.price,
+      }));
+
+      await ProductVariation.bulkCreate(variations, { transaction });
+    }
+
+    // Step 4: Add Related Products
+    if (req.body.relatedProducts && req.body.relatedProducts.length > 0) {
+      const relatedProducts = req.body.relatedProducts.map((relatedProductId) => ({
+        product_id: newProduct.id,
+        related_product_id: relatedProductId,
+      }));
+
+      await RelatedProduct.bulkCreate(relatedProducts, { transaction });
+    }
+
+    // Commit the transaction
+    await transaction.commit();
+   
+
     res.status(201).json({
-      success: true,
-      message: "Product created successfully",
-      newProduct,
+      message: 'Product created successfully with associated data',
+      data: newProduct,
     });
   } catch (error) {
-    console.error(error.stack);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.error(error);
+
+    // Rollback the transaction
+    await transaction.rollback();
+
+    res.status(500).json({ message: 'Error creating product', error });
   }
 };
+
+export default createNewProduct;
+
 
 const retrieveItems = async (req, res) => {
   try {
@@ -126,21 +189,72 @@ const getaProduct = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid product ID" });
     }
 
-    const sellerId = req.user.id;
-    const role = req.user.role;
-    const product = await findProduct(productId, sellerId, role);
+    // const sellerId = req.user.id;
+    // const role = req.user.role;
+    // const product = await findProduct(productId, sellerId, role);
   
 
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
+          const product = await Product.findOne({
+              where: { id: productId },
+              include: [
+                { model: Category, as: 'category',
+                  include: [
+                    {
+                      model: Subcategory,
+                      as: 'subcategories', // First level subcategories
+                      include: [
+                        {
+                          model: NestedSubcategory,
+                          as: 'nestedsubcategories', // Nested subcategories (children of subcategories)
+                        },
+                      ],
+                    }]
 
-    res.status(200).json({ success: true, message: "Product retrieved successfully", product });
-  } catch (error) {
-    console.error(error.stack);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-};
+                 },
+                {
+                  model: ProductImage,
+                  as: 'productimages', 
+                },
+                {
+                  model: ProductVariation,
+                  as: 'productvariations', 
+                },
+                {
+                  model: ProductSpecification,
+                  as: 'productspecifications', 
+                },
+                {
+                  model:RelatedProduct,
+                  as: 'RelatedProducts', 
+                  include: [
+                    {
+                        model: Product,
+                        as: 'Products',
+                        include:[
+                          {
+                            model: ProductImage,
+                            as: 'productimages', 
+                          }
+                        ]
+                    
+                    },
+                ],
+                },
+               
+              ]
+          });
+  
+          if (!product) {
+              return { message: 'Product not found' };
+          }
+  
+          res.status(200).json({ success: true, message: "Product retrieved successfully", product });
+      } catch (error) {
+          console.error('Error fetching product details:', error);
+          throw error;
+      }
+  };
+  
 export const getProduct = async (req, res) => {
   const productId = req.params.id;
 
@@ -326,39 +440,65 @@ const deleteProduct = async (req, res) => {
 
 const uploadImages = async (req, res) => {
   const id = req.params.id;
+
   try {
+ 
     const validId = verifyId(id);
     if (!id || !validId) {
       return res.status(400).json({ success: false, message: "Invalid product ID" });
     }
+
+   
+    
     const product = await Product.findOne({ where: { id } });
     if (!product) {
       return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, message: "No files uploaded" });
     }
 
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];
     const files = req.files;
 
+
     for (const file of files) {
       const { path } = file;
-      const newpath = await uploader(path);
-      urls.push(newpath);
-      fs.unlinkSync(path);
+      try {
+        const newpath = await uploader(path); 
+        urls.push(newpath); 
+      } finally {
+   
+        fs.unlink(path, (err) => {
+          if (err) console.error(`Failed to delete file: ${path}`, err);
+        });
+      }
     }
 
-    console.log(urls.map(url=> url.url))
 
-    await Product.update(
-      {
-        images: urls.map(url=> url.url),
-      },
-      {
-        where: { id },
-      }
-    );
+    // console.log("Uploaded URLs:", urls.map((url) => url.url));
 
-    const productWithImages = await Product.findOne({ where: { id } });
+    const productImageEntries = urls.map((url) => ({
+      product_id: id,
+      url: url.url,
+      alt_text: `Image for product: ${product.title}` 
+    }));
+
+    await ProductImage.bulkCreate(productImageEntries);
+
+
+    const productWithImages = await Product.findOne({
+      where: { id },
+      include: [
+        {
+          model: ProductImage,
+          as: 'productimages', 
+        },
+      ],
+    });
+
 
     res.status(200).json({
       success: true,
@@ -366,56 +506,42 @@ const uploadImages = async (req, res) => {
       product: productWithImages,
     });
   } catch (error) {
-    console.error(error.stack);
+    console.error("Error in uploadImages:", error.stack);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
-const updateProductImages = async (req, res) => {
-  const id = req.params.id;
-  const sellerId = req.user.id;
+
+
+
+const deleteImage = async (req, res) => {
+  const { id, imageId } = req.params;
+
   try {
-    const validId = verifyId(id);
-    const validSellerId = verifyId(sellerId);
-    if (!id || !validId) {
-      return res.status(400).json({ success: false, message: "Invalid product ID" });
-    }
-    if (!sellerId || !validSellerId) {
-      return res.status(400).json({ success: false, message: "Invalid seller ID" });
-    }
-    const product = await Product.findOne({ where: { id } });
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
+    const validProductId = verifyId(id);
+
+
+    if (!id || !validProductId || !imageId) {
+      return res.status(400).json({ success: false, message: "Invalid ID(s)" });
     }
 
-    const uploader = (path) => cloudinaryUploadImg(path, "images");
-    const urls = [];
-    const files = req.files;
-
-    for (const file of files) {
-      const { path } = file;
-      const newpath = await uploader(path);
-      urls.push(newpath);
-      fs.unlinkSync(path);
+    const image = await ProductImage.findOne({ where: { id: imageId, product_id: id } });
+    if (!image) {
+      return res.status(404).json({ success: false, message: "Image not found" });
     }
 
-    await Product.update(
-      {
-        images: urls.map((file) => file),
-      },
-      {
-        where: { id,sellerId },
-      }
-    );
+    // Delete image from Cloudinary
+    const cloudinaryResponse = await cloudinaryDeleteImg(image.url);
 
-    const productWithImages = await Product.findOne({ where: { id } });
+    // Remove image from the database
+    await ProductImage.destroy({ where: { id: imageId } });
 
     res.status(200).json({
       success: true,
-      message: "Images uploaded successfully",
-      product: productWithImages,
+      message: "Image deleted successfully",
+      cloudinaryResponse,
     });
   } catch (error) {
-    console.error(error.stack);
+    console.error("Error in deleteImage:", error.stack);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
@@ -486,6 +612,6 @@ export {
   getProductsNearingExpiry,
   deleteProduct,
   uploadImages,
-  updateProductImages,
+  deleteImage,
   averageRating
 };

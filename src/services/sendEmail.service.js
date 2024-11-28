@@ -7,7 +7,7 @@ import path from 'path';
 const sendVerificationEmail = async (userEmail, userName,token) => {
  
         // Process the email template
-    const verificationUrl = `${process.env.DOMAIN}verify-email?t=${token}`; 
+    const verificationUrl = `${process.env.DOMAIN}/user/verify-email?t=${token}`; 
     const emailTemplatePath = path.join(__dirname, '../../templates/index.html');
     let emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
     emailTemplate = emailTemplate.replace('{{verification_url}}', verificationUrl);

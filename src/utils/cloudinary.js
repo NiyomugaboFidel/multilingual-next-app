@@ -1,3 +1,4 @@
+const { uploader } = require("cloudinary").v2;
 import cloudinary from'cloudinary'
 
 cloudinary.config({ 
@@ -20,5 +21,16 @@ cloudinary.config({
         });
     });
   };
-
+  export const cloudinaryDeleteImg = async (url) => {
+    try {
+      // Extract public_id from the URL
+      const publicId = url.split("/").slice(-1)[0].split(".")[0];
+      const result = await uploader.destroy(publicId);
+      return result;
+    } catch (error) {
+      console.error("Cloudinary Delete Error:", error);
+      throw error;
+    }
+  };
+  
   export default cloudinaryUploadImg;

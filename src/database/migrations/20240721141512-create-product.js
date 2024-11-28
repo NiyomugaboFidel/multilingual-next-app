@@ -1,7 +1,7 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Products', {
       id: {
         type: Sequelize.UUID,
@@ -9,66 +9,94 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
       title: {
         type: Sequelize.STRING,
-      },
-      slug: {
-        type: Sequelize.STRING,
-      },
-      brand: {
-        type: Sequelize.STRING,
+        allowNull: false,
       },
       description: {
         type: Sequelize.STRING,
       },
-      price: {
-        type: Sequelize.INTEGER,
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-        defaultValue: 1,
-      },
-      isAvailable: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      categoryId: {
+      category_id: {
         type: Sequelize.UUID,
         references: {
           model: 'Categories',
           key: 'id',
         },
       },
-      sellerId: {
+      sub_category_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Subcategories',
+          key: 'id',
+        },
+      },
+      brand: {
+        type: Sequelize.STRING,
+      },
+      price: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      discount: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      currency: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      stock_availability: {
+        type: Sequelize.STRING,
+        defaultValue: 'In Stock',
+      },
+      stock_quantity: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      average_rating: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      review_count: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      tags: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
+      isAvailable: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      expiry_date: {
+        type: Sequelize.STRING,
+      },
+      isExpired: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      seller_id: {
         type: Sequelize.UUID,
         references: {
           model: 'Users',
           key: 'id',
         },
       },
-      bonus: {
-        type: Sequelize.INTEGER,
+      seller_name: {
+        type: Sequelize.STRING,
       },
-      images: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
+      seller_rating: {
+        type: Sequelize.FLOAT,
       },
-      expiryDate: {
-        type: Sequelize.DATE,
-      },
-      averageRating: {
-        type: Sequelize.DECIMAL,
-      },
-      isExpired: {
+      free_shipping: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
-      ratings: {
-        type: Sequelize.JSONB,
-        allowNull: true,
-        defaultValue: [],
+      delivery_time: {
+        type: Sequelize.STRING,
+      },
+      return_policy: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

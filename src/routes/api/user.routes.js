@@ -29,6 +29,7 @@ import {
 } from "../../controllers/admin.controllers";
 import isSeller from "../../middlewares/seller.Middleware";
 import { createOtp, verifyOpt } from "../../controllers/2fa.controller";
+import { editUserProfileValidation } from "../../validation/user.validation";
 
 const router = express.Router();
 
@@ -47,8 +48,9 @@ router.post(
 router.put(
     "/edit-profile",
      authMiddleware, 
+     editUserProfileValidation,
      editUserProfile
-    ); // Edit user profile
+    ); 
 
 router.put(
   "/update-password",

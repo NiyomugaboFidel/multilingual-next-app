@@ -3,6 +3,7 @@ import path from 'path';
 import { Sequelize, DataTypes } from 'sequelize';
 import configFile from '../config/config.json';
 
+
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = configFile[env];
