@@ -2,6 +2,7 @@
 
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/sequelize';
+import Product from './product';
 
 const ProductImage = sequelize.define('ProductImage', {
   id: {
@@ -38,11 +39,10 @@ const ProductImage = sequelize.define('ProductImage', {
   timestamps: true,
 });
 
-ProductImage.associate = (models) => {
-  ProductImage.belongsTo(models.Product, {
-    foreignKey: 'product_id',
-    as: 'product',
-  });
-};
+
+
+// Define associations
+Product.hasMany(ProductImage, { foreignKey: 'product_id', as: 'productimages' });
+ProductImage.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
 
 export default ProductImage;

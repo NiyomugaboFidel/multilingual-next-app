@@ -12,28 +12,29 @@ import {
   updateProduct,
   averageRating,
   getProduct,
+  deleteImage,
 } from "../../controllers/product.controllers";
 
 import { authMiddleware, checkRole } from "../../middlewares/authMiddleware";
-import isSeller from "../../middlewares/seller.Middleware";
 import { productImageResize, uploadPhoto } from "../../middlewares/uploadImage";
 const router = express.Router();
 
 router.post(
   "/create",
   authMiddleware,
-  checkRole(["seller"]),
+  checkRole(["seller","admin"]),
   createNewProduct
 );
 
 router.put(
   "/upload/:id",
   authMiddleware,
-  checkRole(["buyer","seller"]),
+  checkRole(["admin","seller"]),
   uploadPhoto.array("images", 10),
   productImageResize,
   uploadImages
 );
+router.delete("/:id/images/:imageId", deleteImage);
 router.post(
   "/:id/rating",
   authMiddleware,

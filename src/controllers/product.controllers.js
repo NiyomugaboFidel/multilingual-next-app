@@ -1,7 +1,6 @@
 import { Op, where } from "sequelize";
 import Product from "../database/models/product";
 import {
-  createProduct,
   findAllProduct,
   findProduct,
   getPagenation,
@@ -10,38 +9,87 @@ import slugify from "slugify";
 import cloudinaryUploadImg from "../utils/cloudinary";
 import fs from "fs";
 import { verifyId } from "../validation/isValidateId";
+import sequelize from '../database/config/sequelize.js';
+import ProductImage from "../database/models/productimages.js";
+import ProductSpecification from "../database/models/productspecifications.js";
+import ProductVariation from "../database/models/productvariation.js";
+import RelatedProduct from "../database/models/relatedproduct.js";
+
+// const createNewProduct = async (req, res) => {
+//   const { name, price, brand, quantity, bonus, expiryDate, categoryId, description } = req.body;
+
+//   try {
+//     if (req.body.title) {
+//       req.body.slug = slugify(req.body.title);
+//     }
+//     const productDetails = {
+//       title: req.body.title,
+//       slug: req.body.slug,
+//       name,
+//       description,
+//       price,
+//       quantity,
+//       bonus,
+//       expiryDate,
+//       categoryId,
+//       brand,
+//     };
+
+//     const newProduct = await createProduct(productDetails);
+//     newProduct.sellerId = req.user.id;
+//     await newProduct.save();
+//     res.status(201).json({
+//       success: true,
+//       message: "Product created successfully",
+//       newProduct,
+//     });
+//   } catch (error) {
+//     console.error(error.stack);
+//     res.status(500).json({ success: false, message: "Internal Server Error" });
+//   }
+// };
+
+
+
 
 const createNewProduct = async (req, res) => {
-  const { name, price, brand, quantity, bonus, expiryDate, categoryId, description } = req.body;
+
 
   try {
-    if (req.body.title) {
-      req.body.slug = slugify(req.body.title);
-    }
-    const productDetails = {
+    const productData = {
+      id: req.body.id,
       title: req.body.title,
-      slug: req.body.slug,
-      name,
-      description,
-      price,
-      quantity,
-      bonus,
-      expiryDate,
-      categoryId,
-      brand,
+      description: req.body.description,
+      category_id: req.body.category_id,
+      sub_category_id: req.body.sub_category_id,
+      brand: req.body.brand,
+      price: req.body.price,
+      discount: req.body.discount || 0,
+      currency: req.body.currency,
+      stock_availability: req.body.stock_availability || 'In Stock',
+      stock_quantity: req.body.stock_quantity || 0,
+      average_rating: req.body.average_rating || 0,
+      review_count: req.body.review_count || 0,
+      tags: req.body.tags || [],
+      isAvailable: req.body.isAvailable || false,
+      expiry_date: req.body.expiry_date,
+      isExpired: req.body.isExpired || false,
+      seller_id: req.body.seller_id,
+      seller_name: req.body.seller_name,
+      seller_rating: req.body.seller_rating,
+      free_shipping: req.body.free_shipping || false,
+      delivery_time: req.body.delivery_time,
+      return_policy: req.body.return_policy,
     };
 
-    const newProduct = await createProduct(productDetails);
-    newProduct.sellerId = req.user.id;
-    await newProduct.save();
+    const newProduct = await Product.create(productData);
     res.status(201).json({
-      success: true,
-      message: "Product created successfully",
-      newProduct,
+      message: 'Product created successfully',
+      data: newProduct,
     });
   } catch (error) {
-    console.error(error.stack);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.error(error);
+    res.status(500).json({ message: 'Error creating product', error });
   }
 };
 
@@ -326,39 +374,65 @@ const deleteProduct = async (req, res) => {
 
 const uploadImages = async (req, res) => {
   const id = req.params.id;
+
   try {
+ 
     const validId = verifyId(id);
     if (!id || !validId) {
       return res.status(400).json({ success: false, message: "Invalid product ID" });
     }
+
+   
+    
     const product = await Product.findOne({ where: { id } });
     if (!product) {
       return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, message: "No files uploaded" });
     }
 
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];
     const files = req.files;
 
+
     for (const file of files) {
       const { path } = file;
-      const newpath = await uploader(path);
-      urls.push(newpath);
-      fs.unlinkSync(path);
+      try {
+        const newpath = await uploader(path); 
+        urls.push(newpath); 
+      } finally {
+   
+        fs.unlink(path, (err) => {
+          if (err) console.error(`Failed to delete file: ${path}`, err);
+        });
+      }
     }
 
-    console.log(urls.map(url=> url.url))
 
-    await Product.update(
-      {
-        images: urls.map(url=> url.url),
-      },
-      {
-        where: { id },
-      }
-    );
+    // console.log("Uploaded URLs:", urls.map((url) => url.url));
 
-    const productWithImages = await Product.findOne({ where: { id } });
+    const productImageEntries = urls.map((url) => ({
+      product_id: id,
+      url: url.url,
+      alt_text: `Image for product: ${product.title}` 
+    }));
+
+    await ProductImage.bulkCreate(productImageEntries);
+
+
+    const productWithImages = await Product.findOne({
+      where: { id },
+      include: [
+        {
+          model: ProductImage,
+          as: 'productimages', 
+        },
+      ],
+    });
+
 
     res.status(200).json({
       success: true,
@@ -366,56 +440,53 @@ const uploadImages = async (req, res) => {
       product: productWithImages,
     });
   } catch (error) {
-    console.error(error.stack);
+    console.error("Error in uploadImages:", error.stack);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
-const updateProductImages = async (req, res) => {
-  const id = req.params.id;
-  const sellerId = req.user.id;
+const { uploader } = require("cloudinary").v2;
+
+const cloudinaryDeleteImg = async (url) => {
   try {
-    const validId = verifyId(id);
-    const validSellerId = verifyId(sellerId);
-    if (!id || !validId) {
-      return res.status(400).json({ success: false, message: "Invalid product ID" });
-    }
-    if (!sellerId || !validSellerId) {
-      return res.status(400).json({ success: false, message: "Invalid seller ID" });
-    }
-    const product = await Product.findOne({ where: { id } });
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
+    // Extract public_id from the URL
+    const publicId = url.split("/").slice(-1)[0].split(".")[0];
+    const result = await uploader.destroy(publicId);
+    return result;
+  } catch (error) {
+    console.error("Cloudinary Delete Error:", error);
+    throw error;
+  }
+};
 
-    const uploader = (path) => cloudinaryUploadImg(path, "images");
-    const urls = [];
-    const files = req.files;
+const deleteImage = async (req, res) => {
+  const { id, imageId } = req.params;
 
-    for (const file of files) {
-      const { path } = file;
-      const newpath = await uploader(path);
-      urls.push(newpath);
-      fs.unlinkSync(path);
+  try {
+    const validProductId = verifyId(id);
+    // const validImageId = verifyId(imageId);
+
+    if (!id || !validProductId) {
+      return res.status(400).json({ success: false, message: "Invalid ID(s)" });
     }
 
-    await Product.update(
-      {
-        images: urls.map((file) => file),
-      },
-      {
-        where: { id,sellerId },
-      }
-    );
+    const image = await ProductImage.findOne({ where: { id: imageId, product_id: id } });
+    if (!image) {
+      return res.status(404).json({ success: false, message: "Image not found" });
+    }
 
-    const productWithImages = await Product.findOne({ where: { id } });
+    // Delete image from Cloudinary
+    const cloudinaryResponse = await cloudinaryDeleteImg(image.url);
+
+    // Remove image from the database
+    await ProductImage.destroy({ where: { id: imageId } });
 
     res.status(200).json({
       success: true,
-      message: "Images uploaded successfully",
-      product: productWithImages,
+      message: "Image deleted successfully",
+      cloudinaryResponse,
     });
   } catch (error) {
-    console.error(error.stack);
+    console.error("Error in deleteImage:", error.stack);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
@@ -486,6 +557,6 @@ export {
   getProductsNearingExpiry,
   deleteProduct,
   uploadImages,
-  updateProductImages,
+  deleteImage,
   averageRating
 };
