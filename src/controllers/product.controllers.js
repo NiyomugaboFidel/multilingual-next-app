@@ -30,9 +30,11 @@ const createNewProduct = async (req, res) => {
     // Step 1: Create the Product
     const productData = {
       title: req.body.title,
+      name:req.body.name,
       description: req.body.description,
       category_id: req.body.category_id,
       sub_category_id: req.body.sub_category_id,
+      nestedsub_category_id:req.body.nestedsub_category_id,
       brand: req.body.brand,
       price: req.body.price,
       discount: req.body.discount || 0,
@@ -41,12 +43,13 @@ const createNewProduct = async (req, res) => {
       stock_quantity: req.body.stock_quantity || 0,
       average_rating: req.body.average_rating || 0,
       review_count: req.body.review_count || 0,
+      ratings:req.body.ratings,
       tags: req.body.tags || [],
       isAvailable: req.body.isAvailable || false,
       expiry_date: req.body.expiry_date,
       isExpired: req.body.isExpired || false,
-      seller_id: req.body.seller_id,
-      seller_name: req.body.seller_name,
+      seller_id: req.user.id,
+      seller_name: req.user.firstName,
       seller_rating: req.body.seller_rating,
       free_shipping: req.body.free_shipping || false,
       delivery_time: req.body.delivery_time,
@@ -97,10 +100,8 @@ const createNewProduct = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     // Rollback the transaction
     await transaction.rollback();
-
     res.status(500).json({ message: 'Error creating product', error });
   }
 };
@@ -164,7 +165,54 @@ const getAllProducts = async (req, res) => {
 
     const { limit, offset } = getPagenation(page, size);
 
-    const allProducts = await Product.findAndCountAll({where:{isAvailable:true}},{
+    const allProducts = await Product.findAndCountAll({where:{isAvailable:true},
+      include: [
+        { model: Category, as: 'category',
+          include: [
+            {
+              model: Subcategory,
+              as: 'subcategories', // First level subcategories
+              include: [
+                {
+                  model: NestedSubcategory,
+                  as: 'nestedsubcategories', // Nested subcategories (children of subcategories)
+                },
+              ],
+            }]
+
+         },
+        {
+          model: ProductImage,
+          as: 'productimages', 
+        },
+        {
+          model: ProductVariation,
+          as: 'productvariations', 
+        },
+        {
+          model: ProductSpecification,
+          as: 'productspecifications', 
+        },
+        {
+          model:RelatedProduct,
+          as: 'RelatedProducts', 
+          include: [
+            {
+                model: Product,
+                as: 'Products',
+                include:[
+                  {
+                    model: ProductImage,
+                    as: 'productimages', 
+                  }
+                ]
+            
+            },
+        ],
+        },
+       
+      ]},
+      {
       limit,
       offset,
     });
@@ -255,29 +303,7 @@ const getaProduct = async (req, res) => {
       }
   };
   
-export const getProduct = async (req, res) => {
-  const productId = req.params.id;
 
-  try {
-    const validId = verifyId(productId);
-    if (!validId) {
-      return res.status(400).json({ success: false, message: "Invalid product ID" });
-    }
-
-
-    const product = await Product.findOne({where:{id:productId , isAvailable:true}});
-  
-
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
-
-    res.status(200).json({ success: true, message: "Product retrieved successfully", product });
-  } catch (error) {
-    console.error(error.stack);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-};
 
 const productIsAvailable = async(req, res) => {
   const productId = req.params.id;
@@ -407,39 +433,10 @@ const  getProductsNearingExpiry =  async(req, res) =>{
   }
 }
 
-const deleteProduct = async (req, res) => {
-  const productId = req.params.id;
-  try {
-    const sellerId = req.user.id;
-    if (!sellerId) {
-      return res.status(401).json({
-        success: false,
-        message: "Unauthorized. Please log in again.",
-      });
-    }
-
-    const item = await Product.findOne({ where: { id: productId } });
-    if (!item) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    }
-
-    const product = await Product.findOne({
-      where: { id: productId, sellerId: sellerId },
-    });
-    if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
-    } else {
-      await product.destroy();
-      return res.status(200).json({ success: true, message: "Product deleted successfully", product });
-    }
-  } catch (error) {
-    console.error(error.stack);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-};
 
 const uploadImages = async (req, res) => {
   const id = req.params.id;
+  console.log("Body", req.body, req.text);
 
   try {
  
@@ -483,6 +480,7 @@ const uploadImages = async (req, res) => {
     const productImageEntries = urls.map((url) => ({
       product_id: id,
       url: url.url,
+      imageColor: req.body.imageColor ,
       alt_text: `Image for product: ${product.title}` 
     }));
 
@@ -610,7 +608,6 @@ export {
   updateProduct,
   searchProducts,
   getProductsNearingExpiry,
-  deleteProduct,
   uploadImages,
   deleteImage,
   averageRating

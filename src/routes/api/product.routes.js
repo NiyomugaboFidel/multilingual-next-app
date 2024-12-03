@@ -6,12 +6,10 @@ import {
   getaProduct,
   productIsAvailable,
   searchProducts,
-  deleteProduct,
   uploadImages,
   getProductsNearingExpiry,
   updateProduct,
   averageRating,
-  getProduct,
   deleteImage,
 } from "../../controllers/product.controllers";
 
@@ -38,7 +36,7 @@ router.delete("/:id/images/:imageId", deleteImage);
 router.post(
   "/:id/rating",
   authMiddleware,
-  checkRole(["seller", "buyer"]),
+  checkRole(["admin","seller", "buyer"]),
   averageRating
 );
 
@@ -54,10 +52,6 @@ router.get(
   authMiddleware,
   checkRole(["buyer", "admin", "seller"]),
   getaProduct
-);
-router.get(
-  "/product/:id",
-  getProduct
 );
 
 router.put(
@@ -78,12 +72,6 @@ router.get(
   searchProducts
 );
 
-router.delete(
-  "/delete/:id",
-  authMiddleware,
-  checkRole(["seller"]),
-  deleteProduct
-);
 router.put(
   "/upload/:id",
   authMiddleware,

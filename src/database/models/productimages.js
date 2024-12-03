@@ -6,9 +6,9 @@ import Product from './product';
 
 const ProductImage = sequelize.define('ProductImage', {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
   },
   product_id: {
     type: DataTypes.UUID,
@@ -22,6 +22,9 @@ const ProductImage = sequelize.define('ProductImage', {
     allowNull: false,
   },
   alt_text: {
+    type: DataTypes.STRING,
+  },
+  imageColor: {
     type: DataTypes.STRING,
   },
   createdAt: {

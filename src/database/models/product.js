@@ -13,6 +13,10 @@ const Product = sequelize.define('Product', {
     allowNull: false,
     primaryKey: true,
   },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -31,6 +35,13 @@ const Product = sequelize.define('Product', {
         type: DataTypes.UUID,
         references: {
           model: 'Subcategories',
+          key: 'id',
+        },
+      },
+      nestedsub_category_id: {
+        type: DataTypes.UUID,
+        references: {
+          model: 'NestedSubcategories',
           key: 'id',
         },
       },
@@ -60,6 +71,9 @@ const Product = sequelize.define('Product', {
   average_rating: {
     type: DataTypes.FLOAT,
     defaultValue: 0,
+  },
+  ratings:{
+    type:DataTypes.JSONB
   },
   review_count: {
     type: DataTypes.INTEGER,

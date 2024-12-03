@@ -6,9 +6,9 @@ import Product from './product';
 
 const RelatedProduct = sequelize.define('RelatedProduct', {
   id: {
-    type: DataTypes.INTEGER,
+    type:DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
   },
   product_id: {
     type: DataTypes.UUID,

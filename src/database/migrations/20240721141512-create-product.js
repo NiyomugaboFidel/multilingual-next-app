@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       description: {
         type: Sequelize.STRING,
       },
@@ -27,6 +31,13 @@ module.exports = {
         type: Sequelize.UUID,
         references: {
           model: 'Subcategories',
+          key: 'id',
+        },
+      },
+      nestedsub_category_id: {
+        type:Sequelize.UUID,
+        references: {
+          model: 'NestedSubcategories',
           key: 'id',
         },
       },
@@ -52,6 +63,9 @@ module.exports = {
       stock_quantity: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+      },
+      ratings:{
+        type:Sequelize.JSONB
       },
       average_rating: {
         type: Sequelize.FLOAT,
