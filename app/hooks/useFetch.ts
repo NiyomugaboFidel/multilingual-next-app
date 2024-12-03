@@ -21,10 +21,12 @@ export const useFetchData = <T>(
   return useQuery({
     queryKey: [key],
     queryFn: () => fetchData(url, params),
-    staleTime: 5000,
+    staleTime: 30 * 1000,
     refetchOnWindowFocus: true, 
     refetchOnReconnect: true, 
     refetchInterval: false,
+    refetchOnMount: false,
+    
     ...options,
   });
 };

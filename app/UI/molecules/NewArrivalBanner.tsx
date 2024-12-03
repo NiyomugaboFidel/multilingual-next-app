@@ -9,7 +9,8 @@ import useFetchProducts from "@/app/hooks/useFetchProducts";
 import "react-loading-skeleton/dist/skeleton.css"; // Add this to include Skeleton CSS
 
 const NewArrivalBanner = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts();
+  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
+
   const products: any = data;
   const bannerCardData = {
     ProductName: "MacBook",

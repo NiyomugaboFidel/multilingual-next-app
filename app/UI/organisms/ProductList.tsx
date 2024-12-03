@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import ProductCard from "../molecules/ProductCards";
 
 const ProductsList: React.FC = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts();
+  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
+
   const products: any = data;
   const t = useTranslations();
   return (

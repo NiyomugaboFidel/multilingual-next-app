@@ -1,8 +1,9 @@
 import { useFetchData } from "./useFetch";
 
-const useFetchProducts = () => {
-  return useFetchData("products", "/products",{
-    staleTime: 10 * 60 * 1000,   // Cache data for 5 minutes
+const useFetchProducts = ({id}:{id:string}) => {
+  return useFetchData("products", `/products?c=${id}`,{
+    staleTime:  30 * 1000,
+    cacheTime: 5 * 60 * 1000   
   });
 };
 

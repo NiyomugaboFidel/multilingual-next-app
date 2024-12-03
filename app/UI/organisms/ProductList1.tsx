@@ -5,7 +5,8 @@ import ProductCardArrival from "../molecules/ProductCardArrival";
 import ProductsArrivalLoader from "@/app/skeleton/home/ProductsArrivalLoader";
 
 const ProductList1 = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts();
+  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
+
   const products:any = data || []; // Handle the rows correctly
 
   return (

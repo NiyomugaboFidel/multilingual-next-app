@@ -8,7 +8,8 @@ import TimeCountdown from "@/app/components/TimeCountdown";
 import ProductSliderCard from "../molecules/ProductSliderCard";
 import { useTranslations } from "next-intl";
 const OfferProducts = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts();
+  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
+
   const t = useTranslations();
   const products: any = data;
   if (isLoading) {
