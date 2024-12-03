@@ -29,10 +29,11 @@ const TrendingProducts: React.FC = () => {
                 key={item.id}
                 index={index}
                 image={
-                  item.images && item.images.length > 0
-                    ? item.images[0]
+                  item?.productimages && item.productimages?.length > 0
+                    ? item.productimages?.[0]?.url
                     : ""
                 }
+                alt={item.productimages?.[0]?.alt_text}
                 id={item.id}
                 ratings={item.ratings}
                 price={item.price}

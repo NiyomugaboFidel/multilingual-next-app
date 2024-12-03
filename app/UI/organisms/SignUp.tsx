@@ -16,6 +16,7 @@ const SignUp: React.FC = () => {
   const {handleSignup, mutation} = useSignup()
   const methods = useForm({
     resolver: yupResolver(SignupValidationSchema),
+
   });
 
   const onSubmit = (data: any) => {

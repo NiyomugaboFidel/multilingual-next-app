@@ -125,22 +125,23 @@ function CategoryElFilter() {
                   .map((_, i) => <ProductCard1Skeleton key={i} />)
               : products?.rows?.map((item: any, index: number) => (
                   <ProductCard
-                    key={item.id}
-                    index={index}
-                    image={
-                      item.images && item.images.length > 0
-                        ? item.images[0]
-                        : ""
-                    }
-                    id={item.id}
-                    ratings={item.ratings}
-                    price={item.price}
-                    descriptions={item.description}
-                    name={item.name}
-                    bonus={item.bonus}
-                    title={item.title}
-                    isLoading={isLoading}
-                    createdAt={item.createdAt}
+                  key={item.id}
+                  index={index}
+                  image={
+                    item?.productimages && item.productimages?.length > 0
+                      ? item.productimages?.[0]?.url
+                      : ""
+                  }
+                  id={item.id}
+                  ratings={item.ratings}
+                  price={item.price}
+                  descriptions={item.description}
+                  name={item.name}
+                  alt={item.productimages?.[0]?.alt_text}
+                  bonus={item.bonus}
+                  title={item.title}
+                  isLoading={isLoading}
+                  createdAt={item.createdAt}
                   />
                 ))}
           </div>

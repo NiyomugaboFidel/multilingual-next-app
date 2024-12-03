@@ -66,16 +66,16 @@ const NewArrivalBanner = () => {
                 width={294}
                 height={313}
                 className="top-[25px] w-[294px] h-[313px] absolute rounded-sm shadow"
-                src={item.images[0]}
-                alt={item.name}
+                src={ item.productimages?.[0]?.url}
+                alt={ item.productimages?.[0]?.alt_text}
               />
             </div>
 
             <div className="h-full w-full flex flex-col justify-end pb-[40px] items-center gap-[20px]">
-              <h3 className="text-headingH2 text-white font-bold text-center">
+              <h3 className="text-headingH2 text-white font-bold text-center w-full">
                 {item.name}
               </h3>
-              <p className="text-bodyDefault text-textColor">{item.title}</p>
+              <p className="text-bodyDefault text-textColor text-center">{item.title}</p>
               <Button
                 className=""
                 label={`From $${item.price}`}

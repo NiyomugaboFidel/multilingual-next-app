@@ -1,4 +1,5 @@
 import StarRating from '@/app/components/StatRating';
+import Image from 'next/image';
 import React from 'react';
 
 interface ProductItem {
@@ -16,6 +17,8 @@ interface ProductCardProps extends ProductItem {
   isLoading?: boolean;
   descriptions:string;
   index: number;
+  alt:string
+
 }
 
 
@@ -36,9 +39,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   name,
   title,
   image,
-  index,
   descriptions,
   ratings,
+  alt,
   createdAt, // Destructure createdAt
 }) => {
   const originalPrice = Number(price);
@@ -64,20 +67,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Badge */}
       {isProductNew(createdAt) ? (
-        <span className="absolute z-30 left-2 top-2 rounded bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">
+        <span className=" cursor-pointer absolute z-30 left-2 top-2 rounded bg-blue-600 px-2 py-0.5 text-xs font-medium text-white">
           New
         </span>
       ) : hasDiscount ? (
-        <span className="absolute z-30 left-2 top-2 rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white">
+        <span className=" cursor-pointer absolute z-30 left-2 top-2 rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white">
           -{discountPercentage}%
         </span>
       ) : null}
 
       {/* Product Image */}
       <div className="relative h-64 w-full overflow-hidden">
-        <img
+        <Image
+           width={230}
+           height={230}
           src={image}
-          alt={name}
+          alt={alt}
           className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110"
         />
       </div>
@@ -98,7 +103,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="mt-auto flex items-center justify-between">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-2">
             <span className="text-lg font-bold text-gray-900 dark:text-white">
-              ${hasDiscount ? discountedPrice.toFixed(1) : originalPrice.toFixed(1)}
+              ${hasDiscount ? discountedPrice.toFixed(2) : originalPrice.toFixed(2)}
             </span>
             {hasDiscount && (
               <span className="text-sm text-gray-500 line-through">

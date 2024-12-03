@@ -39,17 +39,16 @@ const OfferProducts = () => {
               <SplideSlide key={item.id}>
                 <ProductSliderCard
                 descriptions={item.description}
-                  available={item.quantity}
+                  available={item.stock_quantity}
                   totalStock={400}
                   key={item.id}
                   // index={index}
                   image={
-                    item.images && item.images.length > 0
-                      ? item.images[0]
-                      : "/images/product2.png"
+                    item?.productimages && item.productimages?.length > 0
+                      ? item.productimages?.[0]?.url
+                      : ""
                   }
                   id={item.id}
-                  // star={5}
                   price={item.price}
                   name={item.name}
                   bonus={item.bonus}

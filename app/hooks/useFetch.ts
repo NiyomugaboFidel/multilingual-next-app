@@ -7,7 +7,7 @@ import api from "../lib/Axios";
 
 const fetchData = async(url: string, params = {}) => {
   const response = await api.get(url, { params });
-  // console.log(response.data?.allProducts);
+  // console.log(response);
   return response.data?.allProducts
   ;
 };
@@ -21,10 +21,10 @@ export const useFetchData = <T>(
   return useQuery({
     queryKey: [key],
     queryFn: () => fetchData(url, params),
-    staleTime: 5000, // Data will be considered stale after 5 seconds
-    refetchOnWindowFocus: true, // Automatically refetch when the window is focused
-    refetchOnReconnect: true, // Refetch when the network reconnects
-    refetchInterval: false, // You can set this to a number to enable polling
+    staleTime: 5000,
+    refetchOnWindowFocus: true, 
+    refetchOnReconnect: true, 
+    refetchInterval: false,
     ...options,
   });
 };
