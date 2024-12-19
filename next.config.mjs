@@ -9,6 +9,7 @@ const nextConfig = {
     appDir: true, 
   },
     images: {
+      domains: ['res.cloudinary.com'],
       remotePatterns: [
         {
           protocol: 'https',

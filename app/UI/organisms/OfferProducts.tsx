@@ -7,6 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import TimeCountdown from "@/app/components/TimeCountdown";
 import ProductSliderCard from "../molecules/ProductSliderCard";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 const OfferProducts = () => {
   const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
 
@@ -28,9 +29,9 @@ const OfferProducts = () => {
           </h3>
           <TimeCountdown />
         </div>
-        <button className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] ">
-          <p>{t("viewAll.title")}</p> <IoIosArrowForward />{" "}
-        </button>
+        <Link href={`/search?category=el&status=offer`} className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] ">
+          <p> {t("viewAll.title")}</p> <IoIosArrowForward />{" "}
+        </Link>
       </div>
 
       <div className="pt-6">
@@ -43,11 +44,10 @@ const OfferProducts = () => {
                   available={item.stock_quantity}
                   totalStock={400}
                   key={item.id}
-                  // index={index}
                   image={
                     item?.productimages && item.productimages?.length > 0
                       ? item.productimages?.[0]?.url
-                      : ""
+                      : "/images/product1.png"
                   }
                   id={item.id}
                   price={item.price}

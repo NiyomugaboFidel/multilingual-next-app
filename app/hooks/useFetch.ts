@@ -7,7 +7,6 @@ import api from "../lib/Axios";
 
 const fetchData = async(url: string, params = {}) => {
   const response = await api.get(url, { params });
-  // console.log(response);
   return response.data?.allProducts
   ;
 };

@@ -64,7 +64,7 @@ const MySlider = ({ children }: { children: ReactNode }) => {
             },
           },
         }}
-        extensions={{ AutoScroll }} // Ensure the AutoScroll extension is registered
+        extensions={{ AutoScroll }} 
         aria-label="My Projects"
       >
      

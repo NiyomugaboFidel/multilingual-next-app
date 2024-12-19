@@ -24,7 +24,7 @@ const NavItem: React.FC<CategoryPorps> = ({ categoryisOpen }) => {
             : !categoryisOpen
             ? "flex"
             : "hidden"
-        } w-full  lg:h-[424px] z-30 dark:bg-primaryColor-dark  min-h-full items-start justify-center bg-[#ffffff]  absolute top-[37px] left-0  min-w-[304px] ring-1 dark:bg-[#080B1240] dark:ring-Gary-700 ring-Gary-100 rounded-b-[16px] p-[12px]`}
+        } w-full  lg:min-h-[424px] z-30 dark:bg-primaryColor-dark  min-h-full items-start justify-center bg-[#ffffff]  absolute top-[37px] left-0  min-w-[304px] ring-1 dark:bg-[#080B1240] dark:ring-Gary-700 ring-Gary-100 rounded-b-[16px] p-[12px]`}
       >
         <ul className="w-full max-w-[522px] gap-[6px] flex flex-col  h-[60vh]">
           {CategoryList()
@@ -33,7 +33,7 @@ const NavItem: React.FC<CategoryPorps> = ({ categoryisOpen }) => {
               <li
                 onClick={() => {
                   setCategoryIsOpen(items.name);
-                  console.log(items.name);
+            
                 }}
                 key={i}
                 className="px-[12px] py-[8px] rounded-[8px] hover:bg-Gary-100  dark:hover:bg-Gary-700 w-full flex justify-between items-center text-Gary-700  gap-[12px]"

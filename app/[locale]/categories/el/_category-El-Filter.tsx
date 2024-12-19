@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, InputHTMLAttributes, useState } from "react";
 import { Search } from "lucide-react";
 import useFetchProducts from "@/app/hooks/useFetchProducts";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
@@ -11,9 +11,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MdClose } from "react-icons/md";
-import IndexPage from "./_category-El-Sidebar";
 import SiderbarFilter from "./_category-El-Sidebar";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: number;
@@ -33,31 +34,17 @@ interface FilterOption {
 }
 
 function CategoryElFilter() {
-  const [priceRange, setPriceRange] = useState([340, 1250]);
 
-  const categories: FilterOption[] = [
-    { name: "Smartphones", count: 218 },
-    { name: "Accessories", count: 377 },
-    { name: "Tablets", count: 110 },
-    { name: "Wearable Electronics", count: 142 },
-    { name: "Computers & Laptops", count: 156 },
-    { name: "Cameras, Photo & Video", count: 78 },
-    { name: "Headphones", count: 121 },
-    { name: "Video Games", count: 89 },
-  ];
-
-  const brands: FilterOption[] = [
-    { name: "Apple", count: 12 },
-    { name: "Asus", count: 47 },
-    { name: "Cobra", count: 52 },
-    { name: "Dell", count: 48 },
-    { name: "Lenovo", count: 112 },
-    { name: "ZE Gaming", count: 13 },
-    { name: "AdRock", count: 35 },
-  ];
   const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
-
   const products: any = data;
+  const router = useRouter();
+  const handleSearch = (e:ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value
+    if (query.trim()) {
+      router.push(`/search?query=${encodeURIComponent(e.target.value)}`);
+    }
+  };
+  
   return (
     <div className="py-[30px] flex flex-col items-center justify-center w-full h-full gap-5">
       {/* search */}
@@ -66,7 +53,8 @@ function CategoryElFilter() {
           <span>
             <Search />
           </span>
-          <input
+          <Input
+            onChange={handleSearch}
             type="text"
             placeholder="Search Products ..."
             className=" border-none outline-none w-full p-2 bg-transparent"

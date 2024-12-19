@@ -10,6 +10,7 @@ import NavItem from "../molecules/NavItem";
 import LocaleSwitcher from "@/app/components/local-switcher";
 import { navRouter } from "@/app/data/Constant";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -17,10 +18,12 @@ const Header: React.FC = () => {
   const [isNavOpen, setNavOpen ] = useState(false);
   const [categoryisOpen, setCategoryIsOpen ] = useState(true);
   const t= useTranslations();
-
-  // search input values
-  console.log(searchValue);
-
+  const router = useRouter()
+  const handleSearch = () => {
+    if (searchValue.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchValue)}`);
+    }
+  };
   const toggleNavOpen = ()=>{
     setNavOpen(prev => !prev)
   }
@@ -35,6 +38,7 @@ const Header: React.FC = () => {
 
         <div className="xl:w-[440px]">
           <SearchField
+            onSearch={handleSearch}
             value={searchValue}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setSearchValue(e.target.value)

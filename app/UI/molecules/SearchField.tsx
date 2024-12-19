@@ -1,25 +1,34 @@
-import svg from "@/app/data/svgIcon";
-import SearchInput from "../atoms/SearchInput";
-import { ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface SearchFieldProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearch: () => void; 
 }
-const SearchField: React.FC<SearchFieldProps> = ({ value, onChange }) => {
+
+const SearchField: React.FC<SearchFieldProps> = ({ value, onChange, onSearch }) => {
   return (
-    <div className="2xl:min-w-[400px] lg:min-w-[200px] xl:min-w-[250px] px-3 h-[38px] 2xl:h-[48px] border-[1px] border-[#ffffff]  flex gap-[10px] rounded-full">
-      <div className="flex items-center justify-start">{svg.search}</div>
-      <div className="w-full flex items-center justify-start">
-      <SearchInput
-          value={value}
-          onChange={onChange}
-          id="search"
-          name="search"
-          placeholder="Search the Products"
-          type="text"
-        /> 
-      </div>
+    <div className="flex min-w-[300px] w-full items-center border-[1.5px] border-white rounded-full overflow-hidden ">
+      {/* Input Field */}
+      <Input
+        type="text"
+        value={value}
+        onChange={onChange}
+        placeholder="Search..."
+        aria-label="Search"
+        className="flex-grow px-4 w-full bg-transparent text-white placeholder-gray-400 focus:outline-none"
+      />
+
+      {/* Search Button */}
+      <button
+        onClick={onSearch}
+        aria-label="Search"
+        className="flex items-center justify-center bg-Gary-700 text-white p-2 rounded-r-full  transition"
+      >
+        <Search size={20} />
+      </button>
     </div>
   );
 };

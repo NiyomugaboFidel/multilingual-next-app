@@ -4,6 +4,7 @@ import ProductCard1 from "../molecules/ProductCards";
 import { IoIosArrowForward } from "react-icons/io";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 const TrendingProducts: React.FC = () => {
   const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
@@ -16,9 +17,9 @@ const TrendingProducts: React.FC = () => {
         <h3 className="lg:text-[28px]  lg:leading-[36px] text-[23px] leading-[30px] font-semibold">
           {t("trendingProducts.title")}{" "}
         </h3>
-        <button className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] ">
+        <Link href={`/search?category=el&status=trending`} className=" py-[5px] text-Gary-700 dark:text-textColor-light flex gap-[6px]  items-center  justify-center   text-[14px] leading-[20px] font-[500] ">
           <p> {t("viewAll.title")}</p> <IoIosArrowForward />{" "}
-        </button>
+        </Link>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[24px] py-[24px]">
         {isLoading || !products
