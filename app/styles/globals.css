@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+ outline: none;
+}
+
+
+body {
+  background-color: white;
+}
+
+/* Full page container to center the loading spinner */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  background-color: white; /* Optional: Set a background color */
+}
+
+/* The spinner containing the dots */
+.spinner {
+  display: flex;
+  gap: 15px; /* Spacing between dots */
+}
+
+/* Styles for each dot */
+.dot {
+  width: 40px; /* Increased size */
+  height: 40px; /* Increased size */
+  border-radius: 50%;
+  background-color: #4285f4; /* Default blue color */
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+/* Different animation delays for each dot */
+.dot1 {
+  background-color: #4285f4; /* Blue */
+  animation-delay: -0.32s;
+}
+
+.dot2 {
+  background-color: green;
+  ; /* Red */
+  animation-delay: -0.16s;
+}
+
+.dot3 {
+  background-color: #05fb1e; /* Yellow */
+  animation-delay: 0s;
+}
+button {
+  cursor: pointer;
+}
+img{
+  cursor: pointer;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  } 
+  40% {
+    transform: scale(1);
+  }
+}
+@layer base {
+  :root {
+  --radius: 0.5rem;
+ }
+}
+
+.icon {
+  @apply hover:bg-Gary-700 flex items-center justify-center transition-all duration-300 ease-in-out cursor-pointer w-[30px] h-[30px]  md:w-[48px] md:h-[48px]  p-2 md:p-[15px] rounded-full;
+}

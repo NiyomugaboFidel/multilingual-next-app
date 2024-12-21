@@ -1,0 +1,20 @@
+{
+  "HomePage": {
+    "title": "contoh",
+    "description": "Selamat datang di contoh Internasionalisasi (i18n) Next.js! Demo ini menunjukkan kekuatan App Router dan bagaimana mengelola konten multibahasa dengan lancar menggunakan next-intl."
+  },
+  "NotFoundPage": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Ups! Sepertinya Anda telah menemui halaman yang tidak ada. Jangan khawatir, sihir internasionalisasi kami masih bekerja keras di bagian lain dari aplikasi. Silakan kembali untuk menjelajahi lebih banyak!"
+  },
+"Navigation": {
+    "bestSellers": "Best Sellers",
+    "deals": "Today’s Deals",
+    "newArrivals": "New Arrivals",
+    "giftCards": "Gift Cards",
+    "helpCenter": "Help Center"
+  },
+  "Footer": {
+    "copyright": "© 2024 Aplikasi Anda. Semua hak dilindungi."
+  }
+}
