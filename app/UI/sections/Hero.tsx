@@ -6,11 +6,11 @@ import Benefits from "../organisms/Benefits";
 import heroData from "../../data/heroData";
 import NavItem from "../molecules/NavItem";
 
-const Hero: React.FC = () => {
+const Hero: React.FC = (z) => {
   const { benefits } = heroData();
 
   return (
-    <section className="w-full h-full flex flex-col gap-[72px]">
+    <section className="w-full h-full flex flex-col gap-[30px]">
       <div className=" flex h-full min-h-[55vh]  gap-[20px]  w-full">
         <div className=" hidden lg:block min-w-[306px] ">
           <NavItem  categoryisOpen={true} />

@@ -1,15 +1,13 @@
 {
   "pages": {
-    "/[locale]/page": [
+    "/[locale]/products/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/[locale]/page.css",
-      "static/chunks/app/[locale]/page.js"
+      "static/chunks/app/[locale]/products/page.js"
     ],
     "/[locale]/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/[locale]/layout.css",
       "static/chunks/app/[locale]/layout.js"
     ],
     "/[locale]/loading": [
@@ -32,6 +30,34 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/_not-found/page.js"
+    ],
+    "/[locale]/not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/not-found/page.js"
+    ],
+    "/[locale]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[locale]/page.css",
+      "static/chunks/app/[locale]/page.js"
+    ],
+    "/[locale]/categories/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[locale]/categories/page.css",
+      "static/chunks/app/[locale]/categories/page.js"
+    ],
+    "/[locale]/categories/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/categories/layout.js"
+    ],
+    "/[locale]/categories/el/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[locale]/categories/el/page.css",
+      "static/chunks/app/[locale]/categories/el/page.js"
     ]
   }
 }

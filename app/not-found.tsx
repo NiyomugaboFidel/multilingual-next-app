@@ -12,5 +12,11 @@ export default function NotFound() {
     router.push(`/en/not-found`);
   }, [router]);
 
-  return null; // Optionally, display a loading indicator while redirecting
+  return (<>
+  <html>
+    <body>
+    </body>
+  </html>
+ 
+  </>)
 }

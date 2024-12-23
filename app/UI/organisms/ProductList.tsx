@@ -1,13 +1,12 @@
 "use client";
-import useFetchProducts from "@/app/hooks/useFetchProducts";
+import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import { useTranslations } from "next-intl";
 import ProductCard from "../molecules/ProductCards";
 
 const ProductsList: React.FC = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
+  const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
 
-  const products: any = data;
   const t = useTranslations();
   return (
     <div className="flex flex-col w-full h-full my-[100px]">
@@ -16,7 +15,7 @@ const ProductsList: React.FC = () => {
           ? Array(6)
               .fill(null)
               .map((_, i) => <ProductCard1Skeleton key={i} />)
-          : products?.rows?.map((item: any, index: number) => (
+          : products.map((item: any, index: number) => (
               <ProductCard
                 key={item.id}
                 index={index}

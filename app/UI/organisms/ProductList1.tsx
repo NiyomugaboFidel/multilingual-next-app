@@ -1,13 +1,11 @@
 "use client";
 
-import useFetchProducts from "@/app/hooks/useFetchProducts";
+import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCardArrival from "../molecules/ProductCardArrival";
 import ProductsArrivalLoader from "@/app/skeleton/home/ProductsArrivalLoader";
 
 const ProductList1 = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
-
-  const products:any = data || []; // Handle the rows correctly
+  const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
 
   return (
     <div className="w-full min-h-full h-full">
@@ -16,7 +14,7 @@ const ProductList1 = () => {
           ? Array(8)
               .fill(null)
               .map((_, i) => <ProductsArrivalLoader key={i} isLoading={isLoading} />)
-          : products?.rows?.slice(0, 8).map((item:any, index:number) => (
+          : products?.slice(0, 8).map((item:any, index:number) => (
               <ProductCardArrival
                 key={item.id} // Use `item.id` as the key
                 image={

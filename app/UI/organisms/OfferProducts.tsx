@@ -1,6 +1,6 @@
 "use client";
 import MySlider from "@/app/components/MySlider";
-import useFetchProducts from "@/app/hooks/useFetchProducts";
+import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import React from "react";
 import { SplideSlide } from "@splidejs/react-splide";
 import { IoIosArrowForward } from "react-icons/io";
@@ -9,10 +9,8 @@ import ProductSliderCard from "../molecules/ProductSliderCard";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 const OfferProducts = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
-
+  const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
   const t = useTranslations();
-  const products: any = data;
   if (isLoading) {
     return null
   }
@@ -35,9 +33,9 @@ const OfferProducts = () => {
       </div>
 
       <div className="pt-6">
-        {isFetched && products?.rows?.length > 0 ? (
+        {isFetched && products.length > 0 ? (
           <MySlider>
-            {products?.rows?.map((item: any, index: number) => (
+            {products.map((item: any, index: number) => (
               <SplideSlide key={item.id}>
                 <ProductSliderCard
                 descriptions={item.description}

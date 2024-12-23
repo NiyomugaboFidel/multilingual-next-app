@@ -1,5 +1,3 @@
-'use client'
-import React, { useState } from 'react';
 import CompanyCard from '../molecules/CampanyCard';
 import ComapanyData from '@/app/data/ComapanyData';
 import Link from 'next/link';

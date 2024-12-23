@@ -7,7 +7,7 @@ import DarkModeProvider from "../context/DarkModeContext";
 import ReactQueryContext from "../context/ReactQueryContext";
 import { getMessages } from "next-intl/server";
 import Footer from "../UI/organisms/Footer";
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Virunga",
@@ -36,9 +36,9 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/icons/virunga-logo.svg" />
       </head>
-      <body className={`${inter.className} dark:bg-[#181D25] bg-black flex flex-col items-center justify-center   `}>
+      <body className={`dark:bg-[#181D25] bg-black flex flex-col items-center justify-center   `}>
         <div
-          className={`${inter.className} max-w-[1920px]   w-[100%] h-full dark:bg-[#181D25] bg-[#ffffff]  dark:text-textColor-light text-textColor-dark`}
+          className={` max-w-[1920px]   w-[100%] h-full dark:bg-[#181D25] bg-[#ffffff]  dark:text-textColor-light text-textColor-dark`}
         >
           <ReactQueryContext>
             <DarkModeProvider>

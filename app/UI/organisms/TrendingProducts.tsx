@@ -1,5 +1,5 @@
 "use client";
-import useFetchProducts from "@/app/hooks/useFetchProducts";
+import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCard1 from "../molecules/ProductCards";
 import { IoIosArrowForward } from "react-icons/io";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
@@ -7,12 +7,11 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 const TrendingProducts: React.FC = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
+  const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
 
-  const products: any = data;
   const t = useTranslations();
   return (
-    <div className="flex flex-col w-full h-full my-[100px]">
+    <div className="flex flex-col w-full h-full my-[30px]">
       <div className="flex justify-between items-start w-full  border-gray-500 border-b-[1px] pb-[24px] ">
         <h3 className="lg:text-[28px]  lg:leading-[36px] text-[23px] leading-[30px] font-semibold">
           {t("trendingProducts.title")}{" "}
@@ -26,7 +25,7 @@ const TrendingProducts: React.FC = () => {
           ? Array(6)
               .fill(null)
               .map((_, i) => <ProductCard1Skeleton key={i} />)
-          : products?.rows?.map((item: any, index: number) => (
+          : products.map((item: any, index: number) => (
               <ProductCard1
                 key={item.id}
                 index={index}

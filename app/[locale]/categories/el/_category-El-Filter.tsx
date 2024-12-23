@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes, useState } from "react";
 import { Search } from "lucide-react";
-import useFetchProducts from "@/app/hooks/useFetchProducts";
+import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import ProductCard from "@/app/UI/molecules/ProductCards";
 import {
@@ -16,17 +16,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  oldPrice?: number;
-  rating: number;
-  reviews: number;
-  image: string;
-  isNew?: boolean;
-  sale?: boolean;
-}
+
 
 interface FilterOption {
   name: string;
@@ -35,8 +25,7 @@ interface FilterOption {
 
 function CategoryElFilter() {
 
-  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
-  const products: any = data;
+  const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
   const router = useRouter();
   const handleSearch = (e:ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value
@@ -112,7 +101,7 @@ function CategoryElFilter() {
               ? Array(6)
                   .fill(null)
                   .map((_, i) => <ProductCard1Skeleton key={i} />)
-              : products?.rows?.map((item: any, index: number) => (
+              : products.map((item:any, index: number) => (
                   <ProductCard
                   key={item.id}
                   index={index}

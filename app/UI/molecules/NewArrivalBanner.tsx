@@ -5,13 +5,11 @@ import React from "react";
 import { IoMdArrowForward } from "react-icons/io";
 import Skeleton from "react-loading-skeleton";
 import Button from "../atoms/Button";
-import useFetchProducts from "@/app/hooks/useFetchProducts";
+import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import "react-loading-skeleton/dist/skeleton.css"; // Add this to include Skeleton CSS
 
 const NewArrivalBanner = () => {
-  const { data, error, isFetched, isLoading } = useFetchProducts({ id: "2f1d6e7e-b728-4f23-8e1d-c13c0f6eb4ac" });
-
-  const products: any = data;
+  const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
   const bannerCardData = {
     ProductName: "MacBook",
     ProductPrice: "1,199",
@@ -44,7 +42,7 @@ const NewArrivalBanner = () => {
           </div>
         </div>
       ) : (
-        products?.rows?.slice(0, 1).map((item: any) => (
+        products.slice(0, 1).map((item: any) => (
           <div
             key={item.id}
             style={{
@@ -53,9 +51,10 @@ const NewArrivalBanner = () => {
               backgroundPosition: "center",
               width: "100%",
             }}
-            className="bg-[#243042] shadow rounded-[16px] w-full p-[20px] 2xl:w-[416px] h-[535px] bg-no-repeat bg-cover bg-center"
+            className="bg-[#243042] shadow rounded-[16px] w-full p-[20px] 2xl:w-[416px] h-full min-h-[535px] bg-no-repeat bg-cover bg-center"
           >
-            <div className="relative flex items-center justify-center">
+       <div className="flex flex-col items-center justify-between h-full gap-5">
+       <div className="relative flex items-center justify-center p-5">
               <Image
                    style={
                     {
@@ -66,13 +65,13 @@ const NewArrivalBanner = () => {
                 priority
                 width={294}
                 height={313}
-                className="top-[25px] w-[294px] h-[313px] absolute rounded-sm shadow"
+                className=" w-full rotate-3 h-full  rounded-[8px] shadow"
                 src={ item.productimages?.[0]?.url}
                 alt={ item.productimages?.[0]?.alt_text}
               />
             </div>
 
-            <div className="h-full w-full flex flex-col justify-end pb-[40px] items-center gap-[20px]">
+            <div className="w-full h-full flex flex-col justify-end pb-[40px] items-center gap-[20px]">
               <h3 className="text-headingH2 text-white font-bold text-center w-full">
                 {item.name}
               </h3>
@@ -90,6 +89,7 @@ const NewArrivalBanner = () => {
                 }}
               />
             </div>
+       </div>
           </div>
         ))
       )}
