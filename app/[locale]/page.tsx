@@ -7,8 +7,8 @@ import TrendProductsTemplate from "../UI/templat/TrendProductsTemplate";
 import CampanyTemplate from "../UI/templat/CampanyTemplate";
 import NewsletterSectionTempalete from "../UI/templat/NewsletterSectionTempalete";
 import Footer from "../UI/organisms/Footer";
-import { API } from "../lib/api/productApi";
-import { useCustomQuery } from "../hooks/useCustomQuery";
+
+
 export default function Home() {
 
   return (

@@ -5,8 +5,9 @@ import React from "react";
 import { IoMdArrowForward } from "react-icons/io";
 import Skeleton from "react-loading-skeleton";
 import Button from "../atoms/Button";
-import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
+import { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import "react-loading-skeleton/dist/skeleton.css"; // Add this to include Skeleton CSS
+import Link from "next/link";
 
 const NewArrivalBanner = () => {
   const { data:products, error, isFetched, isLoading } = useProductsListBYElectronics();
@@ -55,7 +56,8 @@ const NewArrivalBanner = () => {
           >
        <div className="flex flex-col items-center justify-between h-full gap-5">
        <div className="relative flex items-center justify-center p-5">
-              <Image
+             <Link href={`/item?id=${item.id}`}>
+             <Image
                    style={
                     {
                       width:'auto',
@@ -69,13 +71,18 @@ const NewArrivalBanner = () => {
                 src={ item.productimages?.[0]?.url}
                 alt={ item.productimages?.[0]?.alt_text}
               />
+             </Link>
             </div>
 
             <div className="w-full h-full flex flex-col justify-end pb-[40px] items-center gap-[20px]">
               <h3 className="text-headingH2 text-white font-bold text-center w-full">
                 {item.name}
               </h3>
-              <p className="text-bodyDefault text-textColor text-center">{item.title}</p>
+              <p className="text-bodyDefault text-textColor text-center">
+                <Link href={`/item?id=${item.id}`}>
+                {item.title}
+                </Link>
+              </p>
               <Button
                 className=""
                 label={`From $${item.price}`}

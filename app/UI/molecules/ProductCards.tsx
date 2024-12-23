@@ -1,5 +1,6 @@
 import StarRating from '@/app/components/StatRating';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 interface ProductItem {
@@ -34,6 +35,7 @@ const isProductNew = (createdAt: string) => {
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  id,
   price,
   bonus,
   name,
@@ -78,6 +80,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Product Image */}
       <div className="relative h-64 w-full overflow-hidden">
+        <Link href={`/item?id=${id}`}>
         <Image
            width={230}
            height={230}
@@ -85,6 +88,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={alt}
           className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110"
         />
+        </Link>
       </div>
 
       {/* Product Details */}
@@ -95,9 +99,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Title */}
+        <Link href={`/item?id=${id}`}>
         <h3 className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
-        {name}{" "}{descriptions}
+        {name}{" "}{descriptions} {" "} {title}
         </h3>
+        </Link>
+ 
 
         {/* Price and Cart */}
         <div className="mt-auto flex items-center justify-between">

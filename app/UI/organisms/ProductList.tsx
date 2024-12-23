@@ -1,5 +1,5 @@
 "use client";
-import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
+import { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import { useTranslations } from "next-intl";
 import ProductCard from "../molecules/ProductCards";

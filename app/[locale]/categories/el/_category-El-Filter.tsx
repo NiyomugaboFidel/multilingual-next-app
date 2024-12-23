@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes, useState } from "react";
 import { Search } from "lucide-react";
-import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
+import { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";
 import ProductCard from "@/app/UI/molecules/ProductCards";
 import {

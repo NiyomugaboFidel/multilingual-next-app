@@ -1,6 +1,5 @@
 "use client";
-
-import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
+import { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCardArrival from "../molecules/ProductCardArrival";
 import ProductsArrivalLoader from "@/app/skeleton/home/ProductsArrivalLoader";
 
@@ -14,18 +13,17 @@ const ProductList1 = () => {
           ? Array(8)
               .fill(null)
               .map((_, i) => <ProductsArrivalLoader key={i} isLoading={isLoading} />)
-          : products?.slice(0, 8).map((item:any, index:number) => (
+          : isFetched && products?.slice(0, 8).map((item:any, index:number) => (
               <ProductCardArrival
-                key={item.id} // Use `item.id` as the key
+                 id={item.id}
+                key={item.id} 
                 image={
                   item.productimages?.[0]?.url || "/images/product1.png"
-                } // Get the first product image or fallback
-  
+                }
                 price={item.price}
                 ratings={item.ratings}
                 name={item.name}
                 title={item.title}
-                // isLoading={false} // Pass `false` since it's no longer loading
                 descriptions={item.description}
               />
             ))}

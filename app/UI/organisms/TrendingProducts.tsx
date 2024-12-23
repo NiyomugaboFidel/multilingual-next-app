@@ -1,5 +1,5 @@
 "use client";
-import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
+import { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import ProductCard1 from "../molecules/ProductCards";
 import { IoIosArrowForward } from "react-icons/io";
 import ProductCard1Skeleton from "@/app/skeleton/home/ProductCard1Skeleton";

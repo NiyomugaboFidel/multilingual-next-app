@@ -4,18 +4,14 @@ interface Product {
   id: string;
 }
 
-interface Category {
-  id: string;
-
-}
-
 interface RatingData {
   rating: number;
   comment?: string;
 }
 
-const fetchProducts = async (id?:string) => {
-  const { data } = await api.get(`/products?c=${id}`);
+const fetchProducts = async (id:string) => {
+  const { data } = await api.get(`/products?category_id=${id}`);
+  // console.log("message", data.message);
   return data.data;
 };
 

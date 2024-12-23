@@ -1,6 +1,6 @@
 "use client";
 import MySlider from "@/app/components/MySlider";
-import useFetchProducts, { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
+import { useProductsListBYElectronics } from "@/app/hooks/useFetchProducts";
 import React from "react";
 import { SplideSlide } from "@splidejs/react-splide";
 import { IoIosArrowForward } from "react-icons/io";
@@ -38,6 +38,7 @@ const OfferProducts = () => {
             {products.map((item: any, index: number) => (
               <SplideSlide key={item.id}>
                 <ProductSliderCard
+          
                 descriptions={item.description}
                   available={item.stock_quantity}
                   totalStock={400}

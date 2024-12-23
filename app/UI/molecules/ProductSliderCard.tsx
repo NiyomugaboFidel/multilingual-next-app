@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import StarRating from '@/app/components/StatRating';
+import Link from 'next/link';
 
 interface Product {
   id: string;
@@ -16,6 +17,7 @@ interface Product {
 }
 
 const ProductSliderCard: React.FC<Product> = ({
+  id,
   price,
   bonus,
   name,
@@ -51,11 +53,13 @@ const ProductSliderCard: React.FC<Product> = ({
 
       {/* Product Image */}
       <div className="relative h-[288px] w-full overflow-hidden p-5">
-        <img
+          <Link href={`/item?id=${id}`} >
+          <img
           src={image}
           alt={name}
           className="h-full w-full object-contain transition-transform duration-500 hover:scale-150"
         />
+          </Link>
       </div>
 
       {/* Product Details */}
@@ -68,9 +72,11 @@ const ProductSliderCard: React.FC<Product> = ({
         </div>
 
         {/* Title */}
+        <Link href={`/item?id=${id}`}>
         <h3 className="line-clamp-2 text-base font-medium text-gray-900 dark:text-white">
-        {name}{" "}{descriptions}
+        {name}{" "}{descriptions}{" "}{title}
         </h3>
+        </Link>
 
         {/* Price and Cart */}
         <div className="flex items-center justify-between">

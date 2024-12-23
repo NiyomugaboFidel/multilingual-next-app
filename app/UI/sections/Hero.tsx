@@ -5,6 +5,7 @@ import { IoMdArrowForward } from "react-icons/io";
 import Benefits from "../organisms/Benefits";
 import heroData from "../../data/heroData";
 import NavItem from "../molecules/NavItem";
+import { usePathname } from "next/navigation";
 
 const Hero: React.FC = (z) => {
   const { benefits } = heroData();
@@ -12,8 +13,8 @@ const Hero: React.FC = (z) => {
   return (
     <section className="w-full h-full flex flex-col gap-[30px]">
       <div className=" flex h-full min-h-[55vh]  gap-[20px]  w-full">
-        <div className=" hidden lg:block min-w-[306px] ">
-          <NavItem  categoryisOpen={true} />
+        <div className=" relative hidden lg:block min-w-[306px] ">
+          <NavItem  categoryIsOpen={true} />
         </div>
 
         <div className="  min-h-[55vh] mt-[20px] relative dark:bg-gradient-to-l dark:from-custom-dark-1 dark:to-custom-dark-2 bg-gradient-to-l from-gradientStart to-gradientEnd  dark:bg-[#1B273A] bg-[#ACCBEE] w-full h-full    flex flex-col items-end justify-end py-5 rounded-[12px]">

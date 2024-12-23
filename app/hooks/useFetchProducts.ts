@@ -1,17 +1,7 @@
 import { PRODUCT_API } from "../lib/api/productApi";
 import { useCustomQuery } from "./useCustomQuery";
-import { useFetchData } from "./useFetch";
 
-const useFetchProducts = ({id}:{id:string}) => {
-  return useFetchData("products", `/products?c=${id}`,{
-    staleTime:  30 * 1000,
-    cacheTime: 5 * 60 * 1000   
-  });
-};
 
-export default useFetchProducts;
-
-// Usage example with useCustomQuery
 export function useProductsListBYElectronics() {
   const categoryId = "f7151f84-3bdb-4bcc-ae2f-1780b44312ab"
   return useCustomQuery(
@@ -44,15 +34,16 @@ export function useProductsListBYGrocery() {
 }
 
 
+
 export function useSellerProducts() {
-  const { data: products } = useCustomQuery(
+  return useCustomQuery(
     ['seller-products'],
     PRODUCT_API.products.fetchSellerItems
   );
 }
 
-export function useProductDetails({ id }: { id: string }) {
-  const { data: product } = useCustomQuery(
+export function useProductDetails(id:string) {
+  return useCustomQuery(
     [PRODUCT_API.products.key, id],
     () => PRODUCT_API.products.fetchById(id)
   );
