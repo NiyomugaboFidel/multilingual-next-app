@@ -45,6 +45,9 @@ export function useSellerProducts() {
 export function useProductDetails(id:string) {
   return useCustomQuery(
     [PRODUCT_API.products.key, id],
-    () => PRODUCT_API.products.fetchById(id)
+    () => PRODUCT_API.products.fetchById(id),
+    {
+      enabled: !!id,
+    }
   );
 }

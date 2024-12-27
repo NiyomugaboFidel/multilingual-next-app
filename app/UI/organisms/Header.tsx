@@ -28,7 +28,7 @@ const Header: React.FC = () => {
   const router = useRouter()
   const handleSearch = () => {
     if (searchValue.trim()) {
-      router.push(`/search?query=${encodeURIComponent(searchValue)}`);
+      router.push(`/search?search_query=${encodeURIComponent(searchValue)}`);
     }
   };
   const toggleNavOpen = () => {

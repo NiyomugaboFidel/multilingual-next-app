@@ -25,10 +25,12 @@ const fetchSellerItems = async () => {
   return data.data;
 };
 
-const searchProducts = async (query: string) => {
-  const { data } = await api.get(`/products/search?query=${query}`);
-  return data.data;
+const searchProducts = async (query: string, categoryId:string) => {
+  const res = await api.get(`/products/search?search_query=${query}&category_id=${categoryId}`);
+  console.log("message", res);
+  return res.data;
 };
+
 
 const getNearExpiryProducts = async () => {
   const { data } = await api.get('/products/near-exp');

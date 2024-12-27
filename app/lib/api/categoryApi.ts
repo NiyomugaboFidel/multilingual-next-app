@@ -23,6 +23,12 @@ const fetchCategoryById = async (id: string) => {
   return data.data;
 };
 
+const fetchBrandBySubcategory = async (id: string) => {
+  const { data } = await api.get(`products/category/brand/${id}`);
+  return data.data;
+};
+
+
 const createCategory = async (categoryData: { name: string }) => {
   const { data } = await api.post('products/category/create', categoryData);
   return data.data;
@@ -88,6 +94,7 @@ export const CATEGORY_API = {
   subcategories: {
     key: 'subcategories',
     fetchByCategoryId: fetchSubcategoriesByCategoryId,
+    fetchBrandBySucategory: fetchBrandBySubcategory,
     create: createSubcategory,
     update: updateSubcategory,
     delete: deleteSubcategory

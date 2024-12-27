@@ -1,3 +1,4 @@
+'use client'
 
 import React, { useState, useEffect } from 'react';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -7,7 +8,7 @@ import { Percent } from "lucide-react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 
 // Types
-type FilterQuery = {
+export type FilterQuery = {
   bestBefore?: string;
   maxPrice?: number;
   minPrice?: number;
@@ -18,7 +19,7 @@ type FilterQuery = {
   specifications?: Record<string, string[]>;
 }
 
-type Category = {
+export type Category = {
   id: string;
   title: string;
   key: string;
@@ -26,37 +27,26 @@ type Category = {
   count: number;
 }
 
-type Brand = {
+export type Brand = {
   label: string;
   value: string;
   count: number;
 }
 
-type SSDSize = {
+export type SSDSize = {
   label: string;
   value: string;
   count: number;
 }
 
-type Color = {
+export interface Color {
   value: string;
   label: string;
 }
 
-const SidebarFilter = () => {
-  // State management
-  const [filterQuery, setFilterQuery] = useState<FilterQuery>({});
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([340, 1250]);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedSSDSize, setSelectedSSDSize] = useState<string[]>([]);
-  const [selectedColor, setSelectedColor] = useState<string>("green");
-  const [showAllBrands, setShowAllBrands] = useState(false);
-  const [showAllCategories, setShowAllCategories] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   // Mock categories with enhanced type
-  const categories: Category[] = [
+  export const categories: Category[] = [
     { id: "1", title: "Laptops", key: "laptops", label: "Laptops", count: 29 },
     { id: "2", title: "Desktops", key: "desktops", label: "Desktops", count: 58 },
     { id: "3", title: "Accessories", key: "accessories", label: "Accessories", count: 87 },
@@ -67,7 +57,7 @@ const SidebarFilter = () => {
     { id: "8", title: "Components", key: "components", label: "Components", count: 232 }
   ];
 
-  const brands: Brand[] = [
+  export const brands: Brand[] = [
     { label: "Apple", value: "Apple", count: 12 },
     { label: "Asus", value: "Asus", count: 47 },
     { label: "Cobra", value: "Cobra", count: 52 },
@@ -80,7 +70,7 @@ const SidebarFilter = () => {
     { label: "Acer", value: "Acer", count: 45 }
   ];
 
-  const ssdSizes: SSDSize[] = [
+  export const ssdSizes: SSDSize[] = [
     { label: "2 TB", value: "2 TB", count: 13 },
     { label: "1 TB", value: "1 TB", count: 28 },
     { label: "512 GB", value: "512 GB", count: 47 },
@@ -89,7 +79,7 @@ const SidebarFilter = () => {
     { label: "64 GB or less", value: "64 GB or less", count: 141 },
   ];
 
-  const colors: Color[] = [
+  export const colors: Color[] = [
     { value: "#8BC4AB", label: "Green" },
     { value: "#EE7976", label: "Coral red" },
     { value: "#DF8FBF", label: "Light pink" },
@@ -99,8 +89,20 @@ const SidebarFilter = () => {
   ];
 
   // Constants for show/hide limits
-  const INITIAL_CATEGORIES_SHOW = 5;
-  const INITIAL_BRANDS_SHOW = 6;
+  export const INITIAL_CATEGORIES_SHOW = 5;
+  export const INITIAL_BRANDS_SHOW = 6;
+
+const SidebarFilter = () => {
+  // State management
+  const [filterQuery, setFilterQuery] = useState<FilterQuery>({});
+  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([340, 1250]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedSSDSize, setSelectedSSDSize] = useState<string[]>([]);
+  const [selectedColor, setSelectedColor] = useState<string>("green");
+  const [showAllBrands, setShowAllBrands] = useState(false);
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   // Filter handlers
   const handleStatusChange = (status: string) => {

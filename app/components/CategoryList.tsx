@@ -1,3 +1,4 @@
+
 import { useTranslations } from 'next-intl';
 import { MdComputer } from 'react-icons/md';
 import { HiOutlineDevicePhoneMobile } from 'react-icons/hi2';

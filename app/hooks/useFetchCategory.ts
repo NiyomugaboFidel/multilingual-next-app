@@ -15,3 +15,13 @@ export function useCategoryListByElectronics() {
       ()=> CATEGORY_API.categories.fetchById(categoryId)
     );
   }
+
+  export function useBrandListByElectronics(id:string) {
+    return useCustomQuery(
+      [CATEGORY_API.subcategories.key, id ],
+      ()=> CATEGORY_API.subcategories.fetchBrandBySucategory(id),
+      {
+        enabled: !!id, 
+      }
+    );
+  }

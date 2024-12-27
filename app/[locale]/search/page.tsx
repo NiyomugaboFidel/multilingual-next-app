@@ -2,6 +2,7 @@
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import ElectronicSearch from '../categories/el/Electronic';
+import SearchProducts from './_search';
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -11,7 +12,7 @@ const Page = () => {
     case 'el':
       return <ElectronicSearch />;
     default:
-      return <ElectronicSearch /> ;
+      return <SearchProducts /> ;
   }
 };
 

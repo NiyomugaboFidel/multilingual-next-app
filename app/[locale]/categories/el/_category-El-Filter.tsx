@@ -18,10 +18,7 @@ import { useRouter } from "next/navigation";
 
 
 
-interface FilterOption {
-  name: string;
-  count: number;
-}
+
 
 function CategoryElFilter() {
 
